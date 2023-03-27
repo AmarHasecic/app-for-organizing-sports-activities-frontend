@@ -1,4 +1,4 @@
-package ba.unsa.etf.ui.theme
+package ba.unsa.sportevents.login.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme

@@ -1,4 +1,4 @@
-package ba.unsa.etf
+package ba.unsa.sportevents
 
 import org.junit.Test
 

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Sport Events</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_user_main_page">UserMainPage</string>
 </resources>

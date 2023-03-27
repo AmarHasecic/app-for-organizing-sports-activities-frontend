@@ -1,4 +1,4 @@
-package ba.unsa.etf.ui.theme
+package ba.unsa.sportevents.ui.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle
