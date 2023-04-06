@@ -13,12 +13,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.SportEvents"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
-        <activity
-            android:name="ba.unsa.sportevents.login.LoginActivity"
-            android:exported="false"
-            android:label="@string/title_activity_login"
-            android:theme="@style/Theme.SportEvents" />
+
         <activity
             android:name="ba.unsa.sportevents.MainActivity"
             android:exported="true"
