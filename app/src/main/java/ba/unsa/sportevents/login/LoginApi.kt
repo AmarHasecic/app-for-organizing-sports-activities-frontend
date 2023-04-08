@@ -6,10 +6,8 @@ import retrofit2.http.*
 
 interface LoginApi {
 
-        @GET("/users/login/{username}/{password}")
-       suspend fun loginUser(
-            @Path("username") username: String,
-            @Path("password") password: String
-        ) : Response<User>
+    @POST("/api/login")
+    suspend fun loginUser(@Body loginDTO: LoginDTO): Response<User>
 
-     }
+
+}

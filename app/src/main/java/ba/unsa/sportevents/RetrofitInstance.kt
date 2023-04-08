@@ -8,7 +8,7 @@ object RetrofitInstance {
 
     val loginApi: LoginApi by lazy {
         Retrofit.Builder()
-            .baseUrl("http://10.10.195.142:8080")
+            .baseUrl("http://192.168.0.63:8080")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(LoginApi::class.java)

@@ -21,8 +21,10 @@ import kotlinx.coroutines.*
 
 suspend fun performLogin(username: String, password: String, navController: NavController) {
     val response = coroutineScope {
-        RetrofitInstance.loginApi.loginUser(username, password)
+        val loginDTO = LoginDTO(username, password)
+        RetrofitInstance.loginApi.loginUser(loginDTO)
     }
+
 
     if (response.isSuccessful && response.body() != null) {
 
