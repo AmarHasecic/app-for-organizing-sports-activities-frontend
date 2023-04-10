@@ -1,4 +1,4 @@
-package ba.unsa.sportevents.Composables
+package ba.unsa.sportevents.composables
 
 import android.app.DatePickerDialog
 import android.widget.DatePicker
@@ -6,7 +6,6 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment

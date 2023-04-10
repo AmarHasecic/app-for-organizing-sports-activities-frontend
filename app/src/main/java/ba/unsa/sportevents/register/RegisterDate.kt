@@ -14,7 +14,7 @@ import androidx.compose.ui.tooling.preview.*
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ba.unsa.etf.R
-import ba.unsa.sportevents.Composables.DatePicker
+import ba.unsa.sportevents.composables.DatePicker
 
 
 @RequiresApi(Build.VERSION_CODES.O)

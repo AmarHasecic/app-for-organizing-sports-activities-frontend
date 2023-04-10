@@ -22,26 +22,26 @@ import ba.unsa.etf.R
 
 private val DarkColorPalette = darkColors(
     primary = Color(0xFF38405F),
-    primaryVariant = Color(0x452C4C66),
-    secondary = Color(0x5196B1AE),
+    primaryVariant = Color(0xFF000000),
+    secondary = Color(0xFFFFFFFF),
     background = Color.Black,
     surface = Color.DarkGray,
     onPrimary = Color.White,
     onSecondary = Color.Black,
     onBackground = Color.White,
-    onSurface = Color.White
+    onSurface = Color.Black
 )
 
 private val LightColorPalette = lightColors(
     primary = Color(0xFF2A3252),
-    primaryVariant = Color(0x450B3252),
-    secondary = Color(0x5196B1AE),
+    primaryVariant = Color(0xFF000000),
+    secondary = Color(0xFFFFFFFF),
     background = Color.Black,
     surface = Color.DarkGray,
     onPrimary = Color.White,
     onSecondary = Color.Black,
     onBackground = Color.White,
-    onSurface = Color.White
+    onSurface = Color.Black
 )
 
 private val Typography = androidx.compose.material.Typography(
@@ -92,16 +92,11 @@ fun SportEventsTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Compo
         content = {
             Box(
                 modifier = Modifier.background(
-                    color = colors.background,
+                    color = Color.White,
                 )
             ) {
                 Box {
-                    Image(
-                        painter = painterResource(id = R.drawable.background_image),
-                        contentDescription = null,
-                        contentScale = ContentScale.FillBounds,
-                        modifier = Modifier.fillMaxSize()
-                    )
+
                     content()
                 }
             }
