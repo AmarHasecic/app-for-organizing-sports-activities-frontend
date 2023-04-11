@@ -1,5 +1,6 @@
 package ba.unsa.sportevents.register
 
+import SportEventsTheme
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.*
@@ -63,7 +64,7 @@ fun RegisterFormEmal() {
     }
 }
 
-/*
+
 @RequiresApi(Build.VERSION_CODES.O)
 @Preview(showBackground = true)
 @Composable
@@ -72,5 +73,5 @@ fun DefaultPreview() {
         RegisterFormEmal()
     }
 }
-*/
+
 
