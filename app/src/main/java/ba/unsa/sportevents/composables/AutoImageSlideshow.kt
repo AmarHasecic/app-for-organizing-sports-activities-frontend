@@ -20,13 +20,14 @@ fun autoScrollLazyRow(
     modifier: Modifier = Modifier,
     items: List<Int>,
     slowScrollSpeed: Float = 0.00f, // fraction of image width
-    fastScrollSpeed: Float = 3f, // fraction of image width
+    fastScrollSpeed: Float = 2.9f, // fraction of image width
     delayBetweenScrolls: Long = 5000 // delay in milliseconds between scrolls
 ) {
     val scrollState = rememberLazyListState()
 
     // Coroutine to update the scroll position
     LaunchedEffect(Unit) {
+        delay(5000)
         var currentIndex = 0
         while (true) {
             val currentScrollSpeed = if (System.currentTimeMillis() - scrollState.layoutInfo.viewportEndOffset > delayBetweenScrolls) fastScrollSpeed else slowScrollSpeed
@@ -38,7 +39,8 @@ fun autoScrollLazyRow(
                 // The next image has come into view, reset the index and scroll speed
                 currentIndex++
                 scrollState.animateScrollToItem(index = currentIndex)
-            } else if (scrollState.firstVisibleItemIndex > currentIndex + 1) {
+            }
+            else if (scrollState.firstVisibleItemIndex > currentIndex + 1) {
                 // We have overshot the next image, reset the index and scroll speed
                 currentIndex = scrollState.firstVisibleItemIndex
                 scrollState.animateScrollToItem(index = currentIndex)
@@ -50,6 +52,7 @@ fun autoScrollLazyRow(
                 scrollState.animateScrollToItem(index = currentIndex)
                 delay(5000)
             }
+
         }
     }
 
@@ -69,5 +72,5 @@ fun autoScrollLazyRow(
     }
 }
 
-private val ImageSizeWidth = 500.dp
-private val ImageSizeHeight = 300.dp
+private val ImageSizeWidth = 400.dp
+private val ImageSizeHeight = 400.dp
