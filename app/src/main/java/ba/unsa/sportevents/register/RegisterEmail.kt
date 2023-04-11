@@ -1,12 +1,12 @@
 package ba.unsa.sportevents.register
 
-import SportEventsTheme
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.*
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.*
 import androidx.compose.ui.unit.dp
@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.sp
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun RegisterFormEmal() {
+fun RegisterFormEmal(user: String?) {
 
     var email by remember {
         mutableStateOf("")
@@ -56,21 +56,17 @@ fun RegisterFormEmal() {
             },
             modifier = Modifier
                 .fillMaxWidth()
-                .height(50.dp)
+                .padding(4.dp)
+                .height(50.dp),
+
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = Color(0xFFFF2500),
+                contentColor = Color.White
+            )
         ) {
             Text(text = "Next")
         }
 
-    }
-}
-
-
-@RequiresApi(Build.VERSION_CODES.O)
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    SportEventsTheme {
-        RegisterFormEmal()
     }
 }
 

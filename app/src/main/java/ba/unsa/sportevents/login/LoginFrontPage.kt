@@ -12,11 +12,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import ba.unsa.etf.R
+import ba.unsa.sportevents.navigation.Screen
 import ba.unsa.sportevents.composables.autoScrollLazyRow
 
 
@@ -68,7 +68,11 @@ fun LoginPage(navController: NavController) {
                         width = 1.dp,
                         color = Color.Black,
                         shape = RoundedCornerShape(6.dp)
-                    )
+                    ),
+                    colors = ButtonDefaults.buttonColors(
+                    backgroundColor = Color.White,
+                    contentColor = Color.Black
+                )
 
 
             ) {
@@ -78,7 +82,7 @@ fun LoginPage(navController: NavController) {
 
             Button(
                 onClick = {
-
+                    navController.navigate(Screen.RegisterEmailScreen.route)
                 },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -88,7 +92,11 @@ fun LoginPage(navController: NavController) {
                         width = 1.dp,
                         color = Color.Black,
                         shape = RoundedCornerShape(6.dp)
-                    )
+                    ),
+                    colors = ButtonDefaults.buttonColors(
+                    backgroundColor = Color.White,
+                    contentColor = Color.Black
+                )
 
             ) {
                 Text(text = "Sign up with email")
@@ -126,7 +134,7 @@ fun LoginPage(navController: NavController) {
 
             Button(
                 onClick = {
-
+                    navController.navigate(Screen.LoginScreen.route)
                 },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -134,8 +142,8 @@ fun LoginPage(navController: NavController) {
                     .height(50.dp),
 
                 colors = ButtonDefaults.buttonColors(
-                    backgroundColor = Color.DarkGray, // set button background color to red
-                    contentColor = Color.White // set text color to white
+                    backgroundColor = Color(0xFFFF2500),
+                    contentColor = Color.White
                 )
             ) {
                 Text(

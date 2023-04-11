@@ -23,10 +23,10 @@ import ba.unsa.etf.R
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 private val DarkColorPalette = darkColors(
-    primary = Color(0xFFFFFFFF),
-    primaryVariant = Color(0xFFFFFFFF),
-    secondary = Color(0xFF090909),
-    background = Color.Black,
+    primary = Color(0xFF3C3131),
+    primaryVariant = Color(0xFF868282),
+    secondary = Color(0xFF000000),
+    background = Color.White,
     surface = Color.DarkGray,
     onPrimary = Color.Black,
     onSecondary = Color.Black,
@@ -35,10 +35,10 @@ private val DarkColorPalette = darkColors(
 )
 
 private val LightColorPalette = lightColors(
-    primary = Color(0xFFFFFFFF),
-    primaryVariant = Color(0xFFFFFFFF),
-    secondary = Color(0xFF090909),
-    background = Color.Black,
+    primary = Color(0xFF2E1F1F),
+    primaryVariant = Color(0xFF868282),
+    secondary = Color(0xFF000000),
+    background = Color.White,
     surface = Color.DarkGray,
     onPrimary = Color.Black,
     onSecondary = Color.Black,
