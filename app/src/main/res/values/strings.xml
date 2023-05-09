@@ -2,4 +2,5 @@
     <string name="app_name">Sport Events</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_user_main_page">UserMainPage</string>
+    <string name="web_client_id">346554480290-io0hai23pslge9bf84jt3hj86g5g9i21.apps.googleusercontent.com</string>
 </resources>

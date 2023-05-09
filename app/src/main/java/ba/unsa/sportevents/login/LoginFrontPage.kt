@@ -1,6 +1,8 @@
 package ba.unsa.sportevents.login
 
 
+import android.widget.Toast
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -9,19 +11,42 @@ import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import ba.unsa.etf.R
-import ba.unsa.sportevents.navigation.Screen
 import ba.unsa.sportevents.composables.autoScrollLazyRow
+import ba.unsa.sportevents.google_signin.SignInState
+import ba.unsa.sportevents.navigation.Screen
+import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
 
 
 @Composable
-fun LoginPage(navController: NavController) {
+fun LoginPage(
+    navController: NavController,
+    state: SignInState,
+    onSignInClick: () -> Unit
+
+    ) {
+
+    //error handling
+    val context = LocalContext.current
+    LaunchedEffect(key1 = state.signInError) {
+        state.signInError?.let { error ->
+            Toast.makeText(
+                context,
+                error,
+                Toast.LENGTH_LONG
+            ).show()
+        }
+    }
+
 
     val images = listOf(
         R.drawable.image1,
@@ -57,9 +82,7 @@ fun LoginPage(navController: NavController) {
             Spacer(modifier = Modifier.height(15.dp))
 
             Button(
-                onClick = {
-
-                },
+                onClick = onSignInClick,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(4.dp)
@@ -76,13 +99,34 @@ fun LoginPage(navController: NavController) {
 
 
             ) {
-                Text(text = "Continue with Google")
+
+               Box(
+                   contentAlignment = Alignment.CenterStart,
+                ) {
+
+                    Image(
+                        painter = painterResource(R.drawable.google_icon),
+                        contentDescription = "Google icon",
+                        modifier = Modifier.size(24.dp)
+                    )
+                   Box(
+                       modifier = Modifier
+                           .fillMaxWidth(),
+                       contentAlignment = Alignment.Center,
+                   ) {
+
+                       Text(
+                           text = "Continue with Google"
+                       )
+                   }
+                }
+
             }
             Spacer(modifier = Modifier.height(1.dp))
 
             Button(
                 onClick = {
-                    navController.navigate(Screen.RegisterEmailScreen.route)
+
                 },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -93,13 +137,35 @@ fun LoginPage(navController: NavController) {
                         color = Color.Black,
                         shape = RoundedCornerShape(6.dp)
                     ),
-                    colors = ButtonDefaults.buttonColors(
+                colors = ButtonDefaults.buttonColors(
                     backgroundColor = Color.White,
                     contentColor = Color.Black
                 )
 
+
             ) {
-                Text(text = "Sign up with email")
+
+                Box(
+                    contentAlignment = Alignment.CenterStart,
+                ) {
+
+                    Image(
+                        painter = painterResource(R.drawable.email),
+                        contentDescription = "Google icon",
+                        modifier = Modifier.size(24.dp)
+                    )
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        contentAlignment = Alignment.Center,
+                    ) {
+
+                        Text(
+                            text = "Sign up with email"
+                        )
+                    }
+                }
+
             }
             Spacer(modifier = Modifier.height(60.dp))
 
