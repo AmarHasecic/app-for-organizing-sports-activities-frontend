@@ -1,6 +1,7 @@
 package ba.unsa.sportevents.register
 
 
+import SportEventsTheme
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
@@ -8,18 +9,23 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.*
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.*
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import ba.unsa.etf.R
 import ba.unsa.sportevents.composables.DatePicker
+import ba.unsa.sportevents.model.User
+import com.google.gson.Gson
 
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun RegisterFormDate() {
+fun RegisterFormDate(navController: NavController ,user: String?) {
 
     var date by remember {
         mutableStateOf("")
@@ -67,34 +73,29 @@ fun RegisterFormDate() {
         Button(
             onClick = {
 
+                val gson = Gson()
+                val u = gson.fromJson(user, User::class.java)
+                u.dateOfBirth = date
+
+                println(date)
+
+
             },
             modifier = Modifier
                 .fillMaxWidth()
-                .height(50.dp)
+                .padding(4.dp)
+                .height(50.dp),
+
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = Color(0xFFFF2500),
+                contentColor = Color.White
+            )
         ) {
             Text(text = "Next")
         }
 
 
     }
-
-
-
-
 }
-
-/*
-@RequiresApi(Build.VERSION_CODES.O)
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    SportEventsTheme {
-        RegisterFormDate()
-    }
-}
-*/
-
-
-
 
 

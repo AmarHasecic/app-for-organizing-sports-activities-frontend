@@ -25,7 +25,11 @@ import ba.unsa.sportevents.google_signin.GoogleAuthUiClient
 import ba.unsa.sportevents.google_signin.SignInViewModel
 import ba.unsa.sportevents.login.LoginPage
 import ba.unsa.sportevents.login.LoginScreen
-import ba.unsa.sportevents.register.RegisterFormEmal
+import ba.unsa.sportevents.model.User
+import ba.unsa.sportevents.register.RegisterFormDate
+import ba.unsa.sportevents.register.RegisterFormEmail
+import ba.unsa.sportevents.register.RegisterFormPass
+import ba.unsa.sportevents.register.RegisterUsername
 import com.google.android.gms.auth.api.identity.Identity
 import kotlinx.coroutines.launch
 
@@ -71,10 +75,11 @@ fun Navigation(
                         "Sign in successful",
                         Toast.LENGTH_LONG
                     ).show()
-/*
-                    navController.navigate("profile")
+/*   Perform server request for all data linked to a user with that email or create a new user if email not in database
+                    navController.navigate("${Screen.UserMainPage.route}/${"bravo"}")
                     viewModel.resetState()
 */
+
 
                 }
             }
@@ -117,16 +122,49 @@ fun Navigation(
         }
 
         composable(
-            route = Screen.RegisterEmailScreen.route+ "/{user}",
-                    arguments = listOf(
-                    navArgument("user"){
-                        type = NavType.StringType
-                        nullable = true
-                    }
-                    )
+            route = Screen.RegisterEmailScreen.route
+        )
+        {
+            RegisterFormEmail(navController = navController)
+        }
+
+        composable(
+            route = Screen.RegisterNamePassScreen.route+ "/{user}",
+            arguments = listOf(
+                navArgument("user"){
+                    type = NavType.StringType
+                    nullable = true
+                }
+            )
         )
         { entry ->
-            RegisterFormEmal(user = entry.arguments?.getString("user"))
+            RegisterFormPass(navController = navController, entry.arguments?.getString("user"))
+        }
+
+        composable(
+            route = Screen.RegisterDateScreen.route + "/{user}",
+            arguments = listOf(
+                navArgument("user"){
+                    type = NavType.StringType
+                    nullable = true
+                }
+            )
+        )
+        { entry ->
+            RegisterFormDate(navController = navController, entry.arguments?.getString("user"))
+        }
+
+        composable(
+            route = Screen.RegisterUsernameScreen.route + "/{user}",
+            arguments = listOf(
+                navArgument("user"){
+                    type = NavType.StringType
+                    nullable = true
+                }
+            )
+        )
+        { entry ->
+            RegisterUsername(navController = navController, entry.arguments?.getString("user"))
         }
 
     }

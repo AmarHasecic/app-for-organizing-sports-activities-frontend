@@ -126,7 +126,7 @@ fun LoginPage(
 
             Button(
                 onClick = {
-
+                    navController.navigate(Screen.RegisterEmailScreen.route);
                 },
                 modifier = Modifier
                     .fillMaxWidth()

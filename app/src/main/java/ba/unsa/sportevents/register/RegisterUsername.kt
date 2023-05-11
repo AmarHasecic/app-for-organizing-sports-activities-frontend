@@ -12,11 +12,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.*
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun RegisterUsername() {
+fun RegisterUsername(navController: NavController,user: String?) {
 
     var fullName by remember { mutableStateOf("") }
 
@@ -43,7 +44,7 @@ fun RegisterUsername() {
         OutlinedTextField(
             value = fullName,
             onValueChange = { fullName = it },
-            label = { Text("Full name") },
+            label = { Text("username") },
             modifier = Modifier
                 .fillMaxWidth()
         )
@@ -63,21 +64,3 @@ fun RegisterUsername() {
 
     }
 }
-
-/*
-@RequiresApi(Build.VERSION_CODES.O)
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    SportEventsTheme {
-        RegisterUsername()
-    }
-
-}
- */
-
-
-
-
-
-

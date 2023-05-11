@@ -60,11 +60,3 @@ fun DatePicker(){
         }
     }
 }
-
-
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    DatePicker()
-}
