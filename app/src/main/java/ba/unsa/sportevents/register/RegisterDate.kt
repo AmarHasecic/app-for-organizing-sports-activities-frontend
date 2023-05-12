@@ -94,7 +94,6 @@ fun RegisterFormDate(navController: NavController ,user: String?) {
             Text(text = "Next")
         }
 
-
     }
 }
 
