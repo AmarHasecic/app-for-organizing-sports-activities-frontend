@@ -76,7 +76,7 @@ class RegisterTest {
 
         // Wait for the Google Sign In page to load
         val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
-        device.wait(Until.hasObject(By.text("Choose an account")), 5000)
+        device.wait(Until.hasObject(By.text("Choose an account")), 10000)
 
         // Check if google accounts are visible
         val googleMenu = device.findObject(By.text("Choose an account"))
