@@ -2,6 +2,8 @@ package ba.unsa.sportevents.register
 
 import android.content.Context
 import android.os.Build
+import android.os.Handler
+import android.os.Looper
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.*
@@ -21,7 +23,12 @@ import com.google.gson.Gson
 
 
 private fun makeToast(context: Context, message: String){
-    Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+
+    val handler = Handler(Looper.getMainLooper())
+    handler.post {
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+    }
+
 }
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -34,6 +41,7 @@ fun RegisterFormEmail(navController: NavController) {
     }
 
     val user = User(
+        id = "",
         email = "",
         fullName = "",
         password = "",

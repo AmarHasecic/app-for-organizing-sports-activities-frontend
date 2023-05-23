@@ -83,6 +83,19 @@ class RegisterTest {
         Assert.assertTrue(googleMenu != null)
 
     }
+    @Test
+    fun emptyLoginFields() {
+
+        //navigate to login page
+        activityScenarioRule.scenario
+        composeTestRule.onNodeWithText("Log in").performClick()
+        composeTestRule.onNodeWithText("Log in").performClick()
+
+        //Check if the node with text "Log in" is present
+        composeTestRule.onNodeWithText("Log in").assertExists()
+
+    }
+
 
 
 }

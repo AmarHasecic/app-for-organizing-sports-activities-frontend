@@ -25,13 +25,13 @@ import ba.unsa.sportevents.google_signin.GoogleAuthUiClient
 import ba.unsa.sportevents.google_signin.SignInViewModel
 import ba.unsa.sportevents.login.LoginPage
 import ba.unsa.sportevents.login.LoginScreen
-import ba.unsa.sportevents.model.User
 import ba.unsa.sportevents.register.RegisterFormDate
 import ba.unsa.sportevents.register.RegisterFormEmail
 import ba.unsa.sportevents.register.RegisterFormPass
 import ba.unsa.sportevents.register.RegisterUsername
 import com.google.android.gms.auth.api.identity.Identity
 import kotlinx.coroutines.launch
+import java.net.URLEncoder
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -99,7 +99,6 @@ fun Navigation(
                    }
                )
 
-
         }
 
         composable(
@@ -109,16 +108,16 @@ fun Navigation(
         }
 
         composable(
-                   route = Screen.UserMainPage.route + "/{username}",
+                   route = Screen.UserMainPage.route + "/{token}",
                    arguments = listOf(
-                       navArgument("username"){
+                       navArgument("token"){
                            type = NavType.StringType
                            nullable = true
                        }
                    )
             )
         { entry ->
-            UserMainPage(user = entry.arguments?.getString("username"))
+            entry.arguments?.getString("token")?.let { UserMainPage(token = it) }
         }
 
         composable(
@@ -138,7 +137,10 @@ fun Navigation(
             )
         )
         { entry ->
-            RegisterFormPass(navController = navController, entry.arguments?.getString("user"))
+            val encodedUser = entry.arguments?.getString("user")?.let {
+                URLEncoder.encode(it, "UTF-8")
+            }
+            RegisterFormPass(navController = navController, user = encodedUser)
         }
 
         composable(
@@ -151,7 +153,10 @@ fun Navigation(
             )
         )
         { entry ->
-            RegisterFormDate(navController = navController, entry.arguments?.getString("user"))
+            val encodedUser = entry.arguments?.getString("user")?.let {
+                URLEncoder.encode(it, "UTF-8")
+            }
+            RegisterFormDate(navController = navController, user = encodedUser)
         }
 
         composable(
@@ -164,7 +169,10 @@ fun Navigation(
             )
         )
         { entry ->
-            RegisterUsername(navController = navController, entry.arguments?.getString("user"))
+            val encodedUser = entry.arguments?.getString("user")?.let {
+                URLEncoder.encode(it, "UTF-8")
+            }
+            RegisterUsername(navController = navController, user = encodedUser)
         }
 
     }

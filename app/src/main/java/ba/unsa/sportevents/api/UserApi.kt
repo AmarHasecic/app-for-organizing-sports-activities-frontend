@@ -11,6 +11,9 @@ interface UserApi {
     @POST("/api/login")
     suspend fun loginUser(@Body loginDTO: LoginDTO): Response<JwtDTO>
 
+    @POST("/api/user")
+    suspend fun registerUser(@Body user: User): Response<Any>
+
     @GET("/api/user")
     suspend fun getUser(
         @Header("Authorization") token: String,

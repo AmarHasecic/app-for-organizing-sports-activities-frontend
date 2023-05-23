@@ -1,8 +1,9 @@
 package ba.unsa.sportevents.register
 
-import SportEventsTheme
 import android.content.Context
 import android.os.Build
+import android.os.Handler
+import android.os.Looper
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.*
@@ -22,10 +23,15 @@ import androidx.navigation.NavController
 import ba.unsa.sportevents.model.User
 import ba.unsa.sportevents.navigation.Screen
 import com.google.gson.Gson
-import kotlinx.serialization.json.Json
+import java.net.URLDecoder
 
 private fun makeToast(context: Context, message: String){
-    Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+
+    val handler = Handler(Looper.getMainLooper())
+    handler.post {
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+    }
+
 }
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -81,12 +87,16 @@ fun RegisterFormPass(navController: NavController, user: String?) {
         Button(
             onClick = {
 
+                var decodedUser = URLDecoder.decode(user, "UTF-8")
+
                 val gson = Gson()
-                val u = gson.fromJson(user, User::class.java)
+                val u = gson.fromJson(decodedUser, User::class.java)
                 u.fullName = fullName
                 u.password = password
                 if(fullName!="" && password!="")
+                {
                     navController.navigate("${Screen.RegisterDateScreen.route}/${gson.toJson(u)}")
+                }
                 else {
                     makeToast(mContext,"Name And Password Input Required")
                 }
@@ -107,18 +117,6 @@ fun RegisterFormPass(navController: NavController, user: String?) {
 
     }
 }
-
-/*
-@RequiresApi(Build.VERSION_CODES.O)
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    SportEventsTheme {
-        RegisterFormPass()
-    }
-}
-
-*/
 
 
 

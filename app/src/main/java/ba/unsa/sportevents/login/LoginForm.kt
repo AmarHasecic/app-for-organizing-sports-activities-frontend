@@ -2,6 +2,8 @@ package ba.unsa.sportevents.login
 
 import android.content.ContentValues.TAG
 import android.content.Context
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
@@ -35,25 +37,23 @@ suspend fun performLogin(username: String, password: String, navController: NavC
     if (tokenResponse.isSuccessful && tokenResponse.body() != null) {
 
         val token = tokenResponse.body()!!.jwt
-        val userResponse = coroutineScope {
-            RetrofitInstance.userApi.getUser("Bearer $token")
+
+        withContext(Dispatchers.Main) {
+            navController.navigate("${Screen.UserMainPage.route}/${token}")
         }
-        if (userResponse.isSuccessful && userResponse.body() != null){
-            withContext(Dispatchers.Main) {
-            navController.navigate("${Screen.UserMainPage.route}/${userResponse.body()}")
-           }
+
         } else {
-            throw Exception(userResponse.message())
+            throw Exception(tokenResponse.message())
         }
-
-
-    } else {
-        Log.e(TAG, "Response not successful")
-    }
 }
 
 private fun makeToast(context: Context, message: String){
-    Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+
+    val handler = Handler(Looper.getMainLooper())
+    handler.post {
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+    }
+
 }
 @Composable
 fun LoginScreen(navController: NavController) {
