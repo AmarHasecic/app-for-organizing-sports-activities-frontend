@@ -36,6 +36,9 @@ class RegisterTest {
 
         // Click on the Register button
         composeTestRule.onNodeWithText("Sign up with email").performClick()
+
+
+
     }
 
     @Test
@@ -95,7 +98,6 @@ class RegisterTest {
         composeTestRule.onNodeWithText("Log in").assertExists()
 
     }
-
 
 
 }

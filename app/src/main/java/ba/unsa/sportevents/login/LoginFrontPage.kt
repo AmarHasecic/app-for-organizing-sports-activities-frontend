@@ -1,6 +1,5 @@
 package ba.unsa.sportevents.login
 
-
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -24,19 +23,15 @@ import ba.unsa.etf.R
 import ba.unsa.sportevents.composables.autoScrollLazyRow
 import ba.unsa.sportevents.google_signin.SignInState
 import ba.unsa.sportevents.navigation.Screen
-import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
-
 
 @Composable
 fun LoginPage(
     navController: NavController,
     state: SignInState,
     onSignInClick: () -> Unit
-
-    ) {
-
-    //error handling
+) {
     val context = LocalContext.current
+
     LaunchedEffect(key1 = state.signInError) {
         state.signInError?.let { error ->
             Toast.makeText(
@@ -47,7 +42,6 @@ fun LoginPage(
         }
     }
 
-
     val images = listOf(
         R.drawable.image1,
         R.drawable.image2,
@@ -56,175 +50,140 @@ fun LoginPage(
         R.drawable.image5
     )
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
+    Box(
+        modifier = Modifier.fillMaxWidth()
+                           .fillMaxHeight()
+
     ) {
-        autoScrollLazyRow(items = images)
-        Spacer(modifier = Modifier.height(5.dp))
-
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(5.dp),
+            modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
+            autoScrollLazyRow(items = images)
 
-            Text(
-                text = "Find your perfect match – in sports! Create events, connect with friends, and play together.",
-                modifier = Modifier
-                    .padding(16.dp)
-                    .fillMaxWidth()
+            Spacer(modifier = Modifier.height(16.dp))
 
-            )
+            Column(
+                modifier = Modifier.fillMaxWidth()
+                                    .fillMaxHeight(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                Text(
+                    text = "Find your perfect match – in sports! Create events, connect with friends, and play together.",
+                    modifier = Modifier.padding(horizontal = 16.dp)
+                )
 
-            Spacer(modifier = Modifier.height(15.dp))
+                Spacer(modifier = Modifier.height(16.dp))
 
-            Button(
-                onClick = onSignInClick,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(4.dp)
-                    .height(50.dp)
-                    .border(
-                        width = 1.dp,
-                        color = Color.Black,
-                        shape = RoundedCornerShape(6.dp)
-                    ),
+                Button(
+                    onClick = onSignInClick,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(50.dp)
+                        .padding(horizontal = 16.dp)
+                        .border(
+                            width = 1.dp,
+                            color = Color.Black,
+                            shape = RoundedCornerShape(6.dp)
+                        ),
                     colors = ButtonDefaults.buttonColors(
-                    backgroundColor = Color.White,
-                    contentColor = Color.Black
-                )
-
-
-            ) {
-
-               Box(
-                   contentAlignment = Alignment.CenterStart,
-                ) {
-
-                    Image(
-                        painter = painterResource(R.drawable.google_icon),
-                        contentDescription = "Google icon",
-                        modifier = Modifier.size(24.dp)
+                        backgroundColor = Color.White,
+                        contentColor = Color.Black
                     )
-                   Box(
-                       modifier = Modifier
-                           .fillMaxWidth(),
-                       contentAlignment = Alignment.Center,
-                   ) {
-
-                       Text(
-                           text = "Continue with Google"
-                       )
-                   }
-                }
-
-            }
-            Spacer(modifier = Modifier.height(1.dp))
-
-            Button(
-                onClick = {
-                    navController.navigate(Screen.RegisterEmailScreen.route);
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(4.dp)
-                    .height(50.dp)
-                    .border(
-                        width = 1.dp,
-                        color = Color.Black,
-                        shape = RoundedCornerShape(6.dp)
-                    ),
-                colors = ButtonDefaults.buttonColors(
-                    backgroundColor = Color.White,
-                    contentColor = Color.Black
-                )
-
-
-            ) {
-
-                Box(
-                    contentAlignment = Alignment.CenterStart,
                 ) {
-
-                    Image(
-                        painter = painterResource(R.drawable.email),
-                        contentDescription = "Google icon",
-                        modifier = Modifier.size(24.dp)
-                    )
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth(),
-                        contentAlignment = Alignment.Center,
-                    ) {
-
-                        Text(
-                            text = "Sign up with email"
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Image(
+                            painter = painterResource(R.drawable.google_icon),
+                            contentDescription = "Google icon",
+                            modifier = Modifier.size(24.dp)
                         )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(text = "Continue with Google")
                     }
                 }
 
-            }
-            Spacer(modifier = Modifier.height(60.dp))
+                Spacer(modifier = Modifier.height(10.dp))
 
-
-            Row(
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Box(
+                Button(
+                    onClick = {
+                        navController.navigate(Screen.RegisterEmailScreen.route)
+                    },
                     modifier = Modifier
-                        .height(1.dp)
-                        .background(Color.Black)
-                        .weight(1f)
+                        .fillMaxWidth()
+                        .height(50.dp)
+                        .padding(horizontal = 16.dp)
+                        .border(
+                            width = 1.dp,
+                            color = Color.Black,
+                            shape = RoundedCornerShape(6.dp)
+                        ),
+                    colors = ButtonDefaults.buttonColors(
+                        backgroundColor = Color.White,
+                        contentColor = Color.Black
+                    )
+                ) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Image(
+                            painter = painterResource(R.drawable.email),
+                            contentDescription = "Email icon",
+                            modifier = Modifier.size(24.dp)
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(text = "Sign up with email")
+                    }
+                }
 
-                )
-                Spacer(modifier = Modifier.width(11.dp))
-                Text(
-                    text = "ALREADY A MEMBER",
-                    fontSize = 10.sp,
+                Spacer(modifier = Modifier.height(60.dp))
+
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .height(1.dp)
+                            .background(Color.Black)
+                            .weight(1f)
+                    )
+                    Spacer(modifier = Modifier.width(11.dp))
+                    Text(
+                        text = "ALREADY A MEMBER",
+                        fontSize = 10.sp,
+                        modifier = Modifier
+                            .weight(1f)
+                            .padding(start = 3.dp, end = 15.dp)
+                    )
+                    Box(
+                        modifier = Modifier
+                            .height(1.dp)
+                            .background(Color.Black)
+                            .weight(1f)
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(30.dp))
+
+                Button(
+                    onClick = {
+                        navController.navigate(Screen.LoginScreen.route)
+                    },
                     modifier = Modifier
-                        .weight(1f)
-                        .padding(start = 3.dp, end = 15.dp)
-                )
-                Box(
-                    modifier = Modifier
-                        .height(1.dp)
-                        .background(Color.Black)
-                        .weight(1f)
+                        .fillMaxWidth()
+                        .height(50.dp)
+                        .padding(horizontal = 16.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        backgroundColor = Color(0xFFFF2500),
+                        contentColor = Color.White
+                    )
+                ) {
+                    Text(
+                        text = "Login",
+                        color = Color.White
+                    )
+                }
 
-                )
-            }
-            Spacer(modifier = Modifier.height(30.dp))
-
-            Button(
-                onClick = {
-                    navController.navigate(Screen.LoginScreen.route)
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(4.dp)
-                    .height(50.dp),
-
-                colors = ButtonDefaults.buttonColors(
-                    backgroundColor = Color(0xFFFF2500),
-                    contentColor = Color.White
-                )
-            ) {
-                Text(
-                    text = "Login",
-                    color = Color.White
-                )
+                Spacer(modifier = Modifier.height(20.dp))
             }
         }
-
     }
 }
-
-
-
-
-
-
-
