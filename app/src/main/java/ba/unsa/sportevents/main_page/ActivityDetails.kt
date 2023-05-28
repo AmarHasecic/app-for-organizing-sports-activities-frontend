@@ -68,7 +68,7 @@ fun ActivityDetails(activity: Activity) {
 @Composable
 fun DefaultPreview() {
 
-    SportEventsTheme() {
+    ba.unsa.sportevents.ui.theme.SportEventsTheme() {
         ActivityDetails();
     }
 }
