@@ -20,7 +20,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import ba.unsa.sportevents.UserMainPage
+import ba.unsa.sportevents.main_page.UserMainPage
 import ba.unsa.sportevents.google_signin.GoogleAuthUiClient
 import ba.unsa.sportevents.google_signin.SignInViewModel
 import ba.unsa.sportevents.login.LoginPage

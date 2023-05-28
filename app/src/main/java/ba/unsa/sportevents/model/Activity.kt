@@ -1,7 +1,7 @@
 package ba.unsa.sportevents.model
 
 data class Activity(
-    val description: String,
+    var description: String,
     val endTime: String,
     val host: String,
     val id: String,
@@ -11,5 +11,5 @@ data class Activity(
     val participants: List<String>,
     val sport: Sport,
     val startTime: String,
-    val title: String
+    var title: String
 )
