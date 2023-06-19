@@ -1,4 +1,4 @@
-package ba.unsa.sportevents.composables
+package ba.unsa.sportevents.reusable
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.gestures.animateScrollBy

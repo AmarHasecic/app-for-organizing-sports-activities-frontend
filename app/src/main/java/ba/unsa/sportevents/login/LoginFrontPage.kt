@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import ba.unsa.etf.R
-import ba.unsa.sportevents.composables.autoScrollLazyRow
+import ba.unsa.sportevents.reusable.autoScrollLazyRow
 import ba.unsa.sportevents.google_signin.SignInState
 import ba.unsa.sportevents.navigation.Screen
 
