@@ -39,6 +39,7 @@ suspend fun performLogin(username: String, password: String, navController: NavC
         val token = tokenResponse.body()!!.jwt
 
         withContext(Dispatchers.Main) {
+
             navController.navigate("${Screen.UserMainPage.route}/${token}")
         }
 
