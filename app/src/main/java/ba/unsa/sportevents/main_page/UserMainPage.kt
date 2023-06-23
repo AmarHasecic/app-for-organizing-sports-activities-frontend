@@ -1,32 +1,132 @@
 package ba.unsa.sportevents.main_page
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.LocationOn
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import ba.unsa.sportevents.main_page.tabs.TabContent
-import ba.unsa.sportevents.main_page.tabs.TabItem
-import ba.unsa.sportevents.main_page.tabs.Tabs
-import ba.unsa.sportevents.model.User
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.modifier.modifierLocalConsumer
+import ba.unsa.sportevents.main_page.tabs.HomeScreen
+import ba.unsa.sportevents.main_page.tabs.MapScreen
+import ba.unsa.sportevents.main_page.tabs.ProfileScreen
+import ba.unsa.sportevents.main_page.tabs.SettingsScreen
 import ba.unsa.sportevents.reusable.LocationPopUp
 import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.rememberPagerState
 
 private const val REQUEST_LOCATION_PERMISSION = 123
 
 
-@OptIn(ExperimentalPagerApi::class)
 @Composable
 fun UserMainPage(token: String) {
 
-    val list = listOf(TabItem.Home(token),TabItem.Map(token),TabItem.Profile(token), TabItem.Settings(token))
-    val pagerState = rememberPagerState(initialPage = 0)
-
     LocationPopUp(requestPermission = REQUEST_LOCATION_PERMISSION)
+    var activeContent by remember { mutableStateOf(1) }
 
-    Column(modifier = Modifier.fillMaxSize()) {
-        Tabs(tabs = list, pagerState = pagerState)
-        TabContent(tabs = list, pagerState = pagerState, token = token)
+
+    Scaffold(
+        topBar = {
+
+        },
+
+        bottomBar = {
+            BottomAppBar(
+                backgroundColor = Color.White
+            ) {
+                TabRow(
+                    selectedTabIndex = activeContent ,
+                    modifier = Modifier.fillMaxWidth(),
+                    backgroundColor = Color.White
+
+
+                ) {
+                    LeadingIconTab(
+                        selected = activeContent == 1,
+                        onClick = {
+                            activeContent = 1
+                        },
+                        text = { Text("") },
+                        icon = {
+                            Icon(
+                                imageVector = Icons.Default.Home,
+                                contentDescription = null
+                            )
+                        },
+                        selectedContentColor = Color(0xFFFF2500),
+                        unselectedContentColor = Color.LightGray,
+                        enabled = true
+                    )
+
+                    LeadingIconTab(
+                        selected = activeContent == 2,
+                        onClick = {
+                            activeContent = 2
+                        },
+                        text = { Text("") },
+                        icon = {
+                            Icon(
+                                imageVector = Icons.Default.LocationOn,
+                                contentDescription = null
+                            )
+                        },
+                        selectedContentColor = Color(0xFFFF2500),
+                        unselectedContentColor = Color.LightGray,
+                        enabled = true
+                    )
+
+                    LeadingIconTab(
+                        selected = activeContent == 3,
+                        onClick = {
+                            activeContent = 3
+                        },
+                        text = { Text("") },
+                        icon = {
+                            Icon(
+                                imageVector = Icons.Default.AccountCircle,
+                                contentDescription = null
+                            )
+                        },
+                        selectedContentColor = Color(0xFFFF2500),
+                        unselectedContentColor = Color.LightGray,
+                        enabled = true
+                    )
+
+                    LeadingIconTab(
+                        selected = activeContent == 4,
+                        onClick = {
+                            activeContent = 4
+                        },
+                        text = { Text("") },
+                        icon = {
+                            Icon(
+                                imageVector = Icons.Default.Settings,
+                                contentDescription = null
+                            )
+                        },
+                        selectedContentColor = Color(0xFFFF2500),
+                        unselectedContentColor = Color.LightGray,
+                        enabled = true
+                    )
+                }
+            }
+        }
+
+
+    ) { contentPadding ->
+        Box(modifier = Modifier.padding(contentPadding)) {
+
+            when (activeContent) {
+                1 -> HomeScreen(token)
+                2 -> MapScreen(token)
+                3 -> ProfileScreen(token)
+                4 -> SettingsScreen(token)
+            }
+        }
     }
-
 }

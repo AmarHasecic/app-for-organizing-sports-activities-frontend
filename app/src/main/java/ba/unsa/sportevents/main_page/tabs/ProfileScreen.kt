@@ -33,72 +33,76 @@ fun ProfileScreen(token : String){
             user = retrievedUser
         }
     }
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
     ) {
-        user?.let { user ->
-            Text(
-                text = "Full Name: ${user.fullName}",
-                fontSize = 24.sp,
-                textAlign = TextAlign.Center
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-            Text(
-                text = "Email: ${user.email}",
-                fontSize = 18.sp,
-                textAlign = TextAlign.Center
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-            Text(
-                text = "Username: ${user.username}",
-                fontSize = 18.sp,
-                textAlign = TextAlign.Center
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-            Text(
-                text = "Date of Birth: ${user.dateOfBirth}",
-                fontSize = 18.sp,
-                textAlign = TextAlign.Center
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-            Text(
-                text = "Sports:",
-                fontSize = 18.sp,
-                textAlign = TextAlign.Center
-            )
-            LazyRow {
-                items(user.sports) { sport ->
-                    Card(
-                        modifier = Modifier.padding(horizontal = 4.dp),
-                        elevation = 4.dp
-                    ) {
-                        Text(
-                            text = sport,
-                            modifier = Modifier.padding(8.dp),
-                            fontSize = 16.sp,
-                            textAlign = TextAlign.Center
-                        )
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = 16.dp),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            user?.let { user ->
+                Text(
+                    text = "Full Name: ${user.fullName}",
+                    fontSize = 24.sp,
+                    textAlign = TextAlign.Center
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+                Text(
+                    text = "Email: ${user.email}",
+                    fontSize = 18.sp,
+                    textAlign = TextAlign.Center
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+                Text(
+                    text = "Username: ${user.username}",
+                    fontSize = 18.sp,
+                    textAlign = TextAlign.Center
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+                Text(
+                    text = "Date of Birth: ${user.dateOfBirth}",
+                    fontSize = 18.sp,
+                    textAlign = TextAlign.Center
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+                Text(
+                    text = "Sports:",
+                    fontSize = 18.sp,
+                    textAlign = TextAlign.Center
+                )
+                LazyRow {
+                    items(user.sports) { sport ->
+                        Card(
+                            modifier = Modifier.padding(horizontal = 4.dp),
+                            elevation = 4.dp
+                        ) {
+                            Text(
+                                text = sport,
+                                modifier = Modifier.padding(8.dp),
+                                fontSize = 16.sp,
+                                textAlign = TextAlign.Center
+                            )
+                        }
                     }
                 }
-            }
-            Spacer(modifier = Modifier.height(16.dp))
-            Text(
-                text = "Activities:",
-                fontSize = 18.sp,
-                textAlign = TextAlign.Center
-            )
-            LazyColumn {
-                items(user.activities) { activity ->
-                   
-                    ActivityCard(activity = activity)
+                Spacer(modifier = Modifier.height(16.dp))
+                Text(
+                    text = "Activities:",
+                    fontSize = 18.sp,
+                    textAlign = TextAlign.Center
+                )
+                LazyColumn {
+                    items(user.activities) { activity ->
+                        ActivityCard(activity = activity)
+                    }
                 }
             }
         }
     }
+
 
 }

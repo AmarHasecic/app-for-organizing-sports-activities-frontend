@@ -34,10 +34,10 @@ fun HomeScreen(token: String){
             : List<Activity> = listOf() //za potrebe testiranja
 
 
+    Box(modifier = Modifier.fillMaxSize()) {
         when (val state = dataState.value) {
             is DataState.Success -> {
-                val activityList
-                        : List<Activity> = listOf()
+                val activityList: List<Activity> = listOf()
                 Column {
                     SearchBar(searchQuery.value) { newQuery ->
                         searchQuery.value = newQuery
@@ -81,7 +81,6 @@ fun HomeScreen(token: String){
                 }
             }
         }
-    Box(modifier = Modifier.fillMaxSize()) {
         // Circular plus floating button
         FloatingActionButton(
             onClick = {
@@ -91,7 +90,6 @@ fun HomeScreen(token: String){
                 .padding(16.dp)
                 .align(Alignment.BottomEnd),
             backgroundColor = Color(0xFFFF2500)
-
         ) {
             Icon(Icons.Default.Add, contentDescription = "Add")
         }
