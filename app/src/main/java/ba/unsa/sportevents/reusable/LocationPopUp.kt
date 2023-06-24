@@ -19,9 +19,6 @@ import com.google.android.gms.location.LocationServices
 fun LocationPopUp(requestPermission: Int){
 
     val context = LocalContext.current
-    val fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
-
-    var location by remember { mutableStateOf<Location?>(null) }
     var permissionRequested by remember { mutableStateOf(false) }
 
     LaunchedEffect(permissionRequested) {
@@ -30,15 +27,8 @@ fun LocationPopUp(requestPermission: Int){
             if (ContextCompat.checkSelfPermission(
                     context,
                     Manifest.permission.ACCESS_FINE_LOCATION
-                ) == PackageManager.PERMISSION_GRANTED
-            ) {
-                // Permission already granted, request location updates
-                fusedLocationClient.lastLocation
-                    .addOnSuccessListener { loc: Location? ->
-                        location = loc
-                    }
-            } else {
-                // Request location permission
+                ) != PackageManager.PERMISSION_GRANTED
+            ){
                 ActivityCompat.requestPermissions(
                     context as Activity,
                     arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
@@ -46,13 +36,6 @@ fun LocationPopUp(requestPermission: Int){
                 )
             }
         }
-    }
-
-    // Use the location data
-    if (location != null) {
-        // Do something with the location coordinates
-        val latitude = location!!.latitude
-        val longitude = location!!.longitude
     }
 
 }
