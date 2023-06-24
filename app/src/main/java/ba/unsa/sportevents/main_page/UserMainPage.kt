@@ -13,6 +13,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.modifier.modifierLocalConsumer
+import androidx.compose.ui.unit.dp
 import ba.unsa.sportevents.main_page.tabs.HomeScreen
 import ba.unsa.sportevents.main_page.tabs.MapScreen
 import ba.unsa.sportevents.main_page.tabs.ProfileScreen
@@ -27,11 +28,24 @@ private const val REQUEST_LOCATION_PERMISSION = 123
 fun UserMainPage(token: String) {
 
     LocationPopUp(requestPermission = REQUEST_LOCATION_PERMISSION)
-    var activeContent by remember { mutableStateOf(1) }
+    var activeContent by remember { mutableStateOf(0) }
 
 
     Scaffold(
         topBar = {
+
+            TopAppBar(
+                backgroundColor = Color(0xFFFF2500)
+            ) {
+
+                when (activeContent) {
+                    0 -> Text(text = "Home", Modifier.padding(horizontal = 10.dp))
+                    1 -> Text(text = "Map", Modifier.padding(horizontal = 10.dp))
+                    2 -> Text(text = "Profile", Modifier.padding(horizontal = 10.dp))
+                    3 -> Text(text = "Settings", Modifier.padding(horizontal = 10.dp))
+                }
+            }
+
 
         },
 
@@ -47,6 +61,23 @@ fun UserMainPage(token: String) {
 
                 ) {
                     LeadingIconTab(
+                        selected = activeContent == 0,
+                        onClick = {
+                            activeContent = 0
+                        },
+                        text = { Text("") },
+                        icon = {
+                            Icon(
+                                imageVector = Icons.Default.Home,
+                                contentDescription = null
+                            )
+                        },
+                        selectedContentColor = Color(0xFFFF2500),
+                        unselectedContentColor = Color.LightGray,
+                        enabled = true
+                    )
+
+                    LeadingIconTab(
                         selected = activeContent == 1,
                         onClick = {
                             activeContent = 1
@@ -54,7 +85,7 @@ fun UserMainPage(token: String) {
                         text = { Text("") },
                         icon = {
                             Icon(
-                                imageVector = Icons.Default.Home,
+                                imageVector = Icons.Default.LocationOn,
                                 contentDescription = null
                             )
                         },
@@ -71,7 +102,7 @@ fun UserMainPage(token: String) {
                         text = { Text("") },
                         icon = {
                             Icon(
-                                imageVector = Icons.Default.LocationOn,
+                                imageVector = Icons.Default.AccountCircle,
                                 contentDescription = null
                             )
                         },
@@ -84,23 +115,6 @@ fun UserMainPage(token: String) {
                         selected = activeContent == 3,
                         onClick = {
                             activeContent = 3
-                        },
-                        text = { Text("") },
-                        icon = {
-                            Icon(
-                                imageVector = Icons.Default.AccountCircle,
-                                contentDescription = null
-                            )
-                        },
-                        selectedContentColor = Color(0xFFFF2500),
-                        unselectedContentColor = Color.LightGray,
-                        enabled = true
-                    )
-
-                    LeadingIconTab(
-                        selected = activeContent == 4,
-                        onClick = {
-                            activeContent = 4
                         },
                         text = { Text("") },
                         icon = {
@@ -122,10 +136,10 @@ fun UserMainPage(token: String) {
         Box(modifier = Modifier.padding(contentPadding)) {
 
             when (activeContent) {
-                1 -> HomeScreen(token)
-                2 -> MapScreen(token)
-                3 -> ProfileScreen(token)
-                4 -> SettingsScreen(token)
+                0 -> HomeScreen(token)
+                1 -> MapScreen(token)
+                2 -> ProfileScreen(token)
+                3 -> SettingsScreen(token)
             }
         }
     }

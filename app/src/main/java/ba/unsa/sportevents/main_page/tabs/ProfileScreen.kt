@@ -1,25 +1,26 @@
 package ba.unsa.sportevents.main_page.tabs
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Card
+import androidx.compose.material.Divider
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import ba.unsa.etf.R
 import ba.unsa.sportevents.RetrofitInstance
-import ba.unsa.sportevents.main_page.ActivityCard
 import ba.unsa.sportevents.model.User
 import kotlinx.coroutines.coroutineScope
 
 
 @Composable
-fun ProfileScreen(token : String){
+fun ProfileScreen(token : String) {
 
     var user by remember { mutableStateOf<User?>(null) }
 
@@ -33,76 +34,36 @@ fun ProfileScreen(token : String){
             user = retrievedUser
         }
     }
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = 16.dp),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            user?.let { user ->
-                Text(
-                    text = "Full Name: ${user.fullName}",
-                    fontSize = 24.sp,
-                    textAlign = TextAlign.Center
+
+        Column(modifier = Modifier.fillMaxSize()) {
+
+            Box(modifier = Modifier.weight(1f)) {
+                Image(
+                    painter = painterResource(id = R.drawable.profile_picture),
+                    contentDescription = "Profile Picture",
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(200.dp)
                 )
-                Spacer(modifier = Modifier.height(16.dp))
-                Text(
-                    text = "Email: ${user.email}",
-                    fontSize = 18.sp,
-                    textAlign = TextAlign.Center
-                )
-                Spacer(modifier = Modifier.height(16.dp))
-                Text(
-                    text = "Username: ${user.username}",
-                    fontSize = 18.sp,
-                    textAlign = TextAlign.Center
-                )
-                Spacer(modifier = Modifier.height(16.dp))
-                Text(
-                    text = "Date of Birth: ${user.dateOfBirth}",
-                    fontSize = 18.sp,
-                    textAlign = TextAlign.Center
-                )
-                Spacer(modifier = Modifier.height(16.dp))
-                Text(
-                    text = "Sports:",
-                    fontSize = 18.sp,
-                    textAlign = TextAlign.Center
-                )
-                LazyRow {
-                    items(user.sports) { sport ->
-                        Card(
-                            modifier = Modifier.padding(horizontal = 4.dp),
-                            elevation = 4.dp
-                        ) {
-                            Text(
-                                text = sport,
-                                modifier = Modifier.padding(8.dp),
-                                fontSize = 16.sp,
-                                textAlign = TextAlign.Center
-                            )
-                        }
-                    }
-                }
-                Spacer(modifier = Modifier.height(16.dp))
-                Text(
-                    text = "Activities:",
-                    fontSize = 18.sp,
-                    textAlign = TextAlign.Center
-                )
-                LazyColumn {
-                    items(user.activities) { activity ->
-                        ActivityCard(activity = activity)
+
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(16.dp),
+                    verticalArrangement = Arrangement.Bottom
+                ) {
+                    user?.let {
+                        Text(
+                            text = it.fullName,
+                            style = MaterialTheme.typography.h5,
+                            color = MaterialTheme.colors.onPrimary
+                        )
                     }
                 }
             }
+
+            Divider(modifier = Modifier.padding(horizontal = 16.dp))
+
         }
-    }
-
-
 }

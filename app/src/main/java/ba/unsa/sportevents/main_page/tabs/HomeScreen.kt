@@ -3,7 +3,6 @@ package ba.unsa.sportevents.main_page.tabs
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -24,7 +23,6 @@ import ba.unsa.sportevents.sealed.DataState
 fun HomeScreen(token: String){
 
     val searchQuery = remember { mutableStateOf("") }
-    val dataState = remember { mutableStateOf<DataState>(DataState.Loading) }
 
 
     LaunchedEffect(Unit) {
@@ -35,52 +33,42 @@ fun HomeScreen(token: String){
 
 
     Box(modifier = Modifier.fillMaxSize()) {
-        when (val state = dataState.value) {
-            is DataState.Success -> {
-                val activityList: List<Activity> = listOf()
-                Column {
-                    SearchBar(searchQuery.value) { newQuery ->
-                        searchQuery.value = newQuery
-                    }
-                    Spacer(modifier = Modifier.height(8.dp))
-                    ShowLazyList(activityList.filter { activity ->
-                        activity.title?.contains(searchQuery.value, ignoreCase = true) == true
-                                ||  activity.description?.contains(searchQuery.value, ignoreCase = true) == true
-                    })
-                }
+
+
+        val activityList: List<Activity> = listOf()
+        Column {
+            SearchBar(searchQuery.value) { newQuery ->
+                searchQuery.value = newQuery
             }
-            is DataState.Failure -> {
-                val errorMessage = state.message
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        text = errorMessage,
-                        fontSize = MaterialTheme.typography.h5.fontSize,
-                    )
-                }
-            }
-            DataState.Loading -> {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    CircularProgressIndicator()
-                }
-            }
-            DataState.Empty -> {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        text = "No activities to display",
-                        fontSize = MaterialTheme.typography.h5.fontSize,
-                    )
-                }
-            }
+            Spacer(modifier = Modifier.height(8.dp))
+            ShowLazyList(activityList.filter { activity ->
+                activity.title.contains(
+                    searchQuery.value,
+                    ignoreCase = true
+                ) || activity.description?.contains(searchQuery.value, ignoreCase = true) == true
+            })
         }
+
+        /*
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            CircularProgressIndicator()
+        }
+
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = "No activities to display",
+                fontSize = MaterialTheme.typography.h5.fontSize,
+            )
+        }
+        */
+
+
         // Circular plus floating button
         FloatingActionButton(
             onClick = {
@@ -94,8 +82,8 @@ fun HomeScreen(token: String){
             Icon(Icons.Default.Add, contentDescription = "Add")
         }
     }
-
 }
+
 @Composable
 fun ShowLazyList(activities: List<Activity>) {
     LazyColumn {
