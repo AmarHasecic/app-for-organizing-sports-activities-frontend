@@ -15,9 +15,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import ba.unsa.sportevents.main_page.ActivityCard
-import ba.unsa.sportevents.model.Activity
+import ba.unsa.sportevents.model.SportActivity
 import ba.unsa.sportevents.reusable.SearchBar
-import ba.unsa.sportevents.sealed.DataState
 
 @Composable
 fun HomeScreen(token: String){
@@ -28,20 +27,20 @@ fun HomeScreen(token: String){
     LaunchedEffect(Unit) {
        //dohvatit sve aktivnbosti iz baze koje su u blizini usera
     }
-    val activityList
-            : List<Activity> = listOf() //za potrebe testiranja
+    val sportActivityList
+            : List<SportActivity> = listOf() //za potrebe testiranja
 
 
     Box(modifier = Modifier.fillMaxSize()) {
 
 
-        val activityList: List<Activity> = listOf()
+        val sportActivityList: List<SportActivity> = listOf()
         Column {
             SearchBar(searchQuery.value) { newQuery ->
                 searchQuery.value = newQuery
             }
             Spacer(modifier = Modifier.height(8.dp))
-            ShowLazyList(activityList.filter { activity ->
+            ShowLazyList(sportActivityList.filter { activity ->
                 activity.title.contains(
                     searchQuery.value,
                     ignoreCase = true
@@ -85,7 +84,7 @@ fun HomeScreen(token: String){
 }
 
 @Composable
-fun ShowLazyList(activities: List<Activity>) {
+fun ShowLazyList(activities: List<SportActivity>) {
     LazyColumn {
         items(activities) { activity ->
             ActivityCard(activity)

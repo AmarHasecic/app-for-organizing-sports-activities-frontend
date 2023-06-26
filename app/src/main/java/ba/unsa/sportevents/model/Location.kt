@@ -1,7 +1,8 @@
 package ba.unsa.sportevents.model
 
+import com.google.gson.annotations.SerializedName
+
 data class Location(
-    val latitude: Double,
-    val longitude: Double,
-    val name: String
+    @SerializedName("latitude") val latitude: Double,
+    @SerializedName("longitude") val longitude: Double
 )
