@@ -7,7 +7,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
 import androidx.core.view.WindowCompat
-import ba.unsa.sportevents.navigation.Navigation
+import ba.unsa.sportevents.ui.navigation.Navigation
 
 class MainActivity : ComponentActivity() {
 
