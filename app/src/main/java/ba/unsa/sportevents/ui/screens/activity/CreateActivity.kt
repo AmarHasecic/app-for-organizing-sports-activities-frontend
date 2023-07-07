@@ -121,7 +121,7 @@ fun CreateActivity(
 
 
             Text(
-                text = "How may people can join?",
+                text = "How many people can join?",
                 color = Color.Black,
                 modifier = Modifier
                     .padding(vertical = 10.dp)
