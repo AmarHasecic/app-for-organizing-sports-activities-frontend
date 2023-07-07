@@ -77,9 +77,7 @@ fun RegisterUsername(navController: NavController,user: String?,viewModel: Regis
                 u.username = username
 
                 GlobalScope.launch {
-
                         viewModel.performRegister(u, navController)
-
                 }
 
             },

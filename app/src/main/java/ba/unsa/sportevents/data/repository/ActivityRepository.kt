@@ -2,7 +2,11 @@ package ba.unsa.sportevents.data.repository
 
 
 import ba.unsa.sportevents.data.model.SportActivity
+import ba.unsa.sportevents.data.model.User
 import ba.unsa.sportevents.data.network.ActivitiesApiService
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import retrofit2.Response
 
 class ActivityRepository(private val apiService: ActivitiesApiService)  {
 

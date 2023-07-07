@@ -29,10 +29,12 @@ import ba.unsa.sportevents.data.repository.DataRepository
 import ba.unsa.sportevents.data.repository.UserRepository
 import ba.unsa.sportevents.ui.screens.login.LoginPage
 import ba.unsa.sportevents.ui.screens.login.LoginScreen
+import ba.unsa.sportevents.ui.screens.mainpage.activity.ActivityDetails
 import ba.unsa.sportevents.ui.screens.register.RegisterFormDate
 import ba.unsa.sportevents.ui.screens.register.RegisterFormEmail
 import ba.unsa.sportevents.ui.screens.register.RegisterFormPass
 import ba.unsa.sportevents.ui.screens.register.RegisterUsername
+import ba.unsa.sportevents.ui.viewmodels.ActivityDetailsViewModel
 import ba.unsa.sportevents.ui.viewmodels.LoginFormViewModel
 import ba.unsa.sportevents.ui.viewmodels.MainPageViewModel
 import ba.unsa.sportevents.ui.viewmodels.RegisterViewModel
@@ -61,6 +63,9 @@ fun Navigation(
     }
     val registerViewModel: RegisterViewModel = remember {
         RegisterViewModel(userRepository)
+    }
+    val activityDetailsViewModel: ActivityDetailsViewModel = remember {
+        ActivityDetailsViewModel(activityRepository)
     }
 
     NavHost(navController = navController, startDestination = Screen.LoginFrontPage.route) {
@@ -98,12 +103,6 @@ fun Navigation(
                         "Sign in successful",
                         Toast.LENGTH_LONG
                     ).show()
-/*   Perform server request for all data linked to a user with that email or create a new user if email not in database
-                    navController.navigate("${Screen.UserMainPage.route}/${"bravo"}")
-                    viewModel.resetState()
-*/
-
-
                 }
             }
 
@@ -140,7 +139,7 @@ fun Navigation(
                    )
             )
         { entry ->
-            entry.arguments?.getString("token")?.let { UserMainPage(token = it, mainPageViewModel) }
+            entry.arguments?.getString("token")?.let { UserMainPage(navController,token = it, mainPageViewModel) }
         }
 
         composable(
@@ -198,6 +197,23 @@ fun Navigation(
             RegisterUsername(navController = navController, user = encodedUser, viewModel = registerViewModel)
         }
 
+        composable(
+            route = Screen.ActivityDetails.route + "/{activity}",
+            arguments = listOf(
+                navArgument("activity"){
+                    type = NavType.StringType
+                    nullable = true
+                }
+            )
+        ){
+            entry ->
+            val encodedActivity = entry.arguments?.getString("activity")?.let {
+                URLEncoder.encode(it, "UTF-8")
+            }
+            if (encodedActivity != null) {
+                ActivityDetails(encodedActivity)
+            }
+        }
     }
 
 }

@@ -1,10 +1,11 @@
 package ba.unsa.sportevents.data.model
 
 import com.google.gson.annotations.SerializedName
+import java.time.LocalDateTime
 
 data class SportActivity(
     @SerializedName("id") var id: String,
-    @SerializedName("user") var user: User,
+    @SerializedName("host") var host: User,
     @SerializedName("title") var title: String,
     @SerializedName("sport") var sport: String,
     @SerializedName("description") var description: String,

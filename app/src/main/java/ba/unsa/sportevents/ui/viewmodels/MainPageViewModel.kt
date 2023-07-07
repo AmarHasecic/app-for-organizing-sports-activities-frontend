@@ -16,8 +16,8 @@ class MainPageViewModel(
     private val activitiesRepository: ActivityRepository
 ) : ViewModel() {
 
-    private val _user = MutableStateFlow(User("", "", "", "", "", "", emptyList(), emptyList()))
-    val user: StateFlow<User> = _user
+    private val _user = MutableStateFlow<User?>(null)
+    val user: StateFlow<User?> = _user
 
     private val _activities = MutableStateFlow<List<SportActivity>>(emptyList())
     val activities: StateFlow<List<SportActivity>> = _activities

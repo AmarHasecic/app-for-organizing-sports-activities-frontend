@@ -12,5 +12,4 @@ interface ActivitiesApiService {
         @Query("latitude") latitude: Double,
         @Query("longitude") longitude: Double
     ): Response<List<SportActivity>>
-
 }

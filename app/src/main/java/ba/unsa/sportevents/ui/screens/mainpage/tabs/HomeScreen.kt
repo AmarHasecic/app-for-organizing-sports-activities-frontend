@@ -14,16 +14,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import ba.unsa.sportevents.data.model.SportActivity
-import ba.unsa.sportevents.reusable.SearchBar
-import ba.unsa.sportevents.ui.screens.mainpage.ActivityCard
+import ba.unsa.sportevents.ui.components.SearchBar
+import ba.unsa.sportevents.ui.screens.mainpage.activity.ActivityCard
 import ba.unsa.sportevents.ui.viewmodels.MainPageViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.tasks.await
 
 @Composable
-fun HomeScreen(token: String, viewModel: MainPageViewModel){
+fun HomeScreen(navController: NavController, token: String, viewModel: MainPageViewModel){
 
     val searchQuery = remember { mutableStateOf("") }
 
@@ -55,14 +56,13 @@ fun HomeScreen(token: String, viewModel: MainPageViewModel){
     Box(modifier = Modifier.fillMaxSize()) {
 
         if (activities.value.isNotEmpty()) {
-            println(activities.value)
             Column {
                 SearchBar(searchQuery.value) { newQuery ->
                     searchQuery.value = newQuery
                 }
                 Spacer(modifier = Modifier.height(8.dp))
 
-                    ShowLazyList(activities.value.filter { activity ->
+                    ShowLazyList(navController,activities.value.filter { activity ->
                         activity.title.contains(
                             searchQuery.value,
                             ignoreCase = true
@@ -102,10 +102,10 @@ fun HomeScreen(token: String, viewModel: MainPageViewModel){
 }
 
 @Composable
-fun ShowLazyList(activities: List<SportActivity>) {
+fun ShowLazyList(navController: NavController,activities: List<SportActivity>) {
     LazyColumn {
         items(activities) { activity ->
-            ActivityCard(activity)
+            ActivityCard(navController,activity)
         }
     }
 }

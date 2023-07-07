@@ -1,4 +1,4 @@
-package ba.unsa.sportevents.reusable
+package ba.unsa.sportevents.ui.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding

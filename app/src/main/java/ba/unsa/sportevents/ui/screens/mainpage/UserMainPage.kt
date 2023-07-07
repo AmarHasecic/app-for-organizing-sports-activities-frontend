@@ -11,6 +11,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import ba.unsa.sportevents.data.repository.DataRepository
 import ba.unsa.sportevents.data.repository.UserRepository
 import ba.unsa.sportevents.ui.screens.mainpage.tabs.HomeScreen
@@ -24,7 +25,7 @@ private const val REQUEST_LOCATION_PERMISSION = 123
 
 
 @Composable
-fun UserMainPage(token: String, viewModel: MainPageViewModel) {
+fun UserMainPage(navController: NavController, token: String, viewModel: MainPageViewModel) {
 
     LocationPopUp(requestPermission = REQUEST_LOCATION_PERMISSION)
     var activeContent by remember { mutableStateOf(0) }
@@ -136,7 +137,7 @@ fun UserMainPage(token: String, viewModel: MainPageViewModel) {
         Box(modifier = Modifier.padding(contentPadding)) {
 
             when (activeContent) {
-                0 -> HomeScreen(token,viewModel)
+                0 -> HomeScreen(navController,token,viewModel)
                 1 -> MapScreen(token,viewModel)
                 2 -> ProfileScreen(token,viewModel)
                 3 -> SettingsScreen(token,viewModel)

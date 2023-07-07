@@ -6,7 +6,7 @@ import ba.unsa.sportevents.data.model.User
 import ba.unsa.sportevents.data.repository.UserRepository
 
 class RegisterViewModel (
-    private val userRepository: UserRepository,
+    private val userRepository: UserRepository
 ) : ViewModel() {
 
     suspend fun performRegister(user: User, navController: NavController) {

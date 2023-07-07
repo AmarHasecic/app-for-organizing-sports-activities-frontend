@@ -19,5 +19,4 @@ interface UserApiService {
         @Header("Authorization") token: String,
     ): Response<User>
 
-
 }
