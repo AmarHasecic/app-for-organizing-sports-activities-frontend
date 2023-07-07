@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import ba.unsa.sportevents.data.model.SportActivity
 import ba.unsa.sportevents.ui.components.SearchBar
-import ba.unsa.sportevents.ui.screens.mainpage.activity.ActivityCard
+import ba.unsa.sportevents.ui.screens.activity.ActivityCard
 import ba.unsa.sportevents.ui.viewmodels.MainPageViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices

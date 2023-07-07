@@ -1,4 +1,4 @@
-package ba.unsa.sportevents.ui.screens.mainpage.activity
+package ba.unsa.sportevents.ui.screens.activity
 
 import android.os.Build
 import androidx.annotation.RequiresApi

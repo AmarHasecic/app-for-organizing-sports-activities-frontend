@@ -29,7 +29,7 @@ import ba.unsa.sportevents.data.repository.DataRepository
 import ba.unsa.sportevents.data.repository.UserRepository
 import ba.unsa.sportevents.ui.screens.login.LoginPage
 import ba.unsa.sportevents.ui.screens.login.LoginScreen
-import ba.unsa.sportevents.ui.screens.mainpage.activity.ActivityDetails
+import ba.unsa.sportevents.ui.screens.activity.ActivityDetails
 import ba.unsa.sportevents.ui.screens.register.RegisterFormDate
 import ba.unsa.sportevents.ui.screens.register.RegisterFormEmail
 import ba.unsa.sportevents.ui.screens.register.RegisterFormPass
