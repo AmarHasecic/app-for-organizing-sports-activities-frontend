@@ -11,5 +11,6 @@ sealed class Screen (val route : String){
     object RegisterUsernameScreen : Screen("RegisterUsernameScreen")
 
     object ActivityDetails : Screen("ActivityDetails")
+    object CreateActivity : Screen("CreateActivity")
 
 }

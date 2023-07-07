@@ -17,10 +17,12 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import ba.unsa.sportevents.data.model.SportActivity
 import ba.unsa.sportevents.ui.components.SearchBar
+import ba.unsa.sportevents.ui.navigation.Screen
 import ba.unsa.sportevents.ui.screens.activity.ActivityCard
 import ba.unsa.sportevents.ui.viewmodels.MainPageViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.google.gson.Gson
 import kotlinx.coroutines.tasks.await
 
 @Composable
@@ -31,15 +33,10 @@ fun HomeScreen(navController: NavController, token: String, viewModel: MainPageV
     val context: Context = LocalContext.current
     val fusedLocationClient: FusedLocationProviderClient =
         LocationServices.getFusedLocationProviderClient(context)
-
-    val user = viewModel.user.collectAsState()
     val activities = viewModel.activities.collectAsState()
 
 
     LaunchedEffect(Unit) {
-
-        viewModel.getUser(token)
-
 
         @SuppressLint("MissingPermission")
         val location = fusedLocationClient.lastLocation.await()
@@ -89,7 +86,7 @@ fun HomeScreen(navController: NavController, token: String, viewModel: MainPageV
 
         FloatingActionButton(
             onClick = {
-                //navController.navigate("CreateActivityScreen")
+                navController.navigate("${Screen.CreateActivity.route}/${token}")
             },
             modifier = Modifier
                 .padding(16.dp)

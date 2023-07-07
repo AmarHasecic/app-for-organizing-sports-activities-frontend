@@ -38,11 +38,13 @@ fun ActivityCard(navController: NavController, sportActivity: SportActivity) {
                         .size(35.dp)
                         .clip(CircleShape)
                 )
-                Text(
-                    text = sportActivity.host.fullName,
-                    modifier = Modifier.padding(start = 8.dp),
-                    color = Color.Black
-                )
+                sportActivity.host?.let {
+                    Text(
+                        text = it.fullName,
+                        modifier = Modifier.padding(start = 8.dp),
+                        color = Color.Black
+                    )
+                }
             }
             Text(
                 text = sportActivity.title,

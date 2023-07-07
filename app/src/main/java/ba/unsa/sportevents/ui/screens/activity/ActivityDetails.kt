@@ -8,6 +8,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import ba.unsa.sportevents.data.model.SportActivity
 import com.google.android.gms.maps.model.CameraPosition
@@ -63,7 +64,9 @@ fun ActivityDetails(sportActivity: String) {
             TopAppBar(
                 backgroundColor = Color(0xFFFF2500)
             ) {
-                Text(text = "Activity details")
+                Text(text = "Activity details",
+                    style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold)
+                )
             }
         }
     ) { innerPadding ->

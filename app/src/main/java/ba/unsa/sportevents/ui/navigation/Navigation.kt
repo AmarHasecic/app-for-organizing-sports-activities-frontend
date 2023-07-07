@@ -8,10 +8,7 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -30,6 +27,7 @@ import ba.unsa.sportevents.data.repository.UserRepository
 import ba.unsa.sportevents.ui.screens.login.LoginPage
 import ba.unsa.sportevents.ui.screens.login.LoginScreen
 import ba.unsa.sportevents.ui.screens.activity.ActivityDetails
+import ba.unsa.sportevents.ui.screens.activity.CreateActivity
 import ba.unsa.sportevents.ui.screens.register.RegisterFormDate
 import ba.unsa.sportevents.ui.screens.register.RegisterFormEmail
 import ba.unsa.sportevents.ui.screens.register.RegisterFormPass
@@ -213,6 +211,20 @@ fun Navigation(
             if (encodedActivity != null) {
                 ActivityDetails(encodedActivity)
             }
+        }
+
+        composable(
+            route = Screen.CreateActivity.route+ "/{token}",
+            arguments = listOf(
+                navArgument("token"){
+                    type = NavType.StringType
+                    nullable = true
+                }
+            )
+        )
+        { entry ->
+            entry.arguments?.getString("token")
+                ?.let { CreateActivity(token = it, viewModel = mainPageViewModel) }
         }
     }
 

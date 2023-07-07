@@ -10,6 +10,7 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import ba.unsa.sportevents.data.repository.DataRepository
@@ -40,10 +41,14 @@ fun UserMainPage(navController: NavController, token: String, viewModel: MainPag
             ) {
 
                 when (activeContent) {
-                    0 -> Text(text = "Home", Modifier.padding(horizontal = 10.dp))
-                    1 -> Text(text = "Map", Modifier.padding(horizontal = 10.dp))
-                    2 -> Text(text = "Profile", Modifier.padding(horizontal = 10.dp))
-                    3 -> Text(text = "Settings", Modifier.padding(horizontal = 10.dp))
+                    0 -> Text(text = "Home", Modifier.padding(horizontal = 10.dp),
+                        style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold))
+                    1 -> Text(text = "Map", Modifier.padding(horizontal = 10.dp),
+                        style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold))
+                    2 -> Text(text = "Profile", Modifier.padding(horizontal = 10.dp),
+                        style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold))
+                    3 -> Text(text = "Settings", Modifier.padding(horizontal = 10.dp),
+                        style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold))
                 }
             }
 
