@@ -1,6 +1,7 @@
 package ba.unsa.sportevents.ui.screens.register
 
 
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.Context
 import android.os.Build
@@ -42,6 +43,7 @@ private fun makeToast(context: Context, message: String){
 
 }
 
+@SuppressLint("SuspiciousIndentation")
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun RegisterFormDate(navController: NavController ,user: String?) {
