@@ -35,19 +35,12 @@ fun CreateActivity(
     viewModel: MainPageViewModel
 ) {
 
-    val user = viewModel.user.collectAsState()
-
     var title by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
     var maxNumber by remember {mutableStateOf(0)}
     val mDate = remember { mutableStateOf("") }
 
     var eventTime by remember { mutableStateOf<Date?>(null) }
-
-
-    LaunchedEffect(Unit) {
-        viewModel.getUser(token)
-    }
 
     val context = LocalContext.current
     val mCalendar = Calendar.getInstance()
@@ -65,7 +58,8 @@ fun CreateActivity(
     Scaffold(
         topBar = {
             TopAppBar(
-                backgroundColor = Color(0xFFFF2500)
+                backgroundColor = Color(0xFFFF2500),
+                modifier = Modifier.padding(start = 10.dp)
             ) {
                 Text(
                     text = "Create an activity",

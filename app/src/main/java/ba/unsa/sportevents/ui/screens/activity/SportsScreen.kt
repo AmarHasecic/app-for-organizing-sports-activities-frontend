@@ -18,10 +18,18 @@ import androidx.compose.ui.unit.dp
 import ba.unsa.etf.R
 import ba.unsa.sportevents.data.model.Sport
 import ba.unsa.sportevents.ui.components.SearchBar
+import ba.unsa.sportevents.ui.viewmodels.MainPageViewModel
 
 
 @Composable
-fun SportsScreen() {
+fun SportsScreen(
+
+    /*
+    token: String,
+    viewModel: MainPageViewModel
+
+     */
+){
 
     val sports : List<Sport> = listOf(
         Sport("Basketball", R.drawable.basketball),
@@ -44,7 +52,8 @@ fun SportsScreen() {
             ) {
                 Text(
                     text = "Pick a sport",
-                    style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold)
+                    style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold),
+                    modifier = Modifier.padding(start = 10.dp)
                 )
             }
         }

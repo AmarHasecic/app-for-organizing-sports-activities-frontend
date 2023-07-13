@@ -37,7 +37,8 @@ fun UserMainPage(navController: NavController, token: String, viewModel: MainPag
         topBar = {
 
             TopAppBar(
-                backgroundColor = Color(0xFFFF2500)
+                backgroundColor = Color(0xFFFF2500),
+                modifier = Modifier.padding(start = 10.dp)
             ) {
 
                 when (activeContent) {
