@@ -7,7 +7,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
 import androidx.core.view.WindowCompat
+import ba.unsa.etf.R
 import ba.unsa.sportevents.ui.navigation.Navigation
+import com.google.android.libraries.places.api.Places
 
 class MainActivity : ComponentActivity() {
 
