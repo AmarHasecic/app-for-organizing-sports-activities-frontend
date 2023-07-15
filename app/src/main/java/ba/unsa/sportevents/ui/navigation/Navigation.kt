@@ -28,6 +28,8 @@ import ba.unsa.sportevents.ui.screens.login.LoginPage
 import ba.unsa.sportevents.ui.screens.login.LoginScreen
 import ba.unsa.sportevents.ui.screens.activity.ActivityDetails
 import ba.unsa.sportevents.ui.screens.activity.CreateActivity
+import ba.unsa.sportevents.ui.screens.activity.SearchPlaceScreen
+import ba.unsa.sportevents.ui.screens.activity.SportsScreen
 import ba.unsa.sportevents.ui.screens.register.RegisterFormDate
 import ba.unsa.sportevents.ui.screens.register.RegisterFormEmail
 import ba.unsa.sportevents.ui.screens.register.RegisterFormPass
@@ -224,8 +226,37 @@ fun Navigation(
         )
         { entry ->
             entry.arguments?.getString("token")
-                ?.let { CreateActivity(token = it, viewModel = mainPageViewModel) }
+                ?.let { CreateActivity(token = it, navController = navController) }
         }
-    }
 
+        composable(
+            route = Screen.SportsScreen.route+ "/{token}",
+            arguments = listOf(
+                navArgument("token"){
+                    type = NavType.StringType
+                    nullable = true
+                }
+            )
+        )
+        { entry ->
+            entry.arguments?.getString("token")
+                ?.let { SportsScreen(token = it, navController = navController) }
+        }
+
+        composable(
+            route = Screen.SearchPlaceScreen.route+ "/{token}",
+            arguments = listOf(
+                navArgument("token"){
+                    type = NavType.StringType
+                    nullable = true
+                }
+            )
+        )
+        { entry ->
+            entry.arguments?.getString("token")
+                ?.let { SearchPlaceScreen(token = it, viewModel = mainPageViewModel, navController = navController) }
+        }
+
+
+    }
 }

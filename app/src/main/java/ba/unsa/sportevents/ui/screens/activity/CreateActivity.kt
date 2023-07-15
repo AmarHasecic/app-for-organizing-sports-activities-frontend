@@ -23,7 +23,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import ba.unsa.sportevents.ui.components.formatToTime
+import ba.unsa.sportevents.ui.navigation.Screen
 import ba.unsa.sportevents.ui.viewmodels.MainPageViewModel
 import java.text.SimpleDateFormat
 import java.util.*
@@ -32,7 +34,7 @@ import java.util.*
 @Composable
 fun CreateActivity(
     token: String,
-    viewModel: MainPageViewModel
+    navController: NavController
 ) {
 
     var title by remember { mutableStateOf("") }
@@ -65,6 +67,23 @@ fun CreateActivity(
                     text = "Create an activity",
                     style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold)
                 )
+            }
+        },
+
+        bottomBar = {
+            Button(
+                onClick = {
+                    navController.navigate("${Screen.SportsScreen.route}/${token}")
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = Color(0xFFFF2500),
+                    contentColor = Color.White
+                )
+            ) {
+                Text(text = "Next")
             }
         }
     ) { contentPadding ->
@@ -304,22 +323,6 @@ fun CreateActivity(
                         }
                     }
                 }
-            }
-
-            Spacer(modifier = Modifier.weight(1f))
-            Button(
-                onClick = {
-                    // Handle button click
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                colors = ButtonDefaults.buttonColors(
-                    backgroundColor = Color(0xFFFF2500),
-                    contentColor = Color.White
-                )
-            ) {
-                Text(text = "Next")
             }
         }
     }

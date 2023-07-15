@@ -2,5 +2,6 @@ package ba.unsa.sportevents.data.model
 
 class Sport(
     val name:  String,
-    val iconDrawable: Int
+    val iconDrawable: Int,
+    var isSelected: Boolean = false
 )

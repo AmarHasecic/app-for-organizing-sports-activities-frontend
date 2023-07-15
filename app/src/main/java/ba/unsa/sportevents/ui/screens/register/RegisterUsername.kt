@@ -24,14 +24,6 @@ import kotlinx.coroutines.*
 import java.net.URLDecoder
 
 
-private fun makeToast(context: Context, message: String){
-
-    val handler = Handler(Looper.getMainLooper())
-    handler.post {
-        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
-    }
-
-}
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
