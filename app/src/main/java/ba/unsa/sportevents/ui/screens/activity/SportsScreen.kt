@@ -1,13 +1,15 @@
 package ba.unsa.sportevents.ui.screens.activity
 
+import android.os.Build
+import androidx.annotation.RequiresApi
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -17,17 +19,22 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import ba.unsa.etf.R
+import ba.unsa.sportevents.data.model.Location
 import ba.unsa.sportevents.data.model.Sport
+import ba.unsa.sportevents.data.model.SportActivity
+import ba.unsa.sportevents.data.model.User
 import ba.unsa.sportevents.ui.components.SearchBar
 import ba.unsa.sportevents.ui.navigation.Screen
-import ba.unsa.sportevents.ui.viewmodels.MainPageViewModel
+import com.google.gson.Gson
+import java.time.LocalDateTime
 
 
 @Composable
 fun SportsScreen(
 
     token: String,
-    navController: NavController
+    navController: NavController,
+    activity: String
 
 ){
     val sports: List<Sport> = listOf(
@@ -42,8 +49,17 @@ fun SportsScreen(
     Sport("Yoga", R.drawable.joga)
 )
 
-val searchQuery = remember { mutableStateOf("") }
-val selectedSport = remember { mutableStateOf<Sport?>(null) }
+var searchQuery by remember { mutableStateOf("") }
+var selectedSport by remember { mutableStateOf<Sport?>(null) }
+var sportActivity by remember {
+        mutableStateOf<SportActivity?>(null)
+    }
+
+    LaunchedEffect(Unit) {
+        val gson = Gson()
+        sportActivity = gson.fromJson(activity, SportActivity::class.java)
+    }
+
 
 Scaffold(
 topBar = {
@@ -61,7 +77,15 @@ topBar = {
 bottomBar = {
     Button(
         onClick = {
-            navController.navigate("${Screen.SearchPlaceScreen.route}/${token}")
+            if(selectedSport!!.isSelected) {
+
+               sportActivity!!.sport = selectedSport!!.name
+
+                val gson = Gson()
+                val jsonActivity : String = gson.toJson(sportActivity)
+                navController.navigate("${Screen.SearchPlaceScreen.route}/${token}/${jsonActivity}")
+
+            }
         },
         modifier = Modifier
             .fillMaxWidth()
@@ -81,36 +105,44 @@ bottomBar = {
             .fillMaxSize()
             .padding(contentPadding)
     ) {
-        SearchBar(searchQuery.value) { newQuery ->
-            searchQuery.value = newQuery
+        SearchBar(searchQuery) { newQuery ->
+            searchQuery = newQuery
         }
 
         Spacer(modifier = Modifier.height(20.dp))
 
         ShowListOfSports(sports = sports.filter { sport ->
             sport.name.contains(
-                searchQuery.value,
+                searchQuery,
                 ignoreCase = true
             )
         }) { sport ->
-            selectedSport.value = sport
+            sports.forEach { it.isSelected = it == sport }
+            selectedSport = sport
         }
     }
-  }
+}
 }
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun ShowListOfSports(sports: List<Sport>, onSportSelected: (Sport) -> Unit) {
+    // Introduce a state variable to keep track of the selected sport
+    var selectedSportIndex by remember { mutableStateOf(-1) }
+
     LazyColumn {
-        items(sports) { sport ->
+        itemsIndexed(sports) { index, sport ->
             Card(
-                onClick = { onSportSelected(sport) }, // Pass the selected sport back to the parent
-                modifier = Modifier.fillMaxWidth()
-                    .padding(5.dp)
+                onClick = {
+                    onSportSelected(sport)
+                    selectedSportIndex = index // Update the selected sport index
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
+                backgroundColor = if (index == selectedSportIndex) Color(0xFADFFDCC) else Color.White,
             ) {
                 Row(modifier = Modifier.padding(4.dp)) {
-
                     Image(
                         painter = painterResource(sport.iconDrawable),
                         contentDescription = "Sport icon",
@@ -119,20 +151,48 @@ fun ShowListOfSports(sports: List<Sport>, onSportSelected: (Sport) -> Unit) {
 
                     Text(
                         text = sport.name,
-                        modifier = Modifier.align(alignment = CenterVertically)
-                            .padding(start = 15.dp)
+                        modifier = Modifier
+                            .align(alignment = CenterVertically)
+                            .padding(start = 15.dp),
+                        color = Color.Black,
                     )
-
                 }
             }
         }
     }
 }
 
+
+
 /*
+@RequiresApi(Build.VERSION_CODES.O)
 @Preview
 @Composable
 fun PreviewShowListOfSports() {
-    SportsScreen()
+
+    val emptyLocation = Location(0.0, 0.0, "")
+    val emptyHost: User? = null
+
+    val currentDateTime = LocalDateTime.now()
+
+
+    val sportActivity = SportActivity(
+        id = "",
+        host = emptyHost,
+        title = "",
+        sport = "",
+        description = "",
+        location = emptyLocation,
+        startTime = currentDateTime.toString(),
+        date = currentDateTime.toString(),
+        numberOfParticipants = 0,
+        maxNumberOfParticipants = 0,
+        participants = emptyList()
+    )
+
+    val gson = Gson()
+    val jsonActivity : String = gson.toJson(sportActivity)
+    SportsScreen(jsonActivity)
 }
+
 */

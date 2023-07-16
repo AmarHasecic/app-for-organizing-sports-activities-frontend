@@ -1,6 +1,7 @@
 package ba.unsa.sportevents.data.model
 
 import com.google.gson.annotations.SerializedName
+import java.time.LocalDateTime
 
 data class SportActivity(
     @SerializedName("id") var id: String,
@@ -10,7 +11,7 @@ data class SportActivity(
     @SerializedName("description") var description: String,
     @SerializedName("location") var location: Location,
     @SerializedName("startTime") var startTime: String,
-    @SerializedName("endTime") var endTime: String,
+    @SerializedName("date") var date: String,
     @SerializedName("numberOfParticipants") var numberOfParticipants: Int,
     @SerializedName("maxNumberOfParticipants") var maxNumberOfParticipants: Int,
     @SerializedName("participants") var participants: List<User>

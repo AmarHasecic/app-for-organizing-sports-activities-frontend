@@ -17,6 +17,8 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
+        Places.initialize(applicationContext, "")
+
         setContent {
             SportEventsTheme {
                 val lifecycleOwner = this

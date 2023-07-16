@@ -38,21 +38,19 @@ fun UserMainPage(navController: NavController, token: String, viewModel: MainPag
 
             TopAppBar(
                 backgroundColor = Color(0xFFFF2500),
-                modifier = Modifier.padding(start = 10.dp)
             ) {
 
                 when (activeContent) {
-                    0 -> Text(text = "Home", Modifier.padding(horizontal = 10.dp),
+                    0 -> Text(text = "Home",  modifier = Modifier.padding(start = 10.dp),
                         style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold))
-                    1 -> Text(text = "Map", Modifier.padding(horizontal = 10.dp),
+                    1 -> Text(text = "Map",  modifier = Modifier.padding(start = 10.dp),
                         style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold))
-                    2 -> Text(text = "Profile", Modifier.padding(horizontal = 10.dp),
+                    2 -> Text(text = "Profile",  modifier = Modifier.padding(start = 10.dp),
                         style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold))
-                    3 -> Text(text = "Settings", Modifier.padding(horizontal = 10.dp),
+                    3 -> Text(text = "Settings",  modifier = Modifier.padding(start = 10.dp),
                         style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold))
                 }
             }
-
 
         },
 

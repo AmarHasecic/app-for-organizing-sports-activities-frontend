@@ -57,6 +57,8 @@ fun ActivityDetails(sportActivity: String) {
             cameraPositionState.position = CameraPosition.fromLatLngZoom(latLng, 15f)
         }
 
+
+
     }
 
     Scaffold(
@@ -65,7 +67,8 @@ fun ActivityDetails(sportActivity: String) {
                 backgroundColor = Color(0xFFFF2500)
             ) {
                 Text(text = "Activity details",
-                    style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold)
+                    style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold),
+                    modifier = Modifier.padding(start = 10.dp)
                 )
             }
         }
@@ -130,11 +133,6 @@ fun ActivityDetails(sportActivity: String) {
                     ) {
                         Text(
                             text = "Start: ${activity?.let { getTime(it.startTime) }}",
-                            color = Color.DarkGray,
-                            modifier = Modifier.weight(1f)
-                        )
-                        Text(
-                            text = "End: ${activity?.let { getTime(it.endTime) }}",
                             color = Color.DarkGray,
                             modifier = Modifier.weight(1f)
                         )

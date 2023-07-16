@@ -74,6 +74,7 @@ fun MapScreen(token: String, viewModel: MainPageViewModel) {
 
 
     Box(Modifier.fillMaxSize()) {
+
         GoogleMap(
             modifier = Modifier.matchParentSize(),
             properties = properties,
@@ -82,6 +83,7 @@ fun MapScreen(token: String, viewModel: MainPageViewModel) {
         ) {
             if (activitiesList.size != 0) {
                 activitiesList.forEach() { activity ->
+
 
                     Marker(
                         state = MarkerState(
@@ -92,6 +94,8 @@ fun MapScreen(token: String, viewModel: MainPageViewModel) {
                         ),
                         title = activity.title
                     )
+
+
                 }
             }
         }
@@ -101,7 +105,10 @@ fun MapScreen(token: String, viewModel: MainPageViewModel) {
                 uiSettings = uiSettings.copy(zoomControlsEnabled = it)
             }
         )
+
+
     }
+
 }
 
 

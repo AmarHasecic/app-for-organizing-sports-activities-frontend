@@ -1,46 +1,35 @@
 package ba.unsa.sportevents.ui.navigation
 
-import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.os.Build
-import android.widget.Toast
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.IntentSenderRequest
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.compose.runtime.*
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import ba.unsa.sportevents.ui.screens.mainpage.UserMainPage
-import ba.unsa.sportevents.data.network.google_signin.GoogleAuthUiClient
-import ba.unsa.sportevents.data.network.google_signin.SignInViewModel
+import ba.unsa.sportevents.data.model.Location
+import ba.unsa.sportevents.data.model.SportActivity
+import ba.unsa.sportevents.data.model.User
 import ba.unsa.sportevents.data.repository.ActivityRepository
 import ba.unsa.sportevents.data.repository.DataRepository
 import ba.unsa.sportevents.data.repository.UserRepository
-import ba.unsa.sportevents.ui.screens.login.LoginPage
-import ba.unsa.sportevents.ui.screens.login.LoginScreen
 import ba.unsa.sportevents.ui.screens.activity.ActivityDetails
 import ba.unsa.sportevents.ui.screens.activity.CreateActivity
 import ba.unsa.sportevents.ui.screens.activity.SearchPlaceScreen
 import ba.unsa.sportevents.ui.screens.activity.SportsScreen
+import ba.unsa.sportevents.ui.screens.login.LoginPage
+import ba.unsa.sportevents.ui.screens.login.LoginScreen
+import ba.unsa.sportevents.ui.screens.mainpage.UserMainPage
 import ba.unsa.sportevents.ui.screens.register.RegisterFormDate
 import ba.unsa.sportevents.ui.screens.register.RegisterFormEmail
 import ba.unsa.sportevents.ui.screens.register.RegisterFormPass
 import ba.unsa.sportevents.ui.screens.register.RegisterUsername
-import ba.unsa.sportevents.ui.viewmodels.ActivityDetailsViewModel
-import ba.unsa.sportevents.ui.viewmodels.LoginFormViewModel
-import ba.unsa.sportevents.ui.viewmodels.MainPageViewModel
-import ba.unsa.sportevents.ui.viewmodels.RegisterViewModel
-import com.google.android.gms.auth.api.identity.Identity
-import kotlinx.coroutines.launch
+import ba.unsa.sportevents.ui.viewmodels.*
 import java.net.URLEncoder
+import java.time.LocalDateTime
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -68,57 +57,17 @@ fun Navigation(
         ActivityDetailsViewModel(activityRepository)
     }
 
+    val createActivityViewModel: CreateActivityViewModel = remember {
+        CreateActivityViewModel(activityRepository, userRepository)
+    }
+
     NavHost(navController = navController, startDestination = Screen.LoginFrontPage.route) {
 
         composable(
                route = Screen.LoginFrontPage.route){
 
-            val viewModel = viewModel<SignInViewModel>()
-            val state by viewModel.state.collectAsStateWithLifecycle()
-            val googleAuthUiClient by lazy {
-                GoogleAuthUiClient(
-                    context = context,
-                    oneTapClient = Identity.getSignInClient(context)
-                )
-            }
-
-            val launcher = rememberLauncherForActivityResult(
-                contract = ActivityResultContracts.StartIntentSenderForResult(),
-                onResult = { result ->
-                    if(result.resultCode == RESULT_OK) {
-                        lifecycleOwner.lifecycleScope.launch {
-                            val signInResult = googleAuthUiClient.signInWithIntent(
-                                intent = result.data ?: return@launch
-                            )
-                            viewModel.onSignInResult(signInResult)
-                        }
-                    }
-                }
-            )
-
-            LaunchedEffect(key1 = state.isSignInSuccessful) {
-                if(state.isSignInSuccessful) {
-                    Toast.makeText(
-                        context,
-                        "Sign in successful",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-            }
-
                LoginPage(
                    navController = navController,
-                   state = state,
-                   onSignInClick = {
-                       lifecycleOwner.lifecycleScope.launch {
-                           val signInIntentSender = googleAuthUiClient.signIn()
-                           launcher.launch(
-                               IntentSenderRequest.Builder(
-                                   signInIntentSender ?: return@launch
-                               ).build()
-                           )
-                       }
-                   }
                )
 
         }
@@ -226,37 +175,77 @@ fun Navigation(
         )
         { entry ->
             entry.arguments?.getString("token")
-                ?.let { CreateActivity(token = it, navController = navController) }
+                ?.let {
+                    val emptyLocation = Location(0.0, 0.0, "")
+                    val emptyHost: User? = null
+
+                    val currentDateTime = LocalDateTime.now()
+
+                    val sportActivity = SportActivity(
+                        id = "",
+                        host = emptyHost,
+                        title = "",
+                        sport = "",
+                        description = "",
+                        location = emptyLocation,
+                        startTime = currentDateTime.toString(),
+                        date = currentDateTime.toString(),
+                        numberOfParticipants = 0,
+                        maxNumberOfParticipants = 0,
+                        participants = emptyList()
+                    )
+                    CreateActivity(token = it, navController = navController, sportActivity)
+                }
         }
 
         composable(
-            route = Screen.SportsScreen.route+ "/{token}",
+            route = Screen.SportsScreen.route+ "/{token}/{activity}",
             arguments = listOf(
                 navArgument("token"){
                     type = NavType.StringType
                     nullable = true
+                },
+                navArgument("activity"){
+                    type = NavType.StringType
+                    nullable = true
                 }
+
             )
         )
         { entry ->
-            entry.arguments?.getString("token")
-                ?.let { SportsScreen(token = it, navController = navController) }
+            val token = entry.arguments?.getString("token")
+            val activity = entry.arguments?.getString("activity")
+
+            token?.let {
+                if (activity != null) {
+                    SportsScreen(token = token, activity = activity, navController = navController)
+                }
+            }
         }
 
         composable(
-            route = Screen.SearchPlaceScreen.route+ "/{token}",
+            route = Screen.SearchPlaceScreen.route+ "/{token}/{activity}",
             arguments = listOf(
                 navArgument("token"){
                     type = NavType.StringType
                     nullable = true
+                },
+                navArgument("activity"){
+                    type = NavType.StringType
+                    nullable = true
                 }
+
             )
         )
         { entry ->
-            entry.arguments?.getString("token")
-                ?.let { SearchPlaceScreen(token = it, viewModel = mainPageViewModel, navController = navController) }
+            val token = entry.arguments?.getString("token")
+            val activity = entry.arguments?.getString("activity")
+
+            token?.let {
+                if (activity != null) {
+                    SearchPlaceScreen(token = token, viewModel = createActivityViewModel, navController = navController, activity = activity)
+                }
+            }
         }
-
-
     }
 }
