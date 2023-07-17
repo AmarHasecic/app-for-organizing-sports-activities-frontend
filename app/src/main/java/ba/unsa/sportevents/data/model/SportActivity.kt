@@ -14,5 +14,5 @@ data class SportActivity(
     @SerializedName("date") var date: String,
     @SerializedName("numberOfParticipants") var numberOfParticipants: Int,
     @SerializedName("maxNumberOfParticipants") var maxNumberOfParticipants: Int,
-    @SerializedName("participants") var participants: List<User>
+    @SerializedName("participants") var participants: List<User?>
 )

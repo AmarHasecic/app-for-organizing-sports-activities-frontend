@@ -1,7 +1,6 @@
 package ba.unsa.sportevents.data.repository
 
 
-import androidx.navigation.NavController
 import ba.unsa.sportevents.data.model.SportActivity
 import ba.unsa.sportevents.data.model.User
 import ba.unsa.sportevents.data.network.ActivitiesApiService
@@ -35,6 +34,12 @@ class ActivityRepository(private val apiService: ActivitiesApiService)  {
             //handle error
         }
 
+    }
+    suspend fun updateActivity(sportActivity: SportActivity) : Response<SportActivity> {
+
+        return withContext(Dispatchers.IO) {
+            apiService.updateActivity(sportActivity.id, sportActivity)
+        }
     }
 
 }

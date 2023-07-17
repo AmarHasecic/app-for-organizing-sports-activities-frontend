@@ -11,5 +11,5 @@ data class User(
     @SerializedName("dateOfBirth") var dateOfBirth: String,
     @SerializedName("username") var username: String,
     @SerializedName("sports") var sports: List<String>,
-    @SerializedName("activities")  var activities: List<SportActivity>,
+    @SerializedName("activities")  var activities: List<SportActivity?>,
 )

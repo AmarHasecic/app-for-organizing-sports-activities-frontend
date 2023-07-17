@@ -107,7 +107,7 @@ fun HomeScreen(navController: NavController, token: String, viewModel: MainPageV
                             searchQuery.value,
                             ignoreCase = true
                         )
-                    })
+                    }, token)
                 }
             }
 
@@ -126,10 +126,10 @@ fun HomeScreen(navController: NavController, token: String, viewModel: MainPageV
 }
 
 @Composable
-fun ShowLazyList(navController: NavController,activities: List<SportActivity>) {
+fun ShowLazyList(navController: NavController,activities: List<SportActivity>, token: String) {
     LazyColumn {
         items(activities) { activity ->
-            ActivityCard(navController,activity)
+            ActivityCard(navController,activity, token)
         }
     }
 }

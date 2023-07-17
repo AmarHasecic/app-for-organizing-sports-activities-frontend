@@ -21,10 +21,10 @@ class UserRepository(private val apiService: UserApiService) {
     suspend fun performLogin(username: String, password: String, navController: NavController) {
         val tokenResponse = coroutineScope {
             val loginDTO = LoginDTO(username, password)
-            DataRepository.userApiService.loginUser(loginDTO)
+            apiService.loginUser(loginDTO)
         }
 
-        if (tokenResponse.isSuccessful && tokenResponse.body() != null) {
+        if (tokenResponse.isSuccessful) {
 
             val token = tokenResponse.body()!!.jwt
 
@@ -34,14 +34,14 @@ class UserRepository(private val apiService: UserApiService) {
             }
 
         } else {
-            throw Exception(tokenResponse.message())
+            throw Exception(tokenResponse.body().toString())
         }
     }
 
     suspend fun performRegister(user: User, navController: NavController) {
 
         val registerResponse = coroutineScope {
-            DataRepository.userApiService.registerUser(user)
+            apiService.registerUser(user)
         }
 
         if(registerResponse.isSuccessful) {
@@ -49,4 +49,11 @@ class UserRepository(private val apiService: UserApiService) {
             performLogin(user.username, user.password, navController)
         }
     }
+
+    suspend fun updateUser(user: User) : Response<User> {
+        return withContext(Dispatchers.IO) {
+            apiService.updateUser(user.id, user)
+        }
+    }
+
 }

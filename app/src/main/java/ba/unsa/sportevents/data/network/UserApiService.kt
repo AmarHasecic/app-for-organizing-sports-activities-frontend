@@ -1,5 +1,6 @@
 package ba.unsa.sportevents.data.network
 
+import ba.unsa.sportevents.data.model.SportActivity
 import ba.unsa.sportevents.data.model.login.JwtDTO
 import ba.unsa.sportevents.data.model.login.LoginDTO
 import ba.unsa.sportevents.data.model.User
@@ -17,6 +18,12 @@ interface UserApiService {
     @GET("/api/user")
     suspend fun getUser(
         @Header("Authorization") token: String,
+    ): Response<User>
+
+    @PUT("/api/user/{id}")
+    suspend fun updateUser(
+        @Path("id") id: String,
+        @Body user: User
     ): Response<User>
 
 }

@@ -20,7 +20,7 @@ import com.google.gson.Gson
 
 
 @Composable
-fun ActivityCard(navController: NavController, sportActivity: SportActivity) {
+fun ActivityCard(navController: NavController, sportActivity: SportActivity, token: String) {
     Card(
         modifier = Modifier
             .fillMaxWidth(),
@@ -68,7 +68,7 @@ fun ActivityCard(navController: NavController, sportActivity: SportActivity) {
                 Button(
                     onClick = {
                         val gson = Gson()
-                        navController.navigate("${Screen.ActivityDetails.route}/${gson.toJson(sportActivity)}")
+                        navController.navigate("${Screen.ActivityDetails.route}/${gson.toJson(sportActivity)}/${token}")
                     },
                     modifier = Modifier,
                     colors = ButtonDefaults.buttonColors(

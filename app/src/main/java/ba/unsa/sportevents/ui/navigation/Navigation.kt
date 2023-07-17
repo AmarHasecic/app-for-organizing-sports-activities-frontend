@@ -54,7 +54,7 @@ fun Navigation(
         RegisterViewModel(userRepository)
     }
     val activityDetailsViewModel: ActivityDetailsViewModel = remember {
-        ActivityDetailsViewModel(activityRepository)
+        ActivityDetailsViewModel(activityRepository, userRepository)
     }
 
     val createActivityViewModel: CreateActivityViewModel = remember {
@@ -147,9 +147,13 @@ fun Navigation(
         }
 
         composable(
-            route = Screen.ActivityDetails.route + "/{activity}",
+            route = Screen.ActivityDetails.route + "/{activity}/{token}",
             arguments = listOf(
                 navArgument("activity"){
+                    type = NavType.StringType
+                    nullable = true
+                },
+                navArgument("token"){
                     type = NavType.StringType
                     nullable = true
                 }
@@ -160,7 +164,13 @@ fun Navigation(
                 URLEncoder.encode(it, "UTF-8")
             }
             if (encodedActivity != null) {
-                ActivityDetails(encodedActivity)
+
+                val token = entry.arguments?.getString("token")
+
+                token?.let {
+                        ActivityDetails(sportActivity = encodedActivity, token = token, viewModel = activityDetailsViewModel )
+                }
+
             }
         }
 
