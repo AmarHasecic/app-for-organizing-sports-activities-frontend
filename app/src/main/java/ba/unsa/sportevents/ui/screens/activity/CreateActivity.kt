@@ -2,35 +2,40 @@ package ba.unsa.sportevents.ui.screens.activity
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.graphics.Paint.Align
 import android.os.Build
 import android.widget.DatePicker
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import ba.unsa.etf.R
 import ba.unsa.sportevents.data.model.Location
 import ba.unsa.sportevents.data.model.SportActivity
+import ba.unsa.sportevents.data.model.User
 import ba.unsa.sportevents.ui.components.formatToTime
 import ba.unsa.sportevents.ui.components.makeToast
 import ba.unsa.sportevents.ui.navigation.Screen
 import com.google.gson.Gson
+import com.google.maps.android.compose.Circle
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -61,11 +66,13 @@ fun convertDateToLocalDateTime(date: Date): LocalDateTime {
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun CreateActivity(
+    /*
     token: String,
     navController: NavController,
+    */
     activity: SportActivity
+     
 ) {
-
     var title by remember { mutableStateOf(activity.title) }
     var description by remember { mutableStateOf(activity.description) }
     var maxNumber by remember {mutableStateOf(activity.maxNumberOfParticipants)}
@@ -120,7 +127,7 @@ fun CreateActivity(
 
                         val gson = Gson()
                         val jsonActivity : String = gson.toJson(activity)
-                        navController.navigate("${Screen.SportsScreen.route}/${token}/${jsonActivity}")
+                        //navController.navigate("${Screen.SportsScreen.route}/${token}/${jsonActivity}")
                     }
                 },
                 modifier = Modifier
@@ -153,13 +160,13 @@ fun CreateActivity(
 
             LazyColumn(
                        modifier = Modifier
-                        .fillMaxWidth()
-                    .padding(contentPadding),
+                           .fillMaxWidth()
+                           .padding(contentPadding),
                 verticalArrangement = Arrangement.Center
             ) {
 
                 item{
-                    TextField(
+                    OutlinedTextField(
                         value = title,
                         onValueChange = { title = it },
                         label = { Text(text = "Title") },
@@ -169,12 +176,17 @@ fun CreateActivity(
                             .background(Color.White)
                             .fillMaxWidth(),
                         colors = TextFieldDefaults.textFieldColors(
-                            textColor = Color.Black
+                            textColor = Color.Black,
+                            backgroundColor = Color.White,
+                            focusedLabelColor = Color.Gray,
+                            unfocusedLabelColor = Color.LightGray,
+                            cursorColor = Color.Gray
+
                         )
                     )
                 }
                 item {
-                    TextField(
+                    OutlinedTextField(
                         value = description,
                         onValueChange = { description = it },
                         label = { Text(text = "Description") },
@@ -184,7 +196,11 @@ fun CreateActivity(
                             .background(Color.White)
                             .fillMaxWidth(),
                         colors = TextFieldDefaults.textFieldColors(
-                            textColor = Color.Black
+                            textColor = Color.Black,
+                            backgroundColor = Color.White,
+                            focusedLabelColor = Color.Gray,
+                            unfocusedLabelColor = Color.LightGray,
+                            cursorColor = Color.Gray
                         )
                     )
                 }
@@ -207,34 +223,12 @@ fun CreateActivity(
                         text = "When?",
                         color = Color.Black,
                         modifier = Modifier
-                            .padding(vertical = 10.dp)
+                            .padding(vertical = 7.dp)
                             .padding(horizontal = 10.dp)
                     )
                 }
                 item {
-                    Spacer(modifier = Modifier.height(2.dp))
-                }
-                item {
-                    Row(
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(start = 16.dp)
-                    ) {
-                        Text(
-                            text = "Date: ",
-                            modifier = Modifier
-                                .width(180.dp),
-                            color = Color.Black
-                        )
-
-                        Text(
-                            text = "Time: ",
-                            modifier = Modifier
-                                .width(100.dp),
-                            color = Color.Black
-                        )
-                    }
+                    Spacer(modifier = Modifier.height(10.dp))
                 }
 
                 item {
@@ -242,28 +236,36 @@ fun CreateActivity(
                         horizontalArrangement = Arrangement.spacedBy(8.dp),
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(start = 16.dp)
+                            .padding(start = 20.dp)
                     ) {
-                        Box(
+                        Row(
                             modifier = Modifier
                                 .width(180.dp)
                                 .height(45.dp)
-                                .border(BorderStroke(1.dp, color = Color.Black))
                                 .clickable(onClick = {
                                     mDatePickerDialog.show()
                                 })
+                                .align(Alignment.CenterVertically)
                         ) {
+                            Image(
+                                painter = painterResource(id = R.drawable.calendar),
+                                contentDescription = null,
+                                modifier = Modifier
+                                    .size(40.dp)
+                                    .align(Alignment.CenterVertically)
+                            )
                             Text(
                                 text = mDate.toLocalDate().toString(),
-                                modifier = Modifier.padding(10.dp),
+                                modifier = Modifier
+                                    .padding(horizontal = 10.dp)
+                                    .align(Alignment.CenterVertically),
                                 color = Color.Black
                             )
                         }
-                        Box(
+                        Row(
                             modifier = Modifier
                                 .width(100.dp)
                                 .height(45.dp)
-                                .border(BorderStroke(1.dp, color = Color.Black))
                                 .clickable(onClick = {
                                     timePickerFocusRequester.requestFocus()
 
@@ -287,13 +289,25 @@ fun CreateActivity(
                                 })
                                 .focusRequester(timePickerFocusRequester)
                         ) {
+                            Image(
+                                painter = painterResource(id = R.drawable.clock),
+                                contentDescription = null,
+                                modifier = Modifier
+                                    .size(40.dp)
+                                    .align(Alignment.CenterVertically)
+                            )
                             Text(
                                 text = eventTime?.formatToTime() ?: "00:00",
-                                modifier = Modifier.padding(10.dp),
+                                modifier = Modifier
+                                    .padding(horizontal = 10.dp)
+                                    .align(Alignment.CenterVertically),
                                 color = Color.Black
                             )
                         }
                     }
+                }
+                item {
+                    Spacer(modifier = Modifier.height(10.dp))
                 }
                 item {
                     Box(
@@ -309,64 +323,64 @@ fun CreateActivity(
                         )
                     }
                 }
-
                 item {
                     Text(
                         text = "How many people can join?",
                         color = Color.Black,
                         modifier = Modifier
-                            .padding(vertical = 10.dp)
+                            .padding(vertical = 7.dp)
                             .padding(horizontal = 10.dp)
                     )
+                }
+                item {
+                    Spacer(modifier = Modifier.height(10.dp))
                 }
                 item {
                     Row(
                         horizontalArrangement = Arrangement.Center,
                         verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.padding(start = 16.dp)
+                        modifier = Modifier.padding(start = 20.dp)
                     ) {
                         Button(
                             onClick = { if (maxNumber > 0) maxNumber-- },
-                            modifier = Modifier.size(45.dp),
-                            shape = RoundedCornerShape(7.dp),
-                            colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFFFF2500)),
-                            contentPadding = PaddingValues(0.dp)
+                            colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent),
+                            contentPadding = PaddingValues(0.dp),
+                            elevation = ButtonDefaults.elevation(0.dp)
                         ) {
-                            Text(
-                                text = "−",
-                                style = MaterialTheme.typography.h4,
-                                color = Color.White
+                            Image(
+                                painter = painterResource(id = R.drawable.removeuser),
+                                contentDescription = null,
+                                modifier = Modifier
+                                    .size(50.dp)
+                                    .align(Alignment.CenterVertically)
                             )
                         }
                         Spacer(modifier = Modifier.width(5.dp))
-                        TextField(
-                            value = maxNumber.toString(),
-                            onValueChange = { maxNumber = it.toIntOrNull() ?: 0 },
-                            modifier = Modifier.width((45.dp * 2) + 5.dp),
-                            shape = RoundedCornerShape(7.dp),
-                            colors = TextFieldDefaults.textFieldColors(
-                                backgroundColor = Color.Transparent,
-                                cursorColor = Color.Black,
-                                focusedIndicatorColor = Color.Transparent,
-                                unfocusedIndicatorColor = Color.Transparent,
-                                textColor = Color.Black
-                            ),
-                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
-                        )
+                        Box(
+                            modifier = Modifier
+                                .width(50.dp)
+                                .background(Color.Transparent),
+                            contentAlignment = Alignment.Center
+                        ) {
+
+                                Text(text = maxNumber.toString())
+
+                        }
 
                         Spacer(modifier = Modifier.width(5.dp))
 
                         Button(
                             onClick = { if (maxNumber <= 50) maxNumber++ },
-                            modifier = Modifier.size(45.dp),
-                            shape = RoundedCornerShape(7.dp),
-                            colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFFFF2500)),
-                            contentPadding = PaddingValues(0.dp)
+                            colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent),
+                            contentPadding = PaddingValues(0.dp),
+                            elevation = ButtonDefaults.elevation(0.dp)
                         ) {
-                            Text(
-                                text = "+",
-                                style = MaterialTheme.typography.h4,
-                                color = Color.White
+                            Image(
+                                painter = painterResource(id = R.drawable.adduser),
+                                contentDescription = null,
+                                modifier = Modifier
+                                    .size(50.dp)
+                                    .align(Alignment.CenterVertically)
                             )
                         }
                     }
@@ -374,6 +388,35 @@ fun CreateActivity(
             }
         }
     }
+}
+
+@RequiresApi(Build.VERSION_CODES.O)
+@Preview
+@Composable
+fun PreviewCreateActivityScreen() {
+
+    //*************** ZA POTREBE TESTIRIANJA  *********************
+    val emptyLocation = Location(0.0, 0.0, "")
+    val emptyHost: User? = null
+
+    val currentDateTime = LocalDateTime.now()
+
+    val activity = SportActivity(
+        id = "",
+        host = emptyHost,
+        title = "",
+        sport = "",
+        description = "",
+        location = emptyLocation,
+        startTime = currentDateTime.toString(),
+        date = currentDateTime.toString(),
+        numberOfParticipants = 0,
+        maxNumberOfParticipants = 0,
+        participants = emptyList()
+    )
+    //***********************************************************
+
+    CreateActivity(activity = activity)
 }
 
 
