@@ -2,40 +2,31 @@ package ba.unsa.sportevents.ui.screens.activity
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
-import android.graphics.Paint.Align
 import android.os.Build
 import android.widget.DatePicker
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import ba.unsa.etf.R
 import ba.unsa.sportevents.data.model.Location
 import ba.unsa.sportevents.data.model.SportActivity
-import ba.unsa.sportevents.data.model.User
 import ba.unsa.sportevents.ui.components.formatToTime
 import ba.unsa.sportevents.ui.components.makeToast
 import ba.unsa.sportevents.ui.navigation.Screen
 import com.google.gson.Gson
-import com.google.maps.android.compose.Circle
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -66,10 +57,8 @@ fun convertDateToLocalDateTime(date: Date): LocalDateTime {
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun CreateActivity(
-    /*
     token: String,
     navController: NavController,
-    */
     activity: SportActivity
      
 ) {
@@ -127,7 +116,7 @@ fun CreateActivity(
 
                         val gson = Gson()
                         val jsonActivity : String = gson.toJson(activity)
-                        //navController.navigate("${Screen.SportsScreen.route}/${token}/${jsonActivity}")
+                        navController.navigate("${Screen.SportsScreen.route}/${token}/${jsonActivity}")
                     }
                 },
                 modifier = Modifier
@@ -401,6 +390,7 @@ fun CreateActivity(
     }
 }
 
+/*
 @RequiresApi(Build.VERSION_CODES.O)
 @Preview
 @Composable
@@ -429,6 +419,4 @@ fun PreviewCreateActivityScreen() {
 
     CreateActivity(activity = activity)
 }
-
-
-
+ */

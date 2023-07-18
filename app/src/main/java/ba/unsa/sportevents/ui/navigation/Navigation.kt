@@ -205,8 +205,7 @@ fun Navigation(
                         participants = emptyList()
                     )
                     CreateActivity(
-                        //token = it, navController = navController,
-                         sportActivity
+                        token = it, navController = navController, sportActivity
                        )
                 }
         }

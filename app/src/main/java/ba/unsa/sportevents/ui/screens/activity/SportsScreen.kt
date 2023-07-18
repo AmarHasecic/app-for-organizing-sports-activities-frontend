@@ -127,7 +127,7 @@ bottomBar = {
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun ShowListOfSports(sports: List<Sport>, onSportSelected: (Sport) -> Unit) {
-    // Introduce a state variable to keep track of the selected sport
+
     var selectedSportIndex by remember { mutableStateOf(-1) }
 
     LazyColumn {
@@ -135,7 +135,7 @@ fun ShowListOfSports(sports: List<Sport>, onSportSelected: (Sport) -> Unit) {
             Card(
                 onClick = {
                     onSportSelected(sport)
-                    selectedSportIndex = index // Update the selected sport index
+                    selectedSportIndex = index
                 },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -161,38 +161,3 @@ fun ShowListOfSports(sports: List<Sport>, onSportSelected: (Sport) -> Unit) {
         }
     }
 }
-
-
-
-/*
-@RequiresApi(Build.VERSION_CODES.O)
-@Preview
-@Composable
-fun PreviewShowListOfSports() {
-
-    val emptyLocation = Location(0.0, 0.0, "")
-    val emptyHost: User? = null
-
-    val currentDateTime = LocalDateTime.now()
-
-
-    val sportActivity = SportActivity(
-        id = "",
-        host = emptyHost,
-        title = "",
-        sport = "",
-        description = "",
-        location = emptyLocation,
-        startTime = currentDateTime.toString(),
-        date = currentDateTime.toString(),
-        numberOfParticipants = 0,
-        maxNumberOfParticipants = 0,
-        participants = emptyList()
-    )
-
-    val gson = Gson()
-    val jsonActivity : String = gson.toJson(sportActivity)
-    SportsScreen(jsonActivity)
-}
-
-*/
