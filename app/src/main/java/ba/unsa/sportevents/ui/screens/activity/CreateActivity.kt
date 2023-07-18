@@ -259,7 +259,8 @@ fun CreateActivity(
                                 modifier = Modifier
                                     .padding(horizontal = 10.dp)
                                     .align(Alignment.CenterVertically),
-                                color = Color.Black
+                                color = Color.Black,
+
                             )
                         }
                         Row(
@@ -333,7 +334,7 @@ fun CreateActivity(
                     )
                 }
                 item {
-                    Spacer(modifier = Modifier.height(10.dp))
+                    Spacer(modifier = Modifier.height(20.dp))
                 }
                 item {
                     Row(
@@ -341,18 +342,23 @@ fun CreateActivity(
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier.padding(start = 20.dp)
                     ) {
-                        Button(
-                            onClick = { if (maxNumber > 0) maxNumber-- },
-                            colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent),
-                            contentPadding = PaddingValues(0.dp),
-                            elevation = ButtonDefaults.elevation(0.dp)
+                        Box(
+                            modifier = Modifier
+                                .size(50.dp)
+                                .align(Alignment.CenterVertically)
+                                .clickable(
+                                    onClick = {
+                                        if (maxNumber > 0) {
+                                            maxNumber--
+                                        }
+                                    }
+                                )
                         ) {
                             Image(
                                 painter = painterResource(id = R.drawable.removeuser),
                                 contentDescription = null,
                                 modifier = Modifier
                                     .size(50.dp)
-                                    .align(Alignment.CenterVertically)
                             )
                         }
                         Spacer(modifier = Modifier.width(5.dp))
@@ -369,18 +375,23 @@ fun CreateActivity(
 
                         Spacer(modifier = Modifier.width(5.dp))
 
-                        Button(
-                            onClick = { if (maxNumber <= 50) maxNumber++ },
-                            colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent),
-                            contentPadding = PaddingValues(0.dp),
-                            elevation = ButtonDefaults.elevation(0.dp)
+                        Box(
+                            modifier = Modifier
+                                .size(50.dp)
+                                .align(Alignment.CenterVertically)
+                                .clickable(
+                                    onClick = {
+                                        if (maxNumber < 50) {
+                                            maxNumber++
+                                        }
+                                    }
+                                )
                         ) {
                             Image(
                                 painter = painterResource(id = R.drawable.adduser),
                                 contentDescription = null,
                                 modifier = Modifier
                                     .size(50.dp)
-                                    .align(Alignment.CenterVertically)
                             )
                         }
                     }
