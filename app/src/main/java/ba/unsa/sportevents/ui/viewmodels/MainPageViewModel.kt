@@ -22,6 +22,10 @@ class MainPageViewModel(
     private val _activities = MutableStateFlow<List<SportActivity>>(emptyList())
     val activities: StateFlow<List<SportActivity>> = _activities
 
+    private val _activitiesByHost = MutableStateFlow<List<SportActivity>>(emptyList())
+    val activitiesByHost: StateFlow<List<SportActivity>> = _activitiesByHost
+
+
     fun getUser(token: String) {
         viewModelScope.launch {
             val response = userRepository.getUser(token)
@@ -40,6 +44,13 @@ class MainPageViewModel(
         viewModelScope.launch {
             val activities = activitiesRepository.getActivitiesNearby(latitude, longitude)
             _activities.value = activities
+        }
+    }
+
+    fun getActivitiesByHostId(hostId: String) {
+        viewModelScope.launch {
+            val activitiesByHost = activitiesRepository.getActivitiesByHostId(hostId)
+            _activitiesByHost.value = activitiesByHost
         }
     }
 

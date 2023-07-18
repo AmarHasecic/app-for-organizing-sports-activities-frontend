@@ -12,6 +12,11 @@ interface ActivitiesApiService {
         @Query("longitude") longitude: Double
     ): Response<List<SportActivity>>
 
+    @GET("/activities/{hostId}")
+    suspend fun getActivitiesByHostId(
+        @Path("hostId") hostId: String,
+    ): Response<List<SportActivity>>
+
     @POST("/activities")
     suspend fun createActivity(@Body sportActivity: SportActivity): Response<Any>
 

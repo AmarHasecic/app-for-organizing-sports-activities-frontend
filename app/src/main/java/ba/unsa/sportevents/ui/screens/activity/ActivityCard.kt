@@ -20,11 +20,11 @@ import com.google.gson.Gson
 
 
 @Composable
-fun ActivityCard(navController: NavController, sportActivity: SportActivity, token: String) {
+fun ActivityCard(navController: NavController, sportActivity: SportActivity, token: String)  {
     Card(
         modifier = Modifier
             .fillMaxWidth(),
-        backgroundColor = Color(0x1BE0E0E0)
+        backgroundColor = Color.White
     ) {
         Column(Modifier.padding(8.dp)) {
             Row(

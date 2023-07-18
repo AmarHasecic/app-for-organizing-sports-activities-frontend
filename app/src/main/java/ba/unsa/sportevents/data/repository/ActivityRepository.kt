@@ -42,4 +42,17 @@ class ActivityRepository(private val apiService: ActivitiesApiService)  {
         }
     }
 
+    suspend fun getActivitiesByHostId(hostId:  String): List<SportActivity> {
+
+        val response = apiService.getActivitiesByHostId(hostId)
+
+        return if (response.isSuccessful) {
+
+            response.body() ?: emptyList()
+        } else {
+
+            emptyList()
+        }
+    }
+
 }
