@@ -39,15 +39,15 @@ fun ActivityDetails(
     val cameraPositionState = rememberCameraPositionState {
         position = CameraPosition.fromLatLngZoom(latLng, 15f)
     }
+
     var activity by remember {mutableStateOf<SportActivity?>(null)}
-
-
-    var user = viewModel.user.collectAsState()
-    var text by remember{ mutableStateOf("Join") }
+    val user = viewModel.user.collectAsState()
+    var text by remember{ mutableStateOf("") }
 
     val scope = rememberCoroutineScope()
+    var isInitialDataFetched by remember { mutableStateOf(false) }
 
-    LaunchedEffect(Unit) {
+    LaunchedEffect(viewModel.user) {
 
         viewModel.getUser(token)
 
@@ -65,12 +65,18 @@ fun ActivityDetails(
 
             latLng = LatLng(latitude, longitude)
             cameraPositionState.position = CameraPosition.fromLatLngZoom(latLng, 15f)
-
-            text = if(user.value?.let { checkIfUserJoined(activity!!, it) } == true){
-                "Leave event"
-            } else "Join"
         }
 
+    }
+    SideEffect {
+        if (activity != null && user.value != null && !isInitialDataFetched) {
+            isInitialDataFetched = true
+            text = if (checkIfUserJoined(activity!!, user.value!!)) {
+                "Leave event"
+            } else {
+                "Join"
+            }
+        }
     }
 
     Scaffold(
@@ -237,15 +243,10 @@ fun getTime(dateTimeString: String) : String{
     return timeText
 }
 
-fun checkIfUserJoined(a: SportActivity, u: User, ) : Boolean{
-
-    for (item in a.participants) {
-        if (item != null) {
-            if(item.id == u.id) return true
-        }
-
-    }
-    return false;
+fun checkIfUserJoined(activity: SportActivity, user: User, ) : Boolean{
+    val userFound = activity.participants.find { it!!.id == user.id }
+    if(userFound!=null) return true
+    return false
 }
 
 fun join(a: SportActivity, u: User, viewModel: ActivityDetailsViewModel){
@@ -280,18 +281,20 @@ fun join(a: SportActivity, u: User, viewModel: ActivityDetailsViewModel){
     viewModel.updateUser(user)
 }
 
-fun leaveEvent(a: SportActivity, u: User, viewModel: ActivityDetailsViewModel){
+fun leaveEvent(a: SportActivity, u: User, viewModel: ActivityDetailsViewModel) {
+
+
 
     val sportActivity = SportActivity(
         id = a.id,
-        host = u,
+        host = a.host,
         title = a.title,
         sport = a.sport,
         description = a.description,
         location = a.location,
         startTime = a.startTime,
         date = a.date,
-        numberOfParticipants = a.numberOfParticipants -1,
+        numberOfParticipants = a.numberOfParticipants - 1,
         maxNumberOfParticipants = a.maxNumberOfParticipants,
         participants = a.participants
     )
@@ -300,18 +303,36 @@ fun leaveEvent(a: SportActivity, u: User, viewModel: ActivityDetailsViewModel){
         id = u.id,
         email = u.email,
         fullName = u.fullName,
-        password = u.password,
+        password = "",
         dateOfBirth = u.dateOfBirth,
         username = u.username,
         sports = u.sports,
         activities = u.activities
     )
 
-    //ovo ne radi... ovo brisanje
-    sportActivity.participants.toMutableList().remove(u)
-    user.activities.toMutableList().remove(a)
+    removeUserFromParticipants(sportActivity, user.id)
+    removeActivityFromUser(user,sportActivity.id)
 
     viewModel.updateActivity(sportActivity)
     viewModel.updateUser(user)
 }
+
+fun removeUserFromParticipants(activity: SportActivity, userId: String) {
+    val updatedParticipants = activity.participants.toMutableList()
+    val userToRemove = updatedParticipants.find { it!!.id == userId }
+    if (userToRemove != null) {
+        updatedParticipants.remove(userToRemove)
+        activity.participants = updatedParticipants
+    }
+}
+
+fun removeActivityFromUser(user: User, activityId: String) {
+    val updatedActivities = user.activities.toMutableList()
+    val activityToRemove = updatedActivities.find { it!!.id == activityId }
+    if (activityToRemove != null) {
+        updatedActivities.remove(activityToRemove)
+        user.activities = updatedActivities
+    }
+}
+
 

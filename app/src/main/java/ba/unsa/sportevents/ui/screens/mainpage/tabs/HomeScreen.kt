@@ -98,7 +98,7 @@ fun HomeScreen(navController: NavController, token: String, viewModel: MainPageV
                 }
                 Spacer(modifier = Modifier.height(8.dp))
 
-                if(isLocationEnabled(context)) {
+                if(isLocationEnabled(context) && activities.value.isNotEmpty()) {
                     ShowLazyList(navController, activities.value.filter { activity ->
                         activity.title.contains(
                             searchQuery.value,
@@ -108,6 +108,18 @@ fun HomeScreen(navController: NavController, token: String, viewModel: MainPageV
                             ignoreCase = true
                         )
                     }, token)
+                }
+                if(activities.value.isEmpty()){
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+
+                    ){
+                        Text(
+                            text = "No activities to display",
+                            color = Color.Black
+                        )
+                    }
                 }
             }
 
