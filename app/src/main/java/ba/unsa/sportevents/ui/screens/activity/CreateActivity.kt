@@ -358,7 +358,10 @@ fun CreateActivity(
                             contentAlignment = Alignment.Center
                         ) {
 
-                                Text(text = maxNumber.toString())
+                                Text(
+                                    text = maxNumber.toString(),
+                                    color = Color.Black
+                                )
 
                         }
 
