@@ -10,8 +10,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import ba.unsa.etf.R
 import ba.unsa.sportevents.data.model.SportActivity
 import ba.unsa.sportevents.data.model.User
+import ba.unsa.sportevents.ui.theme.MyFavGreen
 import ba.unsa.sportevents.ui.viewmodels.ActivityDetailsViewModel
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
@@ -82,7 +84,7 @@ fun ActivityDetails(
     Scaffold(
         topBar = {
             TopAppBar(
-                backgroundColor = Color(0xFFFF2500)
+                backgroundColor = MyFavGreen
             ) {
                 Text(text = "Activity details",
                     style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold),
@@ -118,7 +120,7 @@ fun ActivityDetails(
                         .padding(5.dp),
 
                     colors = ButtonDefaults.buttonColors(
-                        backgroundColor = Color(0xFFFF2500),
+                        backgroundColor = MyFavGreen,
                         contentColor = Color.White
                     )
                 ) {

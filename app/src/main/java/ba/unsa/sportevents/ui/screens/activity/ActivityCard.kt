@@ -1,5 +1,6 @@
 package ba.unsa.sportevents.ui.screens.activity
 
+import android.annotation.SuppressLint
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
@@ -49,6 +50,7 @@ fun parseStringToLocalDateTime(dateTimeString: String): LocalDateTime {
     return LocalDateTime.parse(dateTimeString, formatter)
 }
 
+@SuppressLint("SuspiciousIndentation")
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun TimeDisplay(dateTime: LocalDateTime, dateTimeFormat: String) {

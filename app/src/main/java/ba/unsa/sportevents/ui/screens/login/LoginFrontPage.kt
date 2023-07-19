@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import ba.unsa.etf.R
 import ba.unsa.sportevents.ui.navigation.Screen
+import ba.unsa.sportevents.ui.theme.MyFavGreen
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.tasks.await
@@ -123,7 +124,7 @@ fun LoginPage(
                         .height(50.dp)
                         .padding(horizontal = 16.dp),
                     colors = ButtonDefaults.buttonColors(
-                        backgroundColor = Color(0xFFFF2500),
+                        backgroundColor = MyFavGreen,
                         contentColor = Color.White
                     )
                 ) {

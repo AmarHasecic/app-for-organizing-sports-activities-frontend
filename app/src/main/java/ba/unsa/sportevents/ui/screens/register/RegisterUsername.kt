@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import ba.unsa.sportevents.data.model.User
+import ba.unsa.sportevents.ui.theme.MyFavGreen
 import ba.unsa.sportevents.ui.viewmodels.RegisterViewModel
 import com.google.gson.Gson
 import kotlinx.coroutines.*
@@ -79,7 +80,7 @@ fun RegisterUsername(navController: NavController,user: String?,viewModel: Regis
                 .height(50.dp),
 
             colors = ButtonDefaults.buttonColors(
-                backgroundColor = Color(0xFFFF2500),
+                backgroundColor = MyFavGreen,
                 contentColor = Color.White
             )
         ) {

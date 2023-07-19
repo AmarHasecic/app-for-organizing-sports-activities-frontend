@@ -4,8 +4,10 @@ import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
 import android.location.LocationManager
+import android.os.Build
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -26,6 +28,7 @@ import ba.unsa.sportevents.data.model.SportActivity
 import ba.unsa.sportevents.ui.components.SearchBar
 import ba.unsa.sportevents.ui.navigation.Screen
 import ba.unsa.sportevents.ui.screens.activity.ActivityCard
+import ba.unsa.sportevents.ui.theme.MyFavGreen
 import ba.unsa.sportevents.ui.viewmodels.MainPageViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -128,13 +131,14 @@ fun HomeScreen(navController: NavController, token: String, viewModel: MainPageV
             modifier = Modifier
                 .padding(16.dp)
                 .align(Alignment.BottomEnd),
-            backgroundColor = Color(0xFFFF2500)
+            backgroundColor = MyFavGreen
         ) {
             Icon(Icons.Default.Add, contentDescription = "Add")
         }
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun ShowLazyList(navController: NavController,activities: List<SportActivity>, token: String) {
     LazyColumn {

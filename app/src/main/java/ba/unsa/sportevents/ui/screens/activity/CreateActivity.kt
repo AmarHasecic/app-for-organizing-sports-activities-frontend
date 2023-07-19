@@ -26,6 +26,7 @@ import ba.unsa.sportevents.data.model.SportActivity
 import ba.unsa.sportevents.ui.components.formatToTime
 import ba.unsa.sportevents.ui.components.makeToast
 import ba.unsa.sportevents.ui.navigation.Screen
+import ba.unsa.sportevents.ui.theme.MyFavGreen
 import com.google.gson.Gson
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
@@ -85,7 +86,7 @@ fun CreateActivity(
     Scaffold(
         topBar = {
             TopAppBar(
-                backgroundColor = Color(0xFFFF2500),
+                backgroundColor = MyFavGreen,
             ) {
                 Text(
                     text = "Create an activity",
@@ -123,7 +124,7 @@ fun CreateActivity(
                     .fillMaxWidth()
                     .padding(16.dp),
                 colors = ButtonDefaults.buttonColors(
-                    backgroundColor = Color(0xFFFF2500),
+                    backgroundColor = MyFavGreen,
                     contentColor = Color.White
                 )
             ) {
@@ -392,34 +393,3 @@ fun CreateActivity(
         }
     }
 }
-
-/*
-@RequiresApi(Build.VERSION_CODES.O)
-@Preview
-@Composable
-fun PreviewCreateActivityScreen() {
-
-    //*************** ZA POTREBE TESTIRIANJA  *********************
-    val emptyLocation = Location(0.0, 0.0, "")
-    val emptyHost: User? = null
-
-    val currentDateTime = LocalDateTime.now()
-
-    val activity = SportActivity(
-        id = "",
-        host = emptyHost,
-        title = "",
-        sport = "",
-        description = "",
-        location = emptyLocation,
-        startTime = currentDateTime.toString(),
-        date = currentDateTime.toString(),
-        numberOfParticipants = 0,
-        maxNumberOfParticipants = 0,
-        participants = emptyList()
-    )
-    //***********************************************************
-
-    CreateActivity(activity = activity)
-}
- */

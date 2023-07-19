@@ -1,5 +1,7 @@
 package ba.unsa.sportevents.ui.screens.mainpage
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -20,11 +22,13 @@ import ba.unsa.sportevents.ui.screens.mainpage.tabs.MapScreen
 import ba.unsa.sportevents.ui.screens.mainpage.tabs.ProfileScreen
 import ba.unsa.sportevents.ui.screens.mainpage.tabs.SettingsScreen
 import ba.unsa.sportevents.gps.LocationPopUp
+import ba.unsa.sportevents.ui.theme.MyFavGreen
 import ba.unsa.sportevents.ui.viewmodels.MainPageViewModel
 
 private const val REQUEST_LOCATION_PERMISSION = 123
 
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun UserMainPage(navController: NavController, token: String, viewModel: MainPageViewModel) {
 
@@ -37,7 +41,7 @@ fun UserMainPage(navController: NavController, token: String, viewModel: MainPag
         topBar = {
 
             TopAppBar(
-                backgroundColor = Color(0xFFFF2500),
+                backgroundColor = MyFavGreen,
             ) {
 
                 when (activeContent) {
@@ -77,7 +81,7 @@ fun UserMainPage(navController: NavController, token: String, viewModel: MainPag
                                 contentDescription = null
                             )
                         },
-                        selectedContentColor = Color(0xFFFF2500),
+                        selectedContentColor = MyFavGreen,
                         unselectedContentColor = Color.LightGray,
                         enabled = true
                     )
@@ -94,7 +98,7 @@ fun UserMainPage(navController: NavController, token: String, viewModel: MainPag
                                 contentDescription = null
                             )
                         },
-                        selectedContentColor = Color(0xFFFF2500),
+                        selectedContentColor = MyFavGreen,
                         unselectedContentColor = Color.LightGray,
                         enabled = true
                     )
@@ -111,7 +115,7 @@ fun UserMainPage(navController: NavController, token: String, viewModel: MainPag
                                 contentDescription = null
                             )
                         },
-                        selectedContentColor = Color(0xFFFF2500),
+                        selectedContentColor = MyFavGreen,
                         unselectedContentColor = Color.LightGray,
                         enabled = true
                     )
@@ -128,7 +132,7 @@ fun UserMainPage(navController: NavController, token: String, viewModel: MainPag
                                 contentDescription = null
                             )
                         },
-                        selectedContentColor = Color(0xFFFF2500),
+                        selectedContentColor = MyFavGreen,
                         unselectedContentColor = Color.LightGray,
                         enabled = true
                     )

@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import ba.unsa.sportevents.data.model.User
 import ba.unsa.sportevents.ui.navigation.Screen
+import ba.unsa.sportevents.ui.theme.MyFavGreen
 import com.google.gson.Gson
 
 
@@ -100,7 +101,7 @@ fun RegisterFormEmail(navController: NavController) {
                 .height(50.dp),
 
             colors = ButtonDefaults.buttonColors(
-                backgroundColor = Color(0xFFFF2500),
+                backgroundColor = MyFavGreen,
                 contentColor = Color.White
             )
         ) {

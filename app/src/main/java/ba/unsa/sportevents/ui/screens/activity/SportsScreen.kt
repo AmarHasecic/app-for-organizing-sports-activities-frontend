@@ -1,12 +1,8 @@
 package ba.unsa.sportevents.ui.screens.activity
 
-import android.os.Build
-import androidx.annotation.RequiresApi
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -15,18 +11,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import ba.unsa.etf.R
-import ba.unsa.sportevents.data.model.Location
 import ba.unsa.sportevents.data.model.Sport
 import ba.unsa.sportevents.data.model.SportActivity
-import ba.unsa.sportevents.data.model.User
 import ba.unsa.sportevents.ui.components.SearchBar
 import ba.unsa.sportevents.ui.navigation.Screen
+import ba.unsa.sportevents.ui.theme.MyFavGreen
 import com.google.gson.Gson
-import java.time.LocalDateTime
 
 
 @Composable
@@ -64,7 +57,7 @@ var sportActivity by remember {
 Scaffold(
 topBar = {
     TopAppBar(
-        backgroundColor = Color(0xFFFF2500)
+        backgroundColor = MyFavGreen
     ) {
         Text(
             text = "Pick a sport",
@@ -91,7 +84,7 @@ bottomBar = {
             .fillMaxWidth()
             .padding(16.dp),
         colors = ButtonDefaults.buttonColors(
-            backgroundColor = Color(0xFFFF2500),
+            backgroundColor = MyFavGreen,
             contentColor = Color.White
         )
     ) {

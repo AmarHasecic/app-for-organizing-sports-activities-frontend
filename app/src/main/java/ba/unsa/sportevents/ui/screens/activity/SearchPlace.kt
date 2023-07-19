@@ -19,6 +19,7 @@ import ba.unsa.sportevents.data.model.Location
 import ba.unsa.sportevents.data.model.SportActivity
 import ba.unsa.sportevents.ui.components.makeToast
 import ba.unsa.sportevents.ui.navigation.Screen
+import ba.unsa.sportevents.ui.theme.MyFavGreen
 import ba.unsa.sportevents.ui.viewmodels.CreateActivityViewModel
 import ba.unsa.sportevents.ui.viewmodels.MainPageViewModel
 import com.google.android.gms.maps.model.LatLng
@@ -96,7 +97,7 @@ fun SearchPlaceScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                backgroundColor = Color(0xFFFF2500)
+                backgroundColor = MyFavGreen
             ) {
                 Text(
                     text = "Sport activity location",
@@ -143,7 +144,7 @@ fun SearchPlaceScreen(
                     .fillMaxWidth()
                     .padding(16.dp),
                 colors = ButtonDefaults.buttonColors(
-                    backgroundColor = Color(0xFFFF2500),
+                    backgroundColor = MyFavGreen,
                     contentColor = Color.White
                 )
             ) {
