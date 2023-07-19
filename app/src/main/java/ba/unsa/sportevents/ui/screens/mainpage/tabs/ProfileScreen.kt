@@ -1,9 +1,12 @@
 package ba.unsa.sportevents.ui.screens.mainpage.tabs
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -31,6 +34,7 @@ import ba.unsa.sportevents.ui.viewmodels.MainPageViewModel
 import coil.compose.rememberImagePainter
 
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun ProfileScreen(
     navController: NavController,
@@ -46,6 +50,10 @@ fun ProfileScreen(
 
     LaunchedEffect(Unit) {
         viewModel.getUser(token)
+        user.value?.let { viewModel.getActivitiesByHostId(it.id) }
+    }
+
+    SideEffect {
         user.value?.let { viewModel.getActivitiesByHostId(it.id) }
     }
 
@@ -69,7 +77,7 @@ fun ProfileScreen(
         ) {
             Image(
                 painter = rememberImagePainter(
-                    data = " https://ui-avatars.com/api/?name={user.fullName}&background=random&color=fff",
+                    data = "https://ui-avatars.com/api/?name=${user.value?.fullName}&background=random&color=fff",
                     builder = {
                         error(R.drawable.profile_picture)
                         fallback(R.drawable.profile_picture)
@@ -118,7 +126,7 @@ fun ProfileScreen(
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(30.dp)
+                        .height(20.dp)
                         .background(
                             color = Color.White,
                             shape = RoundedCornerShape(
@@ -141,13 +149,20 @@ fun ProfileScreen(
                         color = Color.Black,
                         modifier = Modifier
                             .padding(20.dp)
-                            .background(color = Color.White)
+                            .background(color = Color.White),
+                        fontWeight = FontWeight.SemiBold
                     )
                 }
             }
-            items(activities.value) { activity ->
-                ActivityCard(navController, activity, token)
+        item {
+            LazyRow {
+                items(activities.value) { activity ->
+                    Box(modifier = Modifier.width(getScreenWidthInDp())) {
+                        ActivityCard(navController, activity, token)
+                    }
+                }
             }
+        }
 
 
             item {
@@ -161,7 +176,8 @@ fun ProfileScreen(
                         color = Color.Black,
                         modifier = Modifier
                             .padding(20.dp)
-                            .background(color = Color.White)
+                            .background(color = Color.White),
+                        fontWeight = FontWeight.SemiBold
                     )
                 }
             }
@@ -197,6 +213,14 @@ fun getScreenHeightInDp(): Dp {
     val density = LocalDensity.current.density
     return screenHeightPx
 }
+@Composable
+fun getScreenWidthInDp(): Dp {
+    val configuration = LocalConfiguration.current
+    val screenWidthPx = configuration.screenWidthDp.dp
+    val density = LocalDensity.current.density
+    return screenWidthPx
+}
+
 
 
 
