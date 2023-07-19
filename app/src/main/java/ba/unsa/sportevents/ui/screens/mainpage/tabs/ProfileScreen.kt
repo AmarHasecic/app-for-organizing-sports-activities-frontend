@@ -148,20 +148,21 @@ fun ProfileScreen(
                         text = "Your activities",
                         color = Color.Black,
                         modifier = Modifier
-                            .padding(20.dp)
+                            .padding(start = 20.dp, bottom = 10.dp)
                             .background(color = Color.White),
                         fontWeight = FontWeight.SemiBold
                     )
                 }
             }
         item {
-            LazyRow {
-                items(activities.value) { activity ->
-                    Box(modifier = Modifier.width(getScreenWidthInDp())) {
-                        ActivityCard(navController, activity, token)
+
+                LazyRow {
+                    items(activities.value) { activity ->
+                        Box(modifier = Modifier.width(getScreenWidthInDp()-40.dp)) {
+                            ActivityCard(navController, activity, token)
+                        }
                     }
                 }
-            }
         }
 
 
@@ -175,7 +176,7 @@ fun ProfileScreen(
                         text = "Upcoming events",
                         color = Color.Black,
                         modifier = Modifier
-                            .padding(20.dp)
+                            .padding(start = 20.dp, bottom = 10.dp, top = 25.dp)
                             .background(color = Color.White),
                         fontWeight = FontWeight.SemiBold
                     )
