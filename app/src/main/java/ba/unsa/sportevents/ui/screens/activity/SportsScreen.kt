@@ -61,7 +61,7 @@ topBar = {
     ) {
         Text(
             text = "Pick a sport",
-            style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold),
+            style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold), color = Color.White,
             modifier = Modifier.padding(start = 10.dp)
         )
     }

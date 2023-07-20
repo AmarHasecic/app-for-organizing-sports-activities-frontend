@@ -87,7 +87,7 @@ fun ActivityDetails(
                 backgroundColor = MyFavGreen
             ) {
                 Text(text = "Activity details",
-                    style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold),
+                    style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold), color = Color.White,
                     modifier = Modifier.padding(start = 10.dp)
                 )
             }

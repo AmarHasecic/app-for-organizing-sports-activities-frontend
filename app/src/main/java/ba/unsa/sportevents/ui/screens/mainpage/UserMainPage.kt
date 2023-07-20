@@ -46,13 +46,13 @@ fun UserMainPage(navController: NavController, token: String, viewModel: MainPag
 
                 when (activeContent) {
                     0 -> Text(text = "Home",  modifier = Modifier.padding(start = 10.dp),
-                        style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold))
+                        style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold), color = Color.White)
                     1 -> Text(text = "Map",  modifier = Modifier.padding(start = 10.dp),
-                        style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold))
+                        style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold), color = Color.White)
                     2 -> Text(text = "Profile",  modifier = Modifier.padding(start = 10.dp),
-                        style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold))
+                        style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold), color = Color.White)
                     3 -> Text(text = "Settings",  modifier = Modifier.padding(start = 10.dp),
-                        style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold))
+                        style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold), color = Color.White)
                 }
             }
 
@@ -78,7 +78,8 @@ fun UserMainPage(navController: NavController, token: String, viewModel: MainPag
                         icon = {
                             Icon(
                                 imageVector = Icons.Default.Home,
-                                contentDescription = null
+                                contentDescription = null,
+                                Modifier.size(30.dp)
                             )
                         },
                         selectedContentColor = MyFavGreen,
@@ -95,7 +96,8 @@ fun UserMainPage(navController: NavController, token: String, viewModel: MainPag
                         icon = {
                             Icon(
                                 imageVector = Icons.Default.LocationOn,
-                                contentDescription = null
+                                contentDescription = null,
+                                Modifier.size(30.dp)
                             )
                         },
                         selectedContentColor = MyFavGreen,
@@ -112,7 +114,8 @@ fun UserMainPage(navController: NavController, token: String, viewModel: MainPag
                         icon = {
                             Icon(
                                 imageVector = Icons.Default.AccountCircle,
-                                contentDescription = null
+                                contentDescription = null,
+                                Modifier.size(30.dp)
                             )
                         },
                         selectedContentColor = MyFavGreen,
@@ -129,7 +132,8 @@ fun UserMainPage(navController: NavController, token: String, viewModel: MainPag
                         icon = {
                             Icon(
                                 imageVector = Icons.Default.Settings,
-                                contentDescription = null
+                                contentDescription = null,
+                                Modifier.size(30.dp)
                             )
                         },
                         selectedContentColor = MyFavGreen,

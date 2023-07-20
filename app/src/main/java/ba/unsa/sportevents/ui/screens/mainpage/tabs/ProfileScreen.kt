@@ -60,13 +60,8 @@ fun ProfileScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
+            .background(color = Color(0xFF1DE09C))
     ) {
-    Image(
-        painter = painterResource(R.drawable.profilebackground),
-        contentDescription = null,
-        modifier = Modifier.fillMaxSize(),
-        contentScale = ContentScale.FillBounds
-    )
         Column(
             modifier = Modifier
                 .fillMaxSize()
