@@ -33,6 +33,11 @@ import ba.unsa.sportevents.ui.viewmodels.MainPageViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.tasks.await
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
 
 fun isLocationEnabled(context: Context): Boolean {
     val locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
@@ -42,6 +47,30 @@ fun isLocationEnabled(context: Context): Boolean {
     return gpsEnabled || networkEnabled
 }
 
+
+@RequiresApi(Build.VERSION_CODES.O)
+fun parseStringToLocalDate(dateTimeString: String): LocalDate? {
+    return try {
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS")
+        LocalDate.parse(dateTimeString, formatter)
+    } catch (e: DateTimeParseException) {
+        null
+    }
+}
+
+@RequiresApi(Build.VERSION_CODES.O)
+fun parseStringToLocalTime(dateTimeString: String): LocalTime? {
+    return try {
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS")
+        val dateTime = LocalDateTime.parse(dateTimeString, formatter)
+        dateTime.toLocalTime()
+    } catch (e: DateTimeParseException) {
+        null
+    }
+}
+
+
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun HomeScreen(navController: NavController, token: String, viewModel: MainPageViewModel){
 
@@ -143,6 +172,9 @@ fun HomeScreen(navController: NavController, token: String, viewModel: MainPageV
 fun ShowLazyList(navController: NavController,activities: List<SportActivity>, token: String) {
     LazyColumn {
         items(activities) { activity ->
+            println("String koji se parsira " + activity.startTime)
+            println("Rezultat parsiranja " + parseStringToLocalTime(activity.startTime))
+            if(parseStringToLocalDate(activity.date)?.isAfter(LocalDate.now()) == true && parseStringToLocalTime(activity.startTime)?.isAfter(LocalTime.now()) ==true)
             ActivityCard(navController,activity, token)
         }
     }

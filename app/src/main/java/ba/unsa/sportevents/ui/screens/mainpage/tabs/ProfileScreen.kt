@@ -19,10 +19,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -32,6 +30,8 @@ import ba.unsa.etf.R
 import ba.unsa.sportevents.ui.screens.activity.ActivityCard
 import ba.unsa.sportevents.ui.viewmodels.MainPageViewModel
 import coil.compose.rememberImagePainter
+import java.time.LocalDate
+import java.time.LocalTime
 
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -60,42 +60,49 @@ fun ProfileScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = Color(0xFF1DE09C))
+            .background(color = Color.White)
+
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(top = 35.dp)
-                .align(alignment = Alignment.Center)
-                .padding(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+        Box(
+            modifier = Modifier.fillMaxWidth()
+                .height(200.dp)
+                .background(color = Color(0xFF1DE09C))
         ) {
-            Image(
-                painter = rememberImagePainter(
-                    data = "https://ui-avatars.com/api/?name=${user.value?.fullName}&background=random&color=fff",
-                    builder = {
-                        error(R.drawable.profile_picture)
-                        fallback(R.drawable.profile_picture)
-                    }
-                ),
-                contentDescription = "Profile photo",
+            Column(
                 modifier = Modifier
-                    .size(90.dp)
-                    .clip(CircleShape)
-            )
-            user.value?.let {
+                    .fillMaxSize()
+                    .padding(top = 35.dp)
+                    .align(alignment = Alignment.Center)
+                    .padding(16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Image(
+                    painter = rememberImagePainter(
+                        data = "https://ui-avatars.com/api/?name=${user.value?.fullName}&background=random&color=fff",
+                        builder = {
+                            error(R.drawable.profile_picture)
+                            fallback(R.drawable.profile_picture)
+                        }
+                    ),
+                    contentDescription = "Profile photo",
+                    modifier = Modifier
+                        .size(90.dp)
+                        .clip(CircleShape)
+                )
+                user.value?.let {
+                    Text(
+                        text = it.fullName,
+                        color = Color.White,
+                        fontSize = 24.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
                 Text(
-                    text = it.fullName,
+                    text = "@" + (user.value?.username ?: ""),
                     color = Color.White,
-                    fontSize = 24.sp,
-                    fontWeight = FontWeight.Bold
+                    fontSize = 18.sp
                 )
             }
-            Text(
-                text = "@" + (user.value?.username ?: ""),
-                color = Color.White,
-                fontSize = 18.sp
-            )
         }
     }
 
@@ -180,7 +187,12 @@ fun ProfileScreen(
 
             user.value?.let {
                 items(it.activities) { activity ->
-                    if (activity != null) {
+                    if ((activity != null)
+                        && ((parseStringToLocalDate(activity.date)?.isAfter(
+                            LocalDate.now()) == true)
+                                && (parseStringToLocalTime(activity.startTime)?.isAfter(LocalTime.now()) == true))
+                    )
+                            {
                         ActivityCard(navController, activity, token)
                     }
                 }
