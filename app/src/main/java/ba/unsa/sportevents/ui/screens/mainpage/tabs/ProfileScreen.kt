@@ -11,10 +11,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.SideEffect
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -27,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import ba.unsa.etf.R
+import ba.unsa.sportevents.data.model.SportActivity
 import ba.unsa.sportevents.ui.screens.activity.ActivityCard
 import ba.unsa.sportevents.ui.viewmodels.MainPageViewModel
 import coil.compose.rememberImagePainter
@@ -48,9 +46,16 @@ fun ProfileScreen(
     val user = viewModel.user.collectAsState()
     val activities = viewModel.activitiesByHost.collectAsState()
 
+    val upcomingEvents = user.value?.activities?.filter { activity ->
+        val date = activity?.let { parseStringToLocalDate(it.date) }
+        val startTime = activity?.let { parseStringToLocalTime(it.startTime) }
+        date?.isAfter(LocalDate.now()) == true && startTime?.isAfter(LocalTime.now()) == true
+    }
+
     LaunchedEffect(Unit) {
         viewModel.getUser(token)
         user.value?.let { viewModel.getActivitiesByHostId(it.id) }
+
     }
 
     SideEffect {
@@ -65,7 +70,7 @@ fun ProfileScreen(
     ) {
         Box(
             modifier = Modifier.fillMaxWidth()
-                .height(200.dp)
+                .height(250.dp)
                 .background(color = Color(0xFF1DE09C))
         ) {
             Column(
@@ -185,18 +190,12 @@ fun ProfileScreen(
                 }
             }
 
-            user.value?.let {
-                items(it.activities) { activity ->
-                    if ((activity != null)
-                        && ((parseStringToLocalDate(activity.date)?.isAfter(
-                            LocalDate.now()) == true)
-                                && (parseStringToLocalTime(activity.startTime)?.isAfter(LocalTime.now()) == true))
-                    )
-                            {
-                        ActivityCard(navController, activity, token)
-                    }
+            items(upcomingEvents ?: emptyList()) { activity ->
+                activity?.let {
+                    ActivityCard(navController, it, token)
                 }
             }
+
 
             item {
                 Box(

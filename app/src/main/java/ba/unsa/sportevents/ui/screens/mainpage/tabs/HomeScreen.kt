@@ -1,6 +1,7 @@
 package ba.unsa.sportevents.ui.screens.mainpage.tabs
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
 import android.location.LocationManager
@@ -93,6 +94,12 @@ fun HomeScreen(navController: NavController, token: String, viewModel: MainPageV
         }
     }
 
+    val upcomingEvents = activities.value.filter { activity ->
+        val date = parseStringToLocalDate(activity.date)
+        val startTime = parseStringToLocalTime(activity.startTime)
+        date?.isAfter(LocalDate.now()) == true && startTime?.isAfter(LocalTime.now()) == true
+    }
+
 
 
     LaunchedEffect(Unit) {
@@ -128,8 +135,8 @@ fun HomeScreen(navController: NavController, token: String, viewModel: MainPageV
                 }
                 Spacer(modifier = Modifier.height(8.dp))
 
-                if(isLocationEnabled(context) && activities.value.isNotEmpty()) {
-                    ShowLazyList(navController, activities.value.filter { activity ->
+                if(isLocationEnabled(context) && upcomingEvents.isNotEmpty()) {
+                    ShowLazyList(navController, upcomingEvents.filter { activity ->
                         activity.title.contains(
                             searchQuery.value,
                             ignoreCase = true
@@ -139,7 +146,7 @@ fun HomeScreen(navController: NavController, token: String, viewModel: MainPageV
                         )
                     }, token)
                 }
-                if(activities.value.isEmpty()){
+                if(upcomingEvents.isEmpty()){
                     Box(
                         modifier = Modifier.fillMaxSize(),
                         contentAlignment = Alignment.Center
@@ -167,14 +174,12 @@ fun HomeScreen(navController: NavController, token: String, viewModel: MainPageV
     }
 }
 
+@SuppressLint("SuspiciousIndentation")
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun ShowLazyList(navController: NavController,activities: List<SportActivity>, token: String) {
     LazyColumn {
         items(activities) { activity ->
-            println("String koji se parsira " + activity.startTime)
-            println("Rezultat parsiranja " + parseStringToLocalTime(activity.startTime))
-            if(parseStringToLocalDate(activity.date)?.isAfter(LocalDate.now()) == true && parseStringToLocalTime(activity.startTime)?.isAfter(LocalTime.now()) ==true)
             ActivityCard(navController,activity, token)
         }
     }

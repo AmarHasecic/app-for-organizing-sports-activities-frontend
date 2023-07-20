@@ -14,7 +14,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -36,6 +39,7 @@ fun LoginPage(
         modifier = Modifier
             .fillMaxWidth()
             .fillMaxHeight()
+            .padding(bottom = 15.dp)
 
     ) {
         Column(
@@ -44,22 +48,28 @@ fun LoginPage(
             verticalArrangement = Arrangement.Center
         ) {
 
-            Spacer(modifier = Modifier.height(16.dp))
-
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
                     .fillMaxHeight(),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
+                Box(
+                    modifier = Modifier.fillMaxWidth()
+                    .height(400.dp)
+                ) {
+                    Image(
+                        painter = painterResource(R.drawable.logincover),
+                        contentDescription = null,
+                        contentScale = ContentScale.FillBounds,
+                    )
+                }
                 Text(
                     text = "Find your perfect match – in sports! Create events, connect with friends, and play together.",
-                    modifier = Modifier.padding(horizontal = 16.dp)
+                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp)
                 )
 
-                Spacer(modifier = Modifier.height(10.dp))
-
-
+                Spacer(modifier = Modifier.weight(1f))
                 Button(
                     onClick = {
                         navController.navigate(Screen.RegisterEmailScreen.route)
@@ -67,6 +77,7 @@ fun LoginPage(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 16.dp)
+                        .padding(bottom = 20.dp)
                         .border(
                             width = 1.dp,
                             color = Color.Black,
@@ -88,10 +99,9 @@ fun LoginPage(
                     }
                 }
 
-                Spacer(modifier = Modifier.weight(1f))
-
                 Row(
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.padding(top = 10.dp, bottom = 10.dp)
                 ) {
                     Box(
                         modifier = Modifier
