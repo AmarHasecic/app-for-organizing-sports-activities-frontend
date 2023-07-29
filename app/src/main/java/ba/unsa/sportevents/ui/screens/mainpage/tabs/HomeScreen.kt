@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.app.ActivityCompat
 import androidx.navigation.NavController
 import ba.unsa.sportevents.data.model.SportActivity
+import ba.unsa.sportevents.data.repository.DataRepository
 import ba.unsa.sportevents.ui.components.SearchBar
 import ba.unsa.sportevents.ui.navigation.Screen
 import ba.unsa.sportevents.ui.screens.activity.ActivityCard
@@ -33,7 +34,9 @@ import ba.unsa.sportevents.ui.theme.MyFavGreen
 import ba.unsa.sportevents.ui.viewmodels.MainPageViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -104,7 +107,7 @@ fun HomeScreen(navController: NavController, token: String, viewModel: MainPageV
 
     LaunchedEffect(Unit) {
 
-         if (ActivityCompat.checkSelfPermission(
+        if (ActivityCompat.checkSelfPermission(
                 context,
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
@@ -112,19 +115,24 @@ fun HomeScreen(navController: NavController, token: String, viewModel: MainPageV
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-             // Permission not granted, request it
-             requestPermissionLauncher.launch(
-                 Manifest.permission.ACCESS_FINE_LOCATION)
+            // Permission not granted, request it
+            requestPermissionLauncher.launch(
+                Manifest.permission.ACCESS_FINE_LOCATION
+            )
 
         }
-        else{
-              val location = fusedLocationClient.lastLocation.await()
+        else {
 
-             val latitude = location.latitude
-             val longitude = location.longitude
+            @SuppressLint("MissingPermission")
+            val location = fusedLocationClient.lastLocation.await()
 
-             viewModel.getActivitiesNearby(latitude, longitude)
-         }
+            if (location != null) {
+                val latitude = location.latitude
+                val longitude = location.longitude
+
+                viewModel.getActivitiesNearby(latitude, longitude)
+            }
+        }
     }
 
     Box(modifier = Modifier.fillMaxSize()) {
