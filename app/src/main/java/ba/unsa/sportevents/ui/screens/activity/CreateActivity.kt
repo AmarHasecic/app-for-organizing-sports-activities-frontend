@@ -23,6 +23,7 @@ import androidx.navigation.NavController
 import ba.unsa.etf.R
 import ba.unsa.sportevents.data.model.Location
 import ba.unsa.sportevents.data.model.SportActivity
+import ba.unsa.sportevents.ui.components.CustomButton
 import ba.unsa.sportevents.ui.components.formatToTime
 import ba.unsa.sportevents.ui.components.makeToast
 import ba.unsa.sportevents.ui.navigation.Screen
@@ -97,38 +98,26 @@ fun CreateActivity(
         },
 
         bottomBar = {
-            Button(
-                onClick = {
+            CustomButton(text = "Next") {
+                if(title == "" || description == "" || maxNumber == 0){
+                    makeToast(context,"All fields are required")
+                }
+                else {
+                    activity.title = title
+                    activity.description = description
+                    activity.maxNumberOfParticipants = maxNumber
+                    activity.numberOfParticipants = 0
+                    activity.startTime = convertDateToLocalDateTime(eventTime!!).toString()
+                    activity.sport = ""
+                    activity.date = mDate.toString()
+                    activity.host = null
+                    activity.location = Location(0.0,0.0,"")
+                    activity.participants = emptyList()
 
-                    if(title == "" || description == "" || maxNumber == 0){
-                        makeToast(context,"All fields are required")
-                    }
-                    else {
-                        activity.title = title
-                        activity.description = description
-                        activity.maxNumberOfParticipants = maxNumber
-                        activity.numberOfParticipants = 0
-                        activity.startTime = convertDateToLocalDateTime(eventTime!!).toString()
-                        activity.sport = ""
-                        activity.date = mDate.toString()
-                        activity.host = null
-                        activity.location = Location(0.0,0.0,"")
-                        activity.participants = emptyList()
-
-                        val gson = Gson()
-                        val jsonActivity : String = gson.toJson(activity)
-                        navController.navigate("${Screen.SportsScreen.route}/${token}/${jsonActivity}")
-                    }
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                colors = ButtonDefaults.buttonColors(
-                    backgroundColor = MyFavGreen,
-                    contentColor = Color.White
-                )
-            ) {
-                Text(text = "Next")
+                    val gson = Gson()
+                    val jsonActivity : String = gson.toJson(activity)
+                    navController.navigate("${Screen.SportsScreen.route}/${token}/${jsonActivity}")
+                }
             }
         }
     ) { contentPadding ->

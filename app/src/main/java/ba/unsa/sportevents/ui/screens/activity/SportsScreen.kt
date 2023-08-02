@@ -16,6 +16,7 @@ import androidx.navigation.NavController
 import ba.unsa.etf.R
 import ba.unsa.sportevents.data.model.Sport
 import ba.unsa.sportevents.data.model.SportActivity
+import ba.unsa.sportevents.ui.components.CustomButton
 import ba.unsa.sportevents.ui.components.SearchBar
 import ba.unsa.sportevents.ui.navigation.Screen
 import ba.unsa.sportevents.ui.theme.MyFavGreen
@@ -68,27 +69,17 @@ topBar = {
 },
 
 bottomBar = {
-    Button(
-        onClick = {
-            if(selectedSport!!.isSelected) {
+    CustomButton(text = "Next") {
+        if(selectedSport!!.isSelected) {
 
-               sportActivity!!.sport = selectedSport!!.name
+            sportActivity!!.sport = selectedSport!!.name
 
-                val gson = Gson()
-                val jsonActivity : String = gson.toJson(sportActivity)
-                navController.navigate("${Screen.SearchPlaceScreen.route}/${token}/${jsonActivity}")
+            val gson = Gson()
+            val jsonActivity : String = gson.toJson(sportActivity)
+            navController.navigate("${Screen.SearchPlaceScreen.route}/${token}/${jsonActivity}")
 
-            }
-        },
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
-        colors = ButtonDefaults.buttonColors(
-            backgroundColor = MyFavGreen,
-            contentColor = Color.White
-        )
-    ) {
-        Text(text = "Next")
+        }
+
     }
 }
 

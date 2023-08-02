@@ -1,7 +1,5 @@
 package ba.unsa.sportevents.ui.screens.login
 
-import android.annotation.SuppressLint
-import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -11,24 +9,17 @@ import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import ba.unsa.etf.R
+import ba.unsa.sportevents.ui.components.CustomButton
 import ba.unsa.sportevents.ui.navigation.Screen
-import ba.unsa.sportevents.ui.theme.MyFavGreen
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
-import kotlinx.coroutines.tasks.await
 
 @Composable
 fun LoginPage(
@@ -55,8 +46,9 @@ fun LoginPage(
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Box(
-                    modifier = Modifier.fillMaxWidth()
-                    .height(400.dp)
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(450.dp)
                 ) {
                     Image(
                         painter = painterResource(R.drawable.logincover),
@@ -125,25 +117,9 @@ fun LoginPage(
                     )
                 }
 
-                Button(
-                    onClick = {
-                        navController.navigate(Screen.LoginScreen.route)
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(50.dp)
-                        .padding(horizontal = 16.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        backgroundColor = MyFavGreen,
-                        contentColor = Color.White
-                    )
-                ) {
-                    Text(
-                        text = "Login",
-                        color = Color.White
-                    )
+                CustomButton(text = "Login") {
+                    navController.navigate(Screen.LoginScreen.route)
                 }
-
 
             }
         }

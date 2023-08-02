@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import ba.unsa.sportevents.data.model.Location
 import ba.unsa.sportevents.data.model.SportActivity
+import ba.unsa.sportevents.ui.components.CustomButton
 import ba.unsa.sportevents.ui.components.makeToast
 import ba.unsa.sportevents.ui.navigation.Screen
 import ba.unsa.sportevents.ui.theme.MyFavGreen
@@ -108,47 +109,35 @@ fun SearchPlaceScreen(
         },
 
         bottomBar = {
-            Button(
-                onClick = {
 
-                    sportActivity!!.host = user.value
+            CustomButton(text = "Create activity") {
+                sportActivity!!.host = user.value
 
-                    val placeFields = listOf(Place.Field.LAT_LNG)
-                    val request = FetchPlaceRequest.newInstance(selectedLocation.placeId, placeFields)
-                    placesClient.fetchPlace(request)
-                        .addOnSuccessListener {
-                            if (it != null) {
+                val placeFields = listOf(Place.Field.LAT_LNG)
+                val request = FetchPlaceRequest.newInstance(selectedLocation.placeId, placeFields)
+                placesClient.fetchPlace(request)
+                    .addOnSuccessListener {
+                        if (it != null) {
 
-                                sportActivity!!.location = Location(
-                                    latitude = it.place.latLng.latitude,
-                                    longitude = it.place.latLng.longitude,
-                                    name = selectedLocation.address
-                                )
+                            sportActivity!!.location = Location(
+                                latitude = it.place.latLng.latitude,
+                                longitude = it.place.latLng.longitude,
+                                name = selectedLocation.address
+                            )
 
-                                // Post to a server
-                                GlobalScope.launch {
-                                    viewModel.createActivityRequest(sportActivity!!)
-                                }
-
-                                navController.navigate("${Screen.UserMainPage.route}/${token}")
-                                makeToast(context, "Activity created successfully")
-
+                            // Post to a server
+                            GlobalScope.launch {
+                                viewModel.createActivityRequest(sportActivity!!)
                             }
-                        }
-                        .addOnFailureListener {
-                            it.printStackTrace()
-                        }
 
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                colors = ButtonDefaults.buttonColors(
-                    backgroundColor = MyFavGreen,
-                    contentColor = Color.White
-                )
-            ) {
-                Text(text = "Create activity")
+                            navController.navigate("${Screen.UserMainPage.route}/${token}")
+                            makeToast(context, "Activity created successfully")
+
+                        }
+                    }
+                    .addOnFailureListener {
+                        it.printStackTrace()
+                    }
             }
         }
     ) { contentPadding ->

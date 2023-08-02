@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import ba.unsa.sportevents.ui.components.CustomButton
 import ba.unsa.sportevents.ui.theme.MyFavGreen
 import ba.unsa.sportevents.ui.viewmodels.LoginFormViewModel
 import kotlinx.coroutines.*
@@ -75,33 +76,17 @@ fun LoginScreen(navController: NavController, viewModel: LoginFormViewModel) {
         )
         Spacer(modifier = Modifier.height(16.dp))
 
-        Button(
-            onClick = {
-                GlobalScope.launch {
-                    try {
-                        viewModel.performLogin(username, password, navController)
-                    }
-                    catch (e:Exception){
-                        e.message?.let { makeToast(mContext, it) }
-                    }
+        CustomButton(text = "Login") {
+            GlobalScope.launch {
+                try {
+                    viewModel.performLogin(username, password, navController)
                 }
+                catch (e:Exception){
+                    e.message?.let { makeToast(mContext, it) }
+                }
+            }
 
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(5.dp),
-
-            colors = ButtonDefaults.buttonColors(
-                backgroundColor = MyFavGreen,
-                contentColor = Color.White
-            )
-        ) {
-            Text(text = "Login")
         }
-
-        Spacer(modifier = Modifier.height(16.dp))
-        Text(text = "Forgot password?", fontSize = 13.sp)
-
     }
 }
 

@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.dp
 import ba.unsa.etf.R
 import ba.unsa.sportevents.data.model.SportActivity
 import ba.unsa.sportevents.data.model.User
+import ba.unsa.sportevents.ui.components.CustomButton
 import ba.unsa.sportevents.ui.theme.MyFavGreen
 import ba.unsa.sportevents.ui.viewmodels.ActivityDetailsViewModel
 import com.google.android.gms.maps.model.CameraPosition
@@ -97,36 +98,19 @@ fun ActivityDetails(
                     backgroundColor = Color.White)
             {
 
-                Button(
-                    onClick = {
-
-                        if(!checkIfUserJoined(activity!!, user.value!!)){
-                            scope.launch {
-                              join(activity!!, user.value!!,viewModel)
-                            }
-                            text = "Leave event"
+                CustomButton(text = text) {
+                    if(!checkIfUserJoined(activity!!, user.value!!)){
+                        scope.launch {
+                            join(activity!!, user.value!!,viewModel)
                         }
-                        else{
-                            scope.launch {
-                                leaveEvent(activity!!, user.value!!,viewModel)
-                                text = "Join"
-                            }
-
+                        text = "Leave event"
+                    }
+                    else{
+                        scope.launch {
+                            leaveEvent(activity!!, user.value!!,viewModel)
+                            text = "Join"
                         }
-
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(5.dp),
-
-                    colors = ButtonDefaults.buttonColors(
-                        backgroundColor = MyFavGreen,
-                        contentColor = Color.White
-                    )
-                ) {
-                    Text(
-                        text = text
-                    )
+                    }
                 }
             }
         }

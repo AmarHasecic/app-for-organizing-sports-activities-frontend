@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import ba.unsa.sportevents.data.model.User
+import ba.unsa.sportevents.ui.components.CustomButton
 import ba.unsa.sportevents.ui.theme.MyFavGreen
 import ba.unsa.sportevents.ui.viewmodels.RegisterViewModel
 import com.google.gson.Gson
@@ -60,32 +61,16 @@ fun RegisterUsername(navController: NavController,user: String?,viewModel: Regis
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Button(
-            onClick = {
+        CustomButton(text = "Finish") {
+            var decodedUser = URLDecoder.decode(user, "UTF-8")
 
-                var decodedUser = URLDecoder.decode(user, "UTF-8")
+            val gson = Gson()
+            val u = gson.fromJson(decodedUser, User::class.java)
+            u.username = username
 
-                val gson = Gson()
-                val u = gson.fromJson(decodedUser, User::class.java)
-                u.username = username
-
-                GlobalScope.launch {
-                        viewModel.performRegister(u, navController)
-                }
-
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(4.dp)
-                .height(50.dp),
-
-            colors = ButtonDefaults.buttonColors(
-                backgroundColor = MyFavGreen,
-                contentColor = Color.White
-            )
-        ) {
-            Text(text = "Next")
+            GlobalScope.launch {
+                viewModel.performRegister(u, navController)
+            }
         }
-
     }
 }

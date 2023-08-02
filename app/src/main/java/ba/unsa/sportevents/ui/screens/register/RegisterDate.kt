@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import ba.unsa.etf.R
 import ba.unsa.sportevents.data.model.User
+import ba.unsa.sportevents.ui.components.CustomButton
 import ba.unsa.sportevents.ui.navigation.Screen
 import ba.unsa.sportevents.ui.theme.MyFavGreen
 import com.google.gson.Gson
@@ -125,34 +126,19 @@ fun RegisterFormDate(navController: NavController ,user: String?) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Button(
-            onClick = {
+        CustomButton(text = "Next") {
+            var decodedUser = URLDecoder.decode(user, "UTF-8")
 
-                var decodedUser = URLDecoder.decode(user, "UTF-8")
+            val gson = Gson()
+            val u = gson.fromJson(decodedUser, User::class.java)
+            u.dateOfBirth = mDate.value
 
-                val gson = Gson()
-                val u = gson.fromJson(decodedUser, User::class.java)
-                u.dateOfBirth = mDate.value
-
-                    if(u.dateOfBirth!="") {
-                       navController.navigate("${Screen.RegisterUsernameScreen.route}/${gson.toJson(u)}")
-                }
-                else {
-                    makeToast(mContext,"Date Of Birth Input Required")
-                }
-
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(4.dp)
-                .height(50.dp),
-
-            colors = ButtonDefaults.buttonColors(
-                backgroundColor = MyFavGreen,
-                contentColor = Color.White
-            )
-        ) {
-            Text(text = "Next")
+            if(u.dateOfBirth!="") {
+                navController.navigate("${Screen.RegisterUsernameScreen.route}/${gson.toJson(u)}")
+            }
+            else {
+                makeToast(mContext,"Date Of Birth Input Required")
+            }
         }
 
     }
