@@ -150,9 +150,9 @@ fun UserMainPage(navController: NavController, token: String, viewModel: MainPag
 
             when (activeContent) {
                 0 -> HomeScreen(navController,token,viewModel)
-                1 -> MapScreen(token,viewModel)
+                1 -> MapScreen()
                 2 -> ProfileScreen(navController,token,viewModel)
-                3 -> SettingsScreen(token,viewModel)
+                3 -> SettingsScreen(navController)
             }
         }
     }

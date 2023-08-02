@@ -23,7 +23,7 @@ import kotlinx.coroutines.withContext
 
 
 @Composable
-fun MapScreen(token: String, viewModel: MainPageViewModel) {
+fun MapScreen() {
     var uiSettings by remember { mutableStateOf(MapUiSettings()) }
     val properties by remember {
         mutableStateOf(MapProperties(mapType = MapType.NORMAL))

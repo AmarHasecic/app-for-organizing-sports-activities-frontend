@@ -29,6 +29,7 @@ import ba.unsa.sportevents.ui.components.makeToast
 import ba.unsa.sportevents.ui.navigation.Screen
 import ba.unsa.sportevents.ui.theme.MyFavGreen
 import com.google.gson.Gson
+import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -66,10 +67,17 @@ fun CreateActivity(
 ) {
     var title by remember { mutableStateOf(activity.title) }
     var description by remember { mutableStateOf(activity.description) }
-    var maxNumber by remember {mutableStateOf(activity.maxNumberOfParticipants)}
-    var mDate by remember { mutableStateOf(parseToLocalDateTime( activity.date, "yyyy-MM-dd")) }
+    var maxNumber by remember { mutableStateOf(activity.maxNumberOfParticipants) }
+    var mDate by remember { mutableStateOf(parseToLocalDateTime(activity.date, "yyyy-MM-dd")) }
 
-    var eventTime by remember { mutableStateOf<Date?>(parseToDate(activity.startTime,"yyyy-MM-dd"))}
+    var eventTime by remember {
+        mutableStateOf<Date?>(
+            parseToDate(
+                activity.startTime,
+                "yyyy-MM-dd"
+            )
+        )
+    }
 
     val context = LocalContext.current
     val mCalendar = Calendar.getInstance()
@@ -78,7 +86,10 @@ fun CreateActivity(
         { _: DatePicker, mYear: Int, mMonth: Int, mDayOfMonth: Int ->
             mCalendar.set(mYear, mMonth, mDayOfMonth)
             mDate = mCalendar.time.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()
-        }, mCalendar.get(Calendar.YEAR), mCalendar.get(Calendar.MONTH), mCalendar.get(Calendar.DAY_OF_MONTH)
+        },
+        mCalendar.get(Calendar.YEAR),
+        mCalendar.get(Calendar.MONTH),
+        mCalendar.get(Calendar.DAY_OF_MONTH)
     )
     val timePickerFocusRequester = remember { FocusRequester() }
 
@@ -91,7 +102,8 @@ fun CreateActivity(
             ) {
                 Text(
                     text = "Create an activity",
-                    style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold), color = Color.White,
+                    style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold),
+                    color = Color.White,
                     modifier = Modifier.padding(start = 10.dp)
                 )
             }
@@ -99,10 +111,9 @@ fun CreateActivity(
 
         bottomBar = {
             CustomButton(text = "Next") {
-                if(title == "" || description == "" || maxNumber == 0){
-                    makeToast(context,"All fields are required")
-                }
-                else {
+                if (title == "" || description == "" || maxNumber == 0) {
+                    makeToast(context, "All fields are required")
+                } else {
                     activity.title = title
                     activity.description = description
                     activity.maxNumberOfParticipants = maxNumber
@@ -111,11 +122,11 @@ fun CreateActivity(
                     activity.sport = ""
                     activity.date = mDate.toString()
                     activity.host = null
-                    activity.location = Location(0.0,0.0,"")
+                    activity.location = Location(0.0, 0.0, "")
                     activity.participants = emptyList()
 
                     val gson = Gson()
-                    val jsonActivity : String = gson.toJson(activity)
+                    val jsonActivity: String = gson.toJson(activity)
                     navController.navigate("${Screen.SportsScreen.route}/${token}/${jsonActivity}")
                 }
             }
@@ -138,13 +149,13 @@ fun CreateActivity(
             Spacer(modifier = Modifier.height(8.dp))
 
             LazyColumn(
-                       modifier = Modifier
-                           .fillMaxWidth()
-                           .padding(contentPadding),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(contentPadding),
                 verticalArrangement = Arrangement.Center
             ) {
 
-                item{
+                item {
                     OutlinedTextField(
                         value = title,
                         onValueChange = { title = it },
@@ -190,7 +201,7 @@ fun CreateActivity(
                     ) {
                         Divider(
                             modifier = Modifier
-                                .padding(vertical = 16.dp)
+                                .padding(vertical = 10.dp)
                                 .height(1.dp)
                                 .fillMaxWidth(0.95f),
                             color = Color.LightGray
@@ -211,78 +222,87 @@ fun CreateActivity(
                 }
 
                 item {
-                    Row(
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(start = 20.dp)
+                    Box(
+                        modifier = Modifier.fillMaxSize()
+                            .padding(bottom = 8.dp),
+                        contentAlignment = Alignment.Center
                     ) {
                         Row(
+                            horizontalArrangement = Arrangement.spacedBy(8.dp),
                             modifier = Modifier
-                                .width(180.dp)
-                                .height(45.dp)
-                                .clickable(onClick = {
-                                    mDatePickerDialog.show()
-                                })
-                                .align(Alignment.CenterVertically)
+                                .fillMaxWidth()
+                                .padding(start = 20.dp)
                         ) {
-                            Image(
-                                painter = painterResource(id = R.drawable.calendar),
-                                contentDescription = null,
+                            Row(
                                 modifier = Modifier
-                                    .size(40.dp)
+                                    .width(180.dp)
+                                    .height(45.dp)
+                                    .clickable(onClick = {
+                                        mDatePickerDialog.show()
+                                    })
                                     .align(Alignment.CenterVertically)
-                            )
-                            Text(
-                                text = mDate.toLocalDate().toString(),
-                                modifier = Modifier
-                                    .padding(horizontal = 10.dp)
-                                    .align(Alignment.CenterVertically),
-                                color = Color.Black,
+                            ) {
+                                Image(
+                                    painter = painterResource(id = R.drawable.calendar),
+                                    contentDescription = null,
+                                    modifier = Modifier
+                                        .size(40.dp)
+                                        .align(Alignment.CenterVertically)
+                                )
+                                Text(
+                                    text = mDate.toLocalDate().toString(),
+                                    modifier = Modifier
+                                        .padding(horizontal = 10.dp)
+                                        .align(Alignment.CenterVertically),
+                                    color = Color.Black,
 
-                            )
-                        }
-                        Row(
-                            modifier = Modifier
-                                .width(100.dp)
-                                .height(45.dp)
-                                .clickable(onClick = {
-                                    timePickerFocusRequester.requestFocus()
-
-                                    val calendar = Calendar.getInstance()
-                                    val hour = calendar.get(Calendar.HOUR_OF_DAY)
-                                    val minute = calendar.get(Calendar.MINUTE)
-
-                                    val timePickerDialog = TimePickerDialog(
-                                        context,
-                                        { _, hourOfDay, minuteOfHour ->
-                                            val selectedCalendar = Calendar.getInstance()
-                                            selectedCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
-                                            selectedCalendar.set(Calendar.MINUTE, minuteOfHour)
-                                            eventTime = selectedCalendar.time
-                                        },
-                                        hour,
-                                        minute,
-                                        false
                                     )
-                                    timePickerDialog.show()
-                                })
-                                .focusRequester(timePickerFocusRequester)
-                        ) {
-                            Image(
-                                painter = painterResource(id = R.drawable.clock),
-                                contentDescription = null,
+                            }
+                            Row(
                                 modifier = Modifier
-                                    .size(40.dp)
-                                    .align(Alignment.CenterVertically)
-                            )
-                            Text(
-                                text = eventTime?.formatToTime() ?: "00:00",
-                                modifier = Modifier
-                                    .padding(horizontal = 10.dp)
-                                    .align(Alignment.CenterVertically),
-                                color = Color.Black
-                            )
+                                    .width(100.dp)
+                                    .height(45.dp)
+                                    .clickable(onClick = {
+                                        timePickerFocusRequester.requestFocus()
+
+                                        val calendar = Calendar.getInstance()
+                                        val hour = calendar.get(Calendar.HOUR_OF_DAY)
+                                        val minute = calendar.get(Calendar.MINUTE)
+
+                                        val timePickerDialog = TimePickerDialog(
+                                            context,
+                                            { _, hourOfDay, minuteOfHour ->
+                                                val selectedCalendar = Calendar.getInstance()
+                                                selectedCalendar.set(
+                                                    Calendar.HOUR_OF_DAY,
+                                                    hourOfDay
+                                                )
+                                                selectedCalendar.set(Calendar.MINUTE, minuteOfHour)
+                                                eventTime = selectedCalendar.time
+                                            },
+                                            hour,
+                                            minute,
+                                            false
+                                        )
+                                        timePickerDialog.show()
+                                    })
+                                    .focusRequester(timePickerFocusRequester)
+                            ) {
+                                Image(
+                                    painter = painterResource(id = R.drawable.clock),
+                                    contentDescription = null,
+                                    modifier = Modifier
+                                        .size(40.dp)
+                                        .align(Alignment.CenterVertically)
+                                )
+                                Text(
+                                    text = eventTime?.formatToTime() ?: "00:00",
+                                    modifier = Modifier
+                                        .padding(horizontal = 10.dp)
+                                        .align(Alignment.CenterVertically),
+                                    color = Color.Black
+                                )
+                            }
                         }
                     }
                 }
@@ -296,7 +316,7 @@ fun CreateActivity(
                     ) {
                         Divider(
                             modifier = Modifier
-                                .padding(vertical = 16.dp)
+                                .padding(vertical = 10.dp)
                                 .height(1.dp)
                                 .fillMaxWidth(0.95f),
                             color = Color.LightGray
@@ -316,65 +336,71 @@ fun CreateActivity(
                     Spacer(modifier = Modifier.height(20.dp))
                 }
                 item {
-                    Row(
-                        horizontalArrangement = Arrangement.Center,
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.padding(start = 20.dp)
+                    Box(
+                        modifier = Modifier.fillMaxSize()
+                            .padding(bottom = 12.dp),
+                        contentAlignment = Alignment.Center
                     ) {
-                        Box(
-                            modifier = Modifier
-                                .size(50.dp)
-                                .align(Alignment.CenterVertically)
-                                .clickable(
-                                    onClick = {
-                                        if (maxNumber > 0) {
-                                            maxNumber--
-                                        }
-                                    }
-                                )
+                        Row(
+                            horizontalArrangement = Arrangement.Center,
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier.padding(start = 20.dp)
                         ) {
-                            Image(
-                                painter = painterResource(id = R.drawable.removeuser),
-                                contentDescription = null,
+                            Box(
                                 modifier = Modifier
                                     .size(50.dp)
-                            )
-                        }
-                        Spacer(modifier = Modifier.width(5.dp))
-                        Box(
-                            modifier = Modifier
-                                .width(50.dp)
-                                .background(Color.Transparent),
-                            contentAlignment = Alignment.Center
-                        ) {
+                                    .align(Alignment.CenterVertically)
+                                    .clickable(
+                                        onClick = {
+                                            if (maxNumber > 0) {
+                                                maxNumber--
+                                            }
+                                        }
+                                    ),
+                            ) {
+                                Image(
+                                    painter = painterResource(id = R.drawable.removeuser),
+                                    contentDescription = null,
+                                    modifier = Modifier
+                                        .size(50.dp)
+                                )
+                            }
+                            Spacer(modifier = Modifier.width(5.dp))
+                            Box(
+                                modifier = Modifier
+                                    .width(50.dp)
+                                    .background(Color.Transparent),
+                                contentAlignment = Alignment.Center
+                            ) {
 
                                 Text(
                                     text = maxNumber.toString(),
                                     color = Color.Black
                                 )
 
-                        }
+                            }
 
-                        Spacer(modifier = Modifier.width(5.dp))
+                            Spacer(modifier = Modifier.width(5.dp))
 
-                        Box(
-                            modifier = Modifier
-                                .size(50.dp)
-                                .align(Alignment.CenterVertically)
-                                .clickable(
-                                    onClick = {
-                                        if (maxNumber < 50) {
-                                            maxNumber++
-                                        }
-                                    }
-                                )
-                        ) {
-                            Image(
-                                painter = painterResource(id = R.drawable.adduser),
-                                contentDescription = null,
+                            Box(
                                 modifier = Modifier
                                     .size(50.dp)
-                            )
+                                    .align(Alignment.CenterVertically)
+                                    .clickable(
+                                        onClick = {
+                                            if (maxNumber < 50) {
+                                                maxNumber++
+                                            }
+                                        }
+                                    )
+                            ) {
+                                Image(
+                                    painter = painterResource(id = R.drawable.adduser),
+                                    contentDescription = null,
+                                    modifier = Modifier
+                                        .size(50.dp)
+                                )
+                            }
                         }
                     }
                 }
