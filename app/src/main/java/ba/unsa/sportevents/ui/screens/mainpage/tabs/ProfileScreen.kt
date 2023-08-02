@@ -26,6 +26,7 @@ import androidx.navigation.NavController
 import ba.unsa.etf.R
 import ba.unsa.sportevents.data.model.SportActivity
 import ba.unsa.sportevents.ui.screens.activity.ActivityCard
+import ba.unsa.sportevents.ui.screens.activity.HostsActivityCard
 import ba.unsa.sportevents.ui.viewmodels.MainPageViewModel
 import coil.compose.rememberImagePainter
 import java.time.LocalDate
@@ -46,16 +47,9 @@ fun ProfileScreen(
     val user = viewModel.user.collectAsState()
     val activities = viewModel.activitiesByHost.collectAsState()
 
-    val upcomingEvents = user.value?.activities?.filter { activity ->
-        val date = activity?.let { parseStringToLocalDate(it.date) }
-        val startTime = activity?.let { parseStringToLocalTime(it.startTime) }
-        date?.isAfter(LocalDate.now()) == true && startTime?.isAfter(LocalTime.now()) == true
-    }
-
     LaunchedEffect(Unit) {
         viewModel.getUser(token)
-        user.value?.let { viewModel.getActivitiesByHostId(it.id) }
-
+        user.value?.let { viewModel.getActivitiesByHostId(it.id)}
     }
 
     SideEffect {
@@ -166,7 +160,7 @@ fun ProfileScreen(
                 LazyRow {
                     items(activities.value) { activity ->
                         Box(modifier = Modifier.width(getScreenWidthInDp()-40.dp)) {
-                            ActivityCard(navController, activity, token)
+                            HostsActivityCard(navController, activity, token)
                         }
                     }
                 }
@@ -190,9 +184,12 @@ fun ProfileScreen(
                 }
             }
 
-            items(upcomingEvents ?: emptyList()) { activity ->
-                activity?.let {
-                    ActivityCard(navController, it, token)
+            items(user.value?.activities ?: emptyList()) { activity ->
+                activity.let {
+                    val date = activity?.let { parseStringToLocalDate(activity.date) }
+                    val startTime = activity?.let { parseStringToLocalTime(activity.startTime) }
+                    if(date?.isAfter(LocalDate.now()) == true && startTime?.isAfter(LocalTime.now()) == true)
+                        it?.let { it1 -> ActivityCard(navController, it1, token) }
                 }
             }
 
@@ -208,7 +205,6 @@ fun ProfileScreen(
                 )
             }
         }
-
     }
 }
 
@@ -227,9 +223,6 @@ fun getScreenWidthInDp(): Dp {
     val density = LocalDensity.current.density
     return screenWidthPx
 }
-
-
-
 
 /*
 @RequiresApi(Build.VERSION_CODES.O)

@@ -3,6 +3,8 @@ package ba.unsa.sportevents.ui.screens.mainpage.tabs
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Switch
@@ -11,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import ba.unsa.sportevents.data.repository.DataRepository
 import ba.unsa.sportevents.data.model.SportActivity
+import ba.unsa.sportevents.ui.screens.activity.ActivityCard
 import ba.unsa.sportevents.ui.viewmodels.MainPageViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -20,8 +23,11 @@ import com.google.maps.android.compose.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
+import java.time.LocalDate
+import java.time.LocalTime
 
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun MapScreen() {
     var uiSettings by remember { mutableStateOf(MapUiSettings()) }
@@ -84,16 +90,19 @@ fun MapScreen() {
             if (activitiesList.size != 0) {
                 activitiesList.forEach() { activity ->
 
-
-                    Marker(
-                        state = MarkerState(
-                            position = LatLng(
-                                activity.location.latitude,
-                                activity.location.longitude
-                            )
-                        ),
-                        title = activity.title
-                    )
+                    val date = activity?.let { parseStringToLocalDate(activity.date) }
+                    val startTime = activity?.let { parseStringToLocalTime(activity.startTime) }
+                    if(date?.isAfter(LocalDate.now()) == true && startTime?.isAfter(LocalTime.now()) == true) {
+                        Marker(
+                            state = MarkerState(
+                                position = LatLng(
+                                    activity.location.latitude,
+                                    activity.location.longitude
+                                )
+                            ),
+                            title = activity.title
+                        )
+                    }
 
 
                 }

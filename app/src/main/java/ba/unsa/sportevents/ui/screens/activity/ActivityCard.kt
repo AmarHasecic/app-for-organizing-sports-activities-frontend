@@ -2,6 +2,7 @@ package ba.unsa.sportevents.ui.screens.activity
 
 import android.annotation.SuppressLint
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -22,22 +23,19 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import ba.unsa.etf.R
-import ba.unsa.sportevents.data.model.Location
 import ba.unsa.sportevents.data.model.Sport
 import ba.unsa.sportevents.data.model.SportActivity
-import ba.unsa.sportevents.data.model.User
-import ba.unsa.sportevents.ui.components.formatToTime
 import ba.unsa.sportevents.ui.navigation.Screen
 import coil.compose.rememberImagePainter
 import com.google.gson.Gson
-import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
+import java.util.*
 
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -47,8 +45,14 @@ fun formatDateTime(dateTime: LocalDateTime): String {
 }
 @RequiresApi(Build.VERSION_CODES.O)
 fun parseStringToLocalDateTime(dateTimeString: String): LocalDateTime {
-    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS")
-    return LocalDateTime.parse(dateTimeString, formatter)
+    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.US)
+    return try {
+        LocalDateTime.parse(dateTimeString, formatter)
+    } catch (e: DateTimeParseException) {
+
+        Log.e("DateTimeParsingError", "Error parsing date-time: $dateTimeString", e)
+        LocalDateTime.now()
+    }
 }
 
 @SuppressLint("SuspiciousIndentation")
@@ -202,13 +206,16 @@ Box(
                     contentDescription = null,
                     tint = Color.Black
                 )
+                BoxWithConstraints {
                 Text(
                     text = sportActivity.location.name,
                     modifier = Modifier
                         .padding(horizontal = 10.dp),
-                    color = Color.Black
-                )
-
+                    color = Color.Black,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                    )
+                }
             }
             BoxWithConstraints {
                 Text(

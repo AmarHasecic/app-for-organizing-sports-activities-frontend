@@ -97,13 +97,6 @@ fun HomeScreen(navController: NavController, token: String, viewModel: MainPageV
         }
     }
 
-    val upcomingEvents = activities.value.filter { activity ->
-        val date = parseStringToLocalDate(activity.date)
-        val startTime = parseStringToLocalTime(activity.startTime)
-        date?.isAfter(LocalDate.now()) == true && startTime?.isAfter(LocalTime.now()) == true
-    }
-
-
 
     LaunchedEffect(Unit) {
 
@@ -122,6 +115,7 @@ fun HomeScreen(navController: NavController, token: String, viewModel: MainPageV
 
         }
         else {
+        }
 
             @SuppressLint("MissingPermission")
             val location = fusedLocationClient.lastLocation.await()
@@ -131,7 +125,6 @@ fun HomeScreen(navController: NavController, token: String, viewModel: MainPageV
                 val longitude = location.longitude
 
                 viewModel.getActivitiesNearby(latitude, longitude)
-            }
         }
     }
 
@@ -143,8 +136,8 @@ fun HomeScreen(navController: NavController, token: String, viewModel: MainPageV
                 }
                 Spacer(modifier = Modifier.height(8.dp))
 
-                if(isLocationEnabled(context) && upcomingEvents.isNotEmpty()) {
-                    ShowLazyList(navController, upcomingEvents.filter { activity ->
+                if(isLocationEnabled(context) && activities.value.isNotEmpty()) {
+                    ShowLazyList(navController, activities.value.filter { activity ->
                         activity.title.contains(
                             searchQuery.value,
                             ignoreCase = true
@@ -152,9 +145,14 @@ fun HomeScreen(navController: NavController, token: String, viewModel: MainPageV
                             searchQuery.value,
                             ignoreCase = true
                         )
+
+                        val date = activity?.let { parseStringToLocalDate(activity.date) }
+                        val startTime = activity?.let { parseStringToLocalTime(activity.startTime) }
+                        date?.isAfter(LocalDate.now()) == true && startTime?.isAfter(LocalTime.now()) == true
+
                     }, token)
                 }
-                if(upcomingEvents.isEmpty()){
+                if(activities.value.isEmpty()){
                     Box(
                         modifier = Modifier.fillMaxSize(),
                         contentAlignment = Alignment.Center
