@@ -16,8 +16,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -65,8 +67,17 @@ fun ProfileScreen(
         Box(
             modifier = Modifier.fillMaxWidth()
                 .height(250.dp)
-                .background(color = Color(0xFF1DE09C))
         ) {
+            Box(
+                modifier = Modifier.fillMaxWidth().height(250.dp)
+            ){
+                Image(
+                    painter = painterResource(R.drawable.profile_cover),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.fillMaxSize()
+                )
+            }
             Column(
                 modifier = Modifier
                     .fillMaxSize()

@@ -34,7 +34,7 @@ class UserRepository(private val apiService: UserApiService) {
             }
 
         } else {
-            throw Exception(tokenResponse.body().toString())
+            throw Exception("Username or password is incorrect")
         }
     }
 
