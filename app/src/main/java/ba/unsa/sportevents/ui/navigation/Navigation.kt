@@ -16,10 +16,7 @@ import ba.unsa.sportevents.data.model.User
 import ba.unsa.sportevents.data.repository.ActivityRepository
 import ba.unsa.sportevents.data.repository.DataRepository
 import ba.unsa.sportevents.data.repository.UserRepository
-import ba.unsa.sportevents.ui.screens.activity.ActivityDetails
-import ba.unsa.sportevents.ui.screens.activity.CreateActivity
-import ba.unsa.sportevents.ui.screens.activity.SearchPlaceScreen
-import ba.unsa.sportevents.ui.screens.activity.SportsScreen
+import ba.unsa.sportevents.ui.screens.activity.*
 import ba.unsa.sportevents.ui.screens.login.LoginPage
 import ba.unsa.sportevents.ui.screens.login.LoginScreen
 import ba.unsa.sportevents.ui.screens.mainpage.UserMainPage
@@ -59,9 +56,6 @@ fun Navigation(
 
     val createActivityViewModel: CreateActivityViewModel = remember {
         CreateActivityViewModel(activityRepository, userRepository)
-    }
-    val ActivityCardViewModel: ActivityCardViewModel = remember {
-        ActivityCardViewModel(activityRepository)
     }
 
 
@@ -173,6 +167,34 @@ fun Navigation(
 
                 token?.let {
                         ActivityDetails(sportActivity = encodedActivity, token = token, viewModel = activityDetailsViewModel )
+                }
+
+            }
+        }
+
+        composable(
+            route = Screen.HostsActivityDetails.route + "/{activity}/{token}",
+            arguments = listOf(
+                navArgument("activity"){
+                    type = NavType.StringType
+                    nullable = true
+                },
+                navArgument("token"){
+                    type = NavType.StringType
+                    nullable = true
+                }
+            )
+        ){
+                entry ->
+            val encodedActivity = entry.arguments?.getString("activity")?.let {
+                URLEncoder.encode(it, "UTF-8")
+            }
+            if (encodedActivity != null) {
+
+                val token = entry.arguments?.getString("token")
+
+                token?.let {
+                    HostsActivityDetails(sportActivity = encodedActivity, token = token, viewModel = activityDetailsViewModel )
                 }
 
             }

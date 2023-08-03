@@ -10,11 +10,8 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -29,11 +26,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import ba.unsa.etf.R
 import ba.unsa.sportevents.data.model.SportActivity
-import ba.unsa.sportevents.data.repository.ActivityRepository
-import ba.unsa.sportevents.data.repository.DataRepository
-import ba.unsa.sportevents.reusable.showDialog
 import ba.unsa.sportevents.ui.navigation.Screen
-import ba.unsa.sportevents.ui.viewmodels.ActivityCardViewModel
 import coil.compose.rememberImagePainter
 import com.google.gson.Gson
 
@@ -46,12 +39,6 @@ fun HostsActivityCard(
     sportActivity: SportActivity,
     token: String
 ){
-    val showDialog = remember { mutableStateOf(false) }
-
-    val ActivityCardViewModel: ActivityCardViewModel = remember {
-        ActivityCardViewModel(ActivityRepository(apiService = DataRepository.activitiesApiService))
-    }
-
 
     Box(
         modifier = Modifier.fillMaxWidth()
@@ -205,7 +192,7 @@ fun HostsActivityCard(
                             .clickable(
                                 onClick = {
                                     val gson = Gson()
-                                    navController.navigate("${Screen.ActivityDetails.route}/${gson.toJson(sportActivity)}/${token}")
+                                    navController.navigate("${Screen.HostsActivityDetails.route}/${gson.toJson(sportActivity)}/${token}")
                                 } ),
                         contentAlignment = Alignment.BottomStart
                     ) {
@@ -220,33 +207,6 @@ fun HostsActivityCard(
                 }
             }
         }
-        IconButton(
-            onClick = {
-                showDialog.value = true
-            },
-            modifier = Modifier.align(Alignment.TopEnd)
-        ) {
-            Icon(
-                imageVector = Icons.Default.Delete,
-                contentDescription = "Delete",
-                tint = Color.DarkGray,
-                modifier = Modifier.size(80.dp).padding(21.dp)
-            )
-        }
-    }
-
-    if (showDialog.value) {
-        showDialog(
-            showDialog = showDialog,
-            "Delete",
-            "Are you sure you want to delete this activity?",
-            "Yes",
-            "No",
-            {
-               ActivityCardViewModel.deleteActivity(sportActivity)
-            },
-            {}
-        )
     }
 }
 

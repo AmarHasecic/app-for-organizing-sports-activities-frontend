@@ -258,6 +258,21 @@ fun ActivityDetails(
                         }
                     }
 
+                    item {
+                        Box(
+                            modifier = Modifier.fillMaxWidth(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Divider(
+                                modifier = Modifier
+                                    .padding(vertical = 10.dp)
+                                    .height(1.dp)
+                                    .fillMaxWidth(0.95f),
+                                color = Color.White
+                            )
+                        }
+                    }
+
                     item{
                         Box(
                             modifier = Modifier.fillMaxWidth(),

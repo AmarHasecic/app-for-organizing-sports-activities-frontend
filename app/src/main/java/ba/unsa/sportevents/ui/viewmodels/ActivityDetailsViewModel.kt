@@ -62,4 +62,15 @@ class ActivityDetailsViewModel(
         }
     }
 
+    fun deleteActivity(sportActivity: SportActivity) {
+        viewModelScope.launch {
+            val response = activityRepository.deleteActivity(sportActivity)
+            if (response.isSuccessful) {
+                throw Exception("Sport activity deleted")
+            } else {
+                throw Exception("Error")
+            }
+        }
+    }
+
 }
