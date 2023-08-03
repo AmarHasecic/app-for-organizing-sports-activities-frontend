@@ -169,9 +169,21 @@ fun ProfileScreen(
         item {
 
                 LazyRow {
-                    items(activities.value) { activity ->
-                        Box(modifier = Modifier.width(getScreenWidthInDp()-40.dp)) {
-                            HostsActivityCard(navController, activity, token)
+
+                    if(activities.value.size == 1){
+
+                        items(activities.value) { activity ->
+                            Box(modifier = Modifier.width(getScreenWidthInDp())) {
+                                HostsActivityCard(navController, activity, token)
+                            }
+                        }
+
+                    }
+                    else {
+                        items(activities.value) { activity ->
+                            Box(modifier = Modifier.width(getScreenWidthInDp() - 40.dp)) {
+                                HostsActivityCard(navController, activity, token)
+                            }
                         }
                     }
                 }
