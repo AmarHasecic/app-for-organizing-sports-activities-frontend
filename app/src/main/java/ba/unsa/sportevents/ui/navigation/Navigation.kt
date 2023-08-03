@@ -60,6 +60,10 @@ fun Navigation(
     val createActivityViewModel: CreateActivityViewModel = remember {
         CreateActivityViewModel(activityRepository, userRepository)
     }
+    val ActivityCardViewModel: ActivityCardViewModel = remember {
+        ActivityCardViewModel(activityRepository)
+    }
+
 
     NavHost(navController = navController, startDestination = Screen.LoginFrontPage.route) {
 

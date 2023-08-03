@@ -25,5 +25,10 @@ interface ActivitiesApiService {
         @Path("id") id: String,
         @Body sportActivity: SportActivity
     ): Response<SportActivity>
+    @DELETE("/activities/{id}")
+    suspend fun deleteActivity(
+        @Path("id") id: String
+    ): Response<Any>
+
 
 }

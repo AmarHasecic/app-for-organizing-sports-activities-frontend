@@ -54,5 +54,12 @@ class ActivityRepository(private val apiService: ActivitiesApiService)  {
             emptyList()
         }
     }
+    suspend fun deleteActivity(sportActivity: SportActivity) : Response<Any> {
+
+        return withContext(Dispatchers.IO) {
+            apiService.deleteActivity(sportActivity.id)
+        }
+    }
+
 
 }
