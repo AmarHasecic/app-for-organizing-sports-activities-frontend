@@ -8,19 +8,21 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import ba.unsa.etf.R
 import ba.unsa.sportevents.data.model.SportActivity
 import ba.unsa.sportevents.reusable.showDialog
 import ba.unsa.sportevents.ui.components.CustomButton
+import ba.unsa.sportevents.ui.components.makeToast
 import ba.unsa.sportevents.ui.theme.MyFavGreen
 import ba.unsa.sportevents.ui.viewmodels.ActivityDetailsViewModel
 import com.google.android.gms.maps.model.CameraPosition
@@ -36,7 +38,8 @@ import java.net.URLDecoder
 fun HostsActivityDetails(
     sportActivity: String,
     token: String,
-    viewModel: ActivityDetailsViewModel
+    viewModel: ActivityDetailsViewModel,
+    navController: NavController
 ) {
 
     val uiSettings by remember { mutableStateOf(MapUiSettings()) }
@@ -57,6 +60,8 @@ fun HostsActivityDetails(
 
 
     val showDialog = remember { mutableStateOf(false) }
+    val context = LocalContext.current
+
 
     LaunchedEffect(viewModel.user) {
 
@@ -328,7 +333,15 @@ fun HostsActivityDetails(
             "Yes",
             "No",
             {
-                activity?.let { viewModel.deleteActivity(it) }
+
+                    activity?.let {
+                        viewModel.deleteActivity(it)
+                    }
+
+                    makeToast(context,"Activity deleted")
+
+                navController.popBackStack()
+
             },
             {}
         )

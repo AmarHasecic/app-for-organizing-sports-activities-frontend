@@ -194,7 +194,7 @@ fun Navigation(
                 val token = entry.arguments?.getString("token")
 
                 token?.let {
-                    HostsActivityDetails(sportActivity = encodedActivity, token = token, viewModel = activityDetailsViewModel )
+                    HostsActivityDetails(sportActivity = encodedActivity, token = token, viewModel = activityDetailsViewModel ,navController)
                 }
 
             }
@@ -286,4 +286,5 @@ fun Navigation(
             }
         }
     }
+
 }

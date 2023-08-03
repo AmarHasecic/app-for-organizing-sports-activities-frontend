@@ -1,6 +1,7 @@
 package ba.unsa.sportevents.data.network
 
 import ba.unsa.sportevents.data.model.SportActivity
+import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -25,10 +26,11 @@ interface ActivitiesApiService {
         @Path("id") id: String,
         @Body sportActivity: SportActivity
     ): Response<SportActivity>
+
     @DELETE("/activities/{id}")
     suspend fun deleteActivity(
         @Path("id") id: String
-    ): Response<Any>
+    ): Response<ResponseBody>
 
 
 }

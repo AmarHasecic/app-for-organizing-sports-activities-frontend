@@ -66,8 +66,6 @@ fun UserMainPage(navController: NavController, token: String, viewModel: MainPag
                     selectedTabIndex = activeContent ,
                     modifier = Modifier.fillMaxWidth(),
                     backgroundColor = Color.White
-
-
                 ) {
                     LeadingIconTab(
                         selected = activeContent == 0,

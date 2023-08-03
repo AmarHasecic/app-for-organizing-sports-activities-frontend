@@ -2,11 +2,11 @@ package ba.unsa.sportevents.data.repository
 
 
 import ba.unsa.sportevents.data.model.SportActivity
-import ba.unsa.sportevents.data.model.User
 import ba.unsa.sportevents.data.network.ActivitiesApiService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.withContext
+import okhttp3.ResponseBody
 import retrofit2.Response
 
 class ActivityRepository(private val apiService: ActivitiesApiService)  {
@@ -54,7 +54,7 @@ class ActivityRepository(private val apiService: ActivitiesApiService)  {
             emptyList()
         }
     }
-    suspend fun deleteActivity(sportActivity: SportActivity) : Response<Any> {
+    suspend fun deleteActivity(sportActivity: SportActivity) : Response<ResponseBody> {
 
         return withContext(Dispatchers.IO) {
             apiService.deleteActivity(sportActivity.id)

@@ -66,9 +66,9 @@ class ActivityDetailsViewModel(
         viewModelScope.launch {
             val response = activityRepository.deleteActivity(sportActivity)
             if (response.isSuccessful) {
-                throw Exception("Sport activity deleted")
+                //Javi da je uspjelo brisanje
             } else {
-                throw Exception("Error")
+                // Javi da je failalo brisanje
             }
         }
     }
