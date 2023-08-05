@@ -89,14 +89,7 @@ fun HomeScreen(navController: NavController, token: String, viewModel: MainPageV
     // Request location permission
     val requestPermissionLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.RequestPermission()
-    ) { isGranted: Boolean ->
-        if (isGranted) {
-            // Permission granted, retrieve the user's last known location
-        } else {
-            // Permission denied, handle accordingly (e.g., show an error message)
-        }
-    }
-
+    ){}
 
     LaunchedEffect(Unit) {
 
