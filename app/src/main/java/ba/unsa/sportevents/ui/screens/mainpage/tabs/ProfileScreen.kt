@@ -207,8 +207,7 @@ fun ProfileScreen(
             items(user.value?.activities ?: emptyList()) { activity ->
                 activity.let {
                     val date = activity?.let { parseStringToLocalDate(activity.date) }
-                    val startTime = activity?.let { parseStringToLocalTime(activity.startTime) }
-                    if(date?.isAfter(LocalDate.now()) == true && startTime?.isAfter(LocalTime.now()) == true)
+                    if(date?.isAfter(LocalDate.now()) == true)
                         it?.let { it1 -> ActivityCard(navController, it1, token) }
                 }
             }
