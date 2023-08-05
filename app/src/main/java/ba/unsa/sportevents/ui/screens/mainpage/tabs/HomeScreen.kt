@@ -138,18 +138,19 @@ fun HomeScreen(navController: NavController, token: String, viewModel: MainPageV
 
                 if(isLocationEnabled(context) && activities.value.isNotEmpty()) {
                     ShowLazyList(navController, activities.value.filter { activity ->
-                        activity.title.contains(
+                        (activity.title.contains(
                             searchQuery.value,
                             ignoreCase = true
                         ) || activity.description.contains(
                             searchQuery.value,
                             ignoreCase = true
                         )
-
-                        val date = activity?.let { parseStringToLocalDate(activity.date) }
-                        val startTime = activity?.let { parseStringToLocalTime(activity.startTime) }
-                        date?.isAfter(LocalDate.now()) == true && startTime?.isAfter(LocalTime.now()) == true
-
+                                )
+                                &&
+                        (
+                          activity?.let { parseStringToLocalDate(activity.date) }?.isAfter(LocalDate.now())== true &&
+                                  activity?.let { parseStringToLocalTime(activity.startTime) }?.isAfter(LocalTime.now()) == true
+                        )
                     }, token)
                 }
                 if(activities.value.isEmpty()){

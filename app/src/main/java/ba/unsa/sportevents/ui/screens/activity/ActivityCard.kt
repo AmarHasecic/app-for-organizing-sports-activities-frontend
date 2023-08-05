@@ -147,14 +147,19 @@ Box(
                     }
                 }
             }
+            BoxWithConstraints {
             Text(
                 text = sportActivity.title,
                 style = MaterialTheme.typography.caption,
                 modifier = Modifier.padding(top = 15.dp, start = 12.dp, end = 12.dp),
                 color = Color.Black,
                 fontSize = 21.sp,
-                fontWeight = FontWeight.SemiBold
+                fontWeight = FontWeight.SemiBold,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+
             )
+            }
             Row(
                 modifier = Modifier.padding(top = 15.dp)
             ){

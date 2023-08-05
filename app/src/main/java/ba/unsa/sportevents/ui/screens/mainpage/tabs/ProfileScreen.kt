@@ -26,7 +26,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import ba.unsa.etf.R
-import ba.unsa.sportevents.data.model.SportActivity
 import ba.unsa.sportevents.ui.screens.activity.ActivityCard
 import ba.unsa.sportevents.ui.screens.activity.HostsActivityCard
 import ba.unsa.sportevents.ui.viewmodels.MainPageViewModel
@@ -41,8 +40,6 @@ fun ProfileScreen(
     navController: NavController,
     token : String,
     viewModel: MainPageViewModel
-
-
 ) {
 
 
