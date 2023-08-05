@@ -22,6 +22,7 @@ import ba.unsa.etf.R
 import ba.unsa.sportevents.data.model.SportActivity
 import ba.unsa.sportevents.reusable.showDialog
 import ba.unsa.sportevents.ui.components.CustomButton
+import ba.unsa.sportevents.ui.components.MyDialog
 import ba.unsa.sportevents.ui.components.makeToast
 import ba.unsa.sportevents.ui.theme.MyFavGreen
 import ba.unsa.sportevents.ui.viewmodels.ActivityDetailsViewModel
@@ -326,26 +327,20 @@ fun HostsActivityDetails(
         }
     }
     if (showDialog.value) {
-        showDialog(
-            showDialog = showDialog,
-            "Delete",
-            "Are you sure you want to delete this activity?",
-            "Yes",
-            "No",
-            {
+        MyDialog(
+            showDialog = showDialog.value,
+            onDismiss = { showDialog.value = false },
+            onConfirm = {
+                activity?.let {
+                    viewModel.deleteActivity(it)
+                }
 
-                    activity?.let {
-                        viewModel.deleteActivity(it)
-                    }
-
-                    makeToast(context,"Activity deleted")
-
+                makeToast(context, "Activity deleted")
                 navController.popBackStack()
-
             },
-            {}
+            "Delete",
+            "Are you sure you want to delete this activity?"
         )
     }
-
 }
 

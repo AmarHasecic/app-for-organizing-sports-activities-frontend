@@ -148,8 +148,7 @@ fun HomeScreen(navController: NavController, token: String, viewModel: MainPageV
                                 )
                                 &&
                         (
-                          activity?.let { parseStringToLocalDate(activity.date) }?.isAfter(LocalDate.now())== true &&
-                                  activity?.let { parseStringToLocalTime(activity.startTime) }?.isAfter(LocalTime.now()) == true
+                          activity?.let { parseStringToLocalDate(activity.date) }?.isAfter(LocalDate.now())== true
                         )
                     }, token)
                 }

@@ -92,7 +92,7 @@ fun MapScreen() {
 
                     val date = activity?.let { parseStringToLocalDate(activity.date) }
                     val startTime = activity?.let { parseStringToLocalTime(activity.startTime) }
-                    if(date?.isAfter(LocalDate.now()) == true && startTime?.isAfter(LocalTime.now()) == true) {
+                    if(date?.isAfter(LocalDate.now()) == true) {
                         Marker(
                             state = MarkerState(
                                 position = LatLng(
