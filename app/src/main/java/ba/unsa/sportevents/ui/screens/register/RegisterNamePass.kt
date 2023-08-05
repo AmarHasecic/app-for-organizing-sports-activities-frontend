@@ -81,7 +81,7 @@ fun RegisterFormPass(navController: NavController, user: String?) {
         )
 
         Box(
-            modifier = Modifier.fillMaxWidth().padding(horizontal = 4.dp),
+            modifier = Modifier.fillMaxWidth(),
             contentAlignment = Alignment.Center
         ) {
             OutlinedTextField(
@@ -102,7 +102,7 @@ fun RegisterFormPass(navController: NavController, user: String?) {
             ) {
                 IconButton(
                     onClick = { passwordVisibility = !passwordVisibility },
-                    modifier = Modifier.size(30.dp).align(Alignment.CenterVertically).padding(end = 5.dp)
+                    modifier = Modifier.size(30.dp).align(Alignment.CenterVertically).padding(end = 8.dp, top = 4.dp)
                 ) {
                     Icon(
                         imageVector = if (passwordVisibility) Icons.Default.Visibility else Icons.Default.VisibilityOff,

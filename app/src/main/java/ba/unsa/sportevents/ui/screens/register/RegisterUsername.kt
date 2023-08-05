@@ -12,6 +12,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.*
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.*
 import androidx.compose.ui.unit.dp
@@ -32,6 +33,7 @@ import java.net.URLDecoder
 fun RegisterUsername(navController: NavController,user: String?,viewModel: RegisterViewModel) {
 
     var username by remember { mutableStateOf("") }
+    val context = LocalContext.current
 
     Column(
         modifier = Modifier
@@ -62,15 +64,22 @@ fun RegisterUsername(navController: NavController,user: String?,viewModel: Regis
         Spacer(modifier = Modifier.height(16.dp))
 
         CustomButton(text = "Finish") {
-            var decodedUser = URLDecoder.decode(user, "UTF-8")
 
-            val gson = Gson()
-            val u = gson.fromJson(decodedUser, User::class.java)
-            u.username = username
+                var decodedUser = URLDecoder.decode(user, "UTF-8")
 
-            GlobalScope.launch {
-                viewModel.performRegister(u, navController)
-            }
+                val gson = Gson()
+                val u = gson.fromJson(decodedUser, User::class.java)
+                u.username = username
+
+                GlobalScope.launch {
+
+                    try {
+                        viewModel.performRegister(u, navController)
+                    }catch(e: Exception){
+                        ba.unsa.sportevents.ui.components.makeToast(context, e.message.toString())
+                    }
+                }
+
         }
     }
 }

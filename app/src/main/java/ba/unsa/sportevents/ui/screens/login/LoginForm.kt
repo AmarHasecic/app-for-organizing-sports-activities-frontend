@@ -88,7 +88,7 @@ fun LoginScreen(navController: NavController, viewModel: LoginFormViewModel) {
             ) {
                 IconButton(
                     onClick = { passwordVisibility = !passwordVisibility },
-                    modifier = Modifier.size(30.dp).align(Alignment.CenterVertically).padding(end = 5.dp)
+                    modifier = Modifier.size(30.dp).align(Alignment.CenterVertically).padding(end = 8.dp, top = 4.dp)
                 ) {
                     Icon(
                         imageVector = if (passwordVisibility) Icons.Default.Visibility else Icons.Default.VisibilityOff,

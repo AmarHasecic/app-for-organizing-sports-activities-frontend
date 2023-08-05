@@ -45,9 +45,9 @@ class UserRepository(private val apiService: UserApiService) {
         }
 
         if(registerResponse.isSuccessful) {
-
             performLogin(user.username, user.password, navController)
         }
+        else throw  Exception(registerResponse.body().toString())
     }
 
     suspend fun updateUser(user: User) : Response<User> {

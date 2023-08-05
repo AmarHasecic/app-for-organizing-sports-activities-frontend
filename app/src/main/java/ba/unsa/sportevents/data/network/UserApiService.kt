@@ -25,5 +25,4 @@ interface UserApiService {
         @Path("id") id: String,
         @Body user: User
     ): Response<User>
-
 }
