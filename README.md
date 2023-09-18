@@ -28,7 +28,7 @@ This project is an extension of my Bachelor's thesis, where I explored ways to u
 
 ### Register UI
 
-![Alt Text](https://drive.google.com/file/d/1BoXic59lQO3ij0Z1WSMdPpfpxaVmFFdl/view?usp=drive_link/preview)
+![Alt Text](https://drive.google.com/file/d/1BoXic59lQO3ij0Z1WSMdPpfpxaVmFFdl/view?usp=drive_link)
 
 ### Login UI
 
