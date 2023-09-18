@@ -40,7 +40,8 @@ This project is an extension of my Bachelor's thesis, where I explored ways to u
 
 
 ### Create activity UI
-![Create activity](https://github.com/AmarHasecic/app-for-organizing-sports-activities-frontend/assets/80314067/b70ceeaa-48e0-4129-a954-11e81878159c)
+![createui](https://github.com/AmarHasecic/app-for-organizing-sports-activities-frontend/assets/80314067/8ac1935d-01e9-4301-9424-bae00e2b02ba)
+
 
 ### Activity details UI
 ![detailsui](https://github.com/AmarHasecic/app-for-organizing-sports-activities-frontend/assets/80314067/9351f188-98b1-4214-b1ef-e55f3c0c00b1)
