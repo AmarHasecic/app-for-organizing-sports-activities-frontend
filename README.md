@@ -28,13 +28,23 @@ This project is an extension of my Bachelor's thesis, where I explored ways to u
 
 ### Register UI
 
+![Alt Text](https://drive.google.com/file/d/1BoXic59lQO3ij0Z1WSMdPpfpxaVmFFdl/view?usp=drive_link/preview)
+
 ### Login UI
+
+![Alt Text]([https://drive.google.com/file/d/your_file_id](https://drive.google.com/file/d/1yIm8rsnlxvaeSFjBMMI5nbMXiz3sHeA3/view?usp=drive_link)/preview)
 
 ### Tabs UI
 
+![Alt Text](https://drive.google.com/file/d/193kx_2Z2jVt1sWeoKJtk23ZX3cKe3PeO/view?usp=sharing/preview)
+
 ### Create activity UI
 
+![Alt Text](https://drive.google.com/file/d/1YbVxnOaHyM70OPy8vOISqQ8_8gftySwD/view?usp=drive_link/preview)
+
 ### Activity details UI
+
+![Alt Text]([https://drive.google.com/file/d/your_file_id](https://drive.google.com/file/d/1H9kJyKe3TeRTGyXMqQ0fpHKazR98vmc_/view?usp=drive_link)/preview)
 
 ## Feedback and Contributions
 
