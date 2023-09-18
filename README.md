@@ -30,6 +30,11 @@ This project is an extension of my Bachelor's thesis, where I explored ways to u
 
 ![Alt Text](https://drive.google.com/file/d/1BoXic59lQO3ij0Z1WSMdPpfpxaVmFFdl/view?usp=drive_link)
 
+<a href="URL_to_the_image">
+    <img src="https://drive.google.com/file/d/193kx_2Z2jVt1sWeoKJtk23ZX3cKe3PeO/view?usp=sharing" alt="Image Description">
+</a>
+
+
 ### Login UI
 
 ![Alt Text]([https://drive.google.com/file/d/your_file_id](https://drive.google.com/file/d/1yIm8rsnlxvaeSFjBMMI5nbMXiz3sHeA3/view?usp=drive_link)/preview)
