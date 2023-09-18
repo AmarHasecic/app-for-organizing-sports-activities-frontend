@@ -26,30 +26,25 @@ This project is an extension of my Bachelor's thesis, where I explored ways to u
 
 ## Examples
 
+
 ### Register UI
-
-![Alt Text](https://drive.google.com/file/d/1BoXic59lQO3ij0Z1WSMdPpfpxaVmFFdl/view?usp=drive_link)
-
-<a href="URL_to_the_image">
-    <img src="https://drive.google.com/file/d/193kx_2Z2jVt1sWeoKJtk23ZX3cKe3PeO/view?usp=sharing" alt="Image Description">
-</a>
+![registerui](https://github.com/AmarHasecic/app-for-organizing-sports-activities-frontend/assets/80314067/6388104a-37a9-449e-b209-428024036e83)
 
 
 ### Login UI
+![loginui](https://github.com/AmarHasecic/app-for-organizing-sports-activities-frontend/assets/80314067/fbaf29e3-e5ab-404b-82b4-8c52ad2a9023)
 
-![Alt Text]([https://drive.google.com/file/d/your_file_id](https://drive.google.com/file/d/1yIm8rsnlxvaeSFjBMMI5nbMXiz3sHeA3/view?usp=drive_link)/preview)
 
 ### Tabs UI
+![tabsui](https://github.com/AmarHasecic/app-for-organizing-sports-activities-frontend/assets/80314067/0c59238b-46f4-41a8-b295-b37af546f99b)
 
-![Alt Text](https://drive.google.com/file/d/193kx_2Z2jVt1sWeoKJtk23ZX3cKe3PeO/view?usp=sharing/preview)
 
 ### Create activity UI
-
-![Alt Text](https://drive.google.com/file/d/1YbVxnOaHyM70OPy8vOISqQ8_8gftySwD/view?usp=drive_link/preview)
+![Create activity](https://github.com/AmarHasecic/app-for-organizing-sports-activities-frontend/assets/80314067/b70ceeaa-48e0-4129-a954-11e81878159c)
 
 ### Activity details UI
+![detailsui](https://github.com/AmarHasecic/app-for-organizing-sports-activities-frontend/assets/80314067/9351f188-98b1-4214-b1ef-e55f3c0c00b1)
 
-![Alt Text]([https://drive.google.com/file/d/your_file_id](https://drive.google.com/file/d/1H9kJyKe3TeRTGyXMqQ0fpHKazR98vmc_/view?usp=drive_link)/preview)
 
 ## Feedback and Contributions
 
