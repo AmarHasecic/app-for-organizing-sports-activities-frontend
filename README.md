@@ -32,18 +32,22 @@ This project is an extension of my Bachelor's thesis, where I explored ways to u
 
 
 ### Login UI
+
 ![loginui](https://github.com/AmarHasecic/app-for-organizing-sports-activities-frontend/assets/80314067/fbaf29e3-e5ab-404b-82b4-8c52ad2a9023)
 
 
 ### Tabs UI
+
 ![tabsui](https://github.com/AmarHasecic/app-for-organizing-sports-activities-frontend/assets/80314067/0c59238b-46f4-41a8-b295-b37af546f99b)
 
 
 ### Create activity UI
+
 ![createui](https://github.com/AmarHasecic/app-for-organizing-sports-activities-frontend/assets/80314067/8ac1935d-01e9-4301-9424-bae00e2b02ba)
 
 
 ### Activity details UI
+
 ![detailsui](https://github.com/AmarHasecic/app-for-organizing-sports-activities-frontend/assets/80314067/9351f188-98b1-4214-b1ef-e55f3c0c00b1)
 
 
