@@ -22,7 +22,7 @@ This project is an extension of my Bachelor's thesis, where I explored ways to u
 
 3. **Discover Activities**: Use the search feature to find nearby recreational activities that interest you.
 
-4. **Create Your Own Activity**: If you can't find the perfect activity, why not create your own? Define the details, set the location, date, and time.
+4. **Create Your Own Activity**: If you can't find the perfect activity, create your own! Define the details, set the location, date, and time.
 
 ## Examples
 
